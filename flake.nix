@@ -44,10 +44,10 @@
     inherit (self) outputs;
   in {
     nixosConfigurations = {
-      monolith = let 
+      monolith = let
         system = "xf86_64-linux";
         hostname = "monolith";
-      in 
+      in
         nixpkgs.lib.nixosSystem {
           specialArgs = {inherit system hostname username inputs;} // inputs;
 
@@ -72,6 +72,10 @@
           modules = [
             ./.
             ./hosts/fourforty
+            ./modules/desktop/sway
+            ./modules/core
+            ./modules/dev
+            ./modules/neovim
             stylix.nixosModules.stylix
           ];
         };
