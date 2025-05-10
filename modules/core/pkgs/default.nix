@@ -7,6 +7,7 @@
     neofetch # very important
     eza # better ls
     duf # better df (file system tool)
+    dysk # another better df
     jq # sed for JSON
     git # its git
     wget # get stuff from the web
