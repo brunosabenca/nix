@@ -23,7 +23,6 @@
   # IT MAY CONTAIN EDITS.
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    ../modules/nixos/qbittorrent-service
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "usbhid" "usb_storage" "sd_mod" "sdhci_pci"];

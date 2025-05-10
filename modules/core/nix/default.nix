@@ -10,4 +10,11 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  home-manager.users.${username} = {
+    programs.home-manager.enable = true;
+    home.username = username;
+    home.homeDirectory = "/home/${username}";
+    home.stateVersion = "23.05";
+  };
 }

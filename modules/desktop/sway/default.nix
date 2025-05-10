@@ -178,6 +178,9 @@ in {
       "sway/config" = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/nix/dotfiles/.config/sway/config";
       };
+      "sway/run-or-raise" = {
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/nix/dotfiles/.config/sway/run-or-raise";
+      };
     };
   };
 }

@@ -49,12 +49,12 @@
         hostname = "monolith";
       in 
         nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit system hostname username inputs;};
+          specialArgs = {inherit system hostname username inputs;} // inputs;
 
           modules = [
             ./.
-            ./hosts/monolith.nix
-            ./modules/desktop/sway/default.nix
+            ./hosts/monolith
+            ./modules/desktop/sway
             ./modules/core
             ./modules/dev
             ./modules/neovim
@@ -67,11 +67,11 @@
         hostname = "fourforty";
       in
         nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit system hostname username inputs;};
+          specialArgs = {inherit system hostname username inputs;} // inputs;
 
           modules = [
             ./.
-            ./hosts/fourforty/default.nix
+            ./hosts/fourforty
             stylix.nixosModules.stylix
           ];
         };
@@ -81,14 +81,17 @@
         hostname = "cave";
       in
         nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit system hostname username inputs;};
+          specialArgs = {inherit system hostname username inputs;} // inputs;
 
           modules = [
             ./.
-            ./hosts/cave/default.nix
+            ./hosts/cave
+            ./modules/nixos/qbittorrent-service
             stylix.nixosModules.stylix
           ];
         };
     };
+
+    #formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
   };
 }

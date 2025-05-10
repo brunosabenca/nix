@@ -1,15 +1,24 @@
 {
   inputs,
   home-manager,
-  config,
   pkgs,
+  username,
+  config,
   ...
 }: {
   imports = [
     home-manager.nixosModules.home-manager
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.backupFileExtension = "backup";
+      home-manager.extraSpecialArgs = {inherit inputs;};
+    }
     ./hosts
     ./modules
   ];
+
+  # Todo: move below to appropriate modules
 
   stylix = {
     enable = true;
@@ -19,22 +28,13 @@
 
   services.actual.enable = true;
 
-  home-manager = {
-    users = {
-      bruno = import ./home.nix;
-    };
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-    extraSpecialArgs = {inherit inputs;};
-  };
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.verbose = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  home-manager.users.${username} = import ./home.nix;
 
   programs.zsh.enable = true;
-  users.users.bruno = {
-    shell = pkgs.zsh;
-  };
 
   virtualisation.docker.enable = true;
   virtualisation.docker.rootless = {
@@ -95,74 +95,14 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.bruno = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Bruno";
     extraGroups = ["networkmanager" "wheel"];
+    shell = pkgs.zsh;
   };
 
   nix.settings.trusted-users = ["root" "@wheel"];
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    home-manager # manage my home dir/programs
-    cowsay
-    neofetch
-    eza
-    duf
-    jq
-    git
-    wget
-    bat
-    ripgrep
-    fd
-    findutils
-    tree
-    glow
-    coreutils
-    killall
-    bitwarden-cli
-    asciiquarium
-    lshw
-    usbutils
-    pciutils
-    cachix
-    nix-ld
-    appimage-run
-    zip
-    unzip
-    colemak-dh
-    ffmpeg
-    imagemagick
-    nethogs
-    kdePackages.kcalc
-    neocmakelsp
-    clang-tools
-    clang_17
-    gnumake
-    wget
-    curl
-    rofi-wayland
-    waybar
-    mako
-    libnotify
-    kdePackages.polkit-kde-agent-1
-    pavucontrol
-    # (appimageTools.wrapType1
-    #   {
-    #     name = "Buckets";
-    #     src = fetchurl {
-    #       url = "https://github.com/buckets/application/releases/download/v0.75.0/Buckets-linux-latest-amd64-0.75.0.AppImage";
-    #       sha256 = "1a3fd50ec57e92cf1b86c170538efea019ac60e6b495030765ea90dff2079bd1";
-    #     };
-    #   })
-    gnome-tweaks
-    gnomeExtensions.unite
-  ];
 
   # Enable nix-ld to use dynamically linked executables with hardcoded paths
   programs.nix-ld = {
@@ -221,8 +161,6 @@
       hinting.autohint = true;
     };
   };
-
-  hardware.graphics.enable = true;
 
   programs.thunar = {
     enable = true;
