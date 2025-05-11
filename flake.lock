@@ -121,11 +121,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1676120692,
-        "narHash": "sha256-yOq4ZrC8ggUD8aJV7zyBYsFe4BfVachkNvgXnXa0XLc=",
+        "lastModified": 1746886900,
+        "narHash": "sha256-H9/0hTOJELHdCfS8HFk7xEBfTbeQlpxNnTQxsZz4ulE=",
         "owner": "brunosabenca",
         "repo": "dotfiles",
-        "rev": "3ab0ff2d15d526b10155528465c253af473f049f",
+        "rev": "a51ad68e72f3b54f39c54ca46276497dc05b18d8",
         "type": "github"
       },
       "original": {
