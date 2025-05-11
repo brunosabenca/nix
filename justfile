@@ -23,7 +23,7 @@ debug:
 
 # Update all flake inputs
 update:
-    nix flake update
+    sudo nix flake update
 
 # Update a specific flake input
 up input:

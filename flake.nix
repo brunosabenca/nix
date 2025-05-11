@@ -18,8 +18,6 @@
 
     stylix.url = "github:danth/stylix";
 
-    hyprland.url = "github:hyprwm/Hyprland";
-
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
     };
@@ -34,7 +32,6 @@
     self,
     nixpkgs,
     stylix,
-    hyprland,
     ...
   } @ inputs: let
     supportedSystems = ["x86_64-linux"];

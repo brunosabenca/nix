@@ -5,9 +5,7 @@
   modulesPath,
   inputs,
   ...
-}: let
-  pkgs-unstable = inputs.hyprland.inputs.nixpkgs.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-in {
+}:{
   imports = [
     ./hardware-configuration.nix
   ];
@@ -39,12 +37,6 @@ in {
   hardware.graphics = {
     enable = true;
 
-    package = lib.mkForce pkgs-unstable.mesa;
-
-    # if you also want 32-bit support (e.g for Steam)
-    enable32Bit = true;
-    package32 = lib.mkForce pkgs-unstable.pkgsi686Linux.mesa;
-
     extraPackages = with pkgs; [
       amdvlk
     ];
@@ -74,15 +66,6 @@ in {
       enable = true;
       gpuOverclock.enable = true;
     };
-
-    # Disabled because it is causing Qt to be recompiled
-    # hyprland = {
-    #   enable = true;
-    #   # set the flake package
-    #   package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-    #   # make sure to also set the portal package, so that they are in sync
-    #   portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
-    # };
   };
 
   services.samba = {
