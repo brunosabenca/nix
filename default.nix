@@ -124,7 +124,8 @@
   };
 
   environment.shellAliases = {
-    ll = "ls -l";
+    ls = "exa --icons -F -H --group-directories-first --git -1";
+    ll = "ls -alF";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
