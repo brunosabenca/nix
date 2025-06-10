@@ -157,6 +157,7 @@
     enable = true;
     userName = "Bruno Sabença";
     userEmail = "bruno@brunosabenca.com";
+    delta.enable = true;
   };
 
   programs.kitty = {
