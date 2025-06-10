@@ -110,10 +110,9 @@ in {
     enable = true;
 
     package = pkgs.sway;
-    extraOptions = ["--unsupported-gpu"];
 
     wrapperFeatures.gtk = true;
-    xwayland.enable = true;
+    xwayland.enable = false;
 
     # clear out default packages
     extraPackages = [];

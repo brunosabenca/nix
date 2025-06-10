@@ -77,5 +77,6 @@
     gnome-tweaks
     gnomeExtensions.unite
     wezterm
+    lazygit
   ];
 }
