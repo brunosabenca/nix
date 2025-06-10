@@ -39,6 +39,7 @@
     scrcpy
     fortune
     darktable
+    ansel
     rawtherapee
     gimp
     telegram-desktop
@@ -51,7 +52,6 @@
     networkmanagerapplet
     shellcheck
     swww
-    # neovide
     zathura
     sxiv
     jhead
@@ -64,6 +64,7 @@
     vlc
     easyeffects
     protonmail-desktop
+    bitwarden
 
     oci-cli
     kubectl

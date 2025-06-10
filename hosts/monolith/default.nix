@@ -42,10 +42,14 @@
     ];
   };
 
+
   # Force radv
   environment.variables.AMD_VULKAN_ICD = "RADV";
   services.xserver.dpi = 108;
   services.xserver.videoDrivers = ["amdgpu"];
+
+  # Needed for corectrl
+  hardware.amdgpu.overdrive.enable = true;
 
   programs = {
     gamescope = {
@@ -64,7 +68,6 @@
     };
     corectrl = {
       enable = true;
-      gpuOverclock.enable = true;
     };
   };
 
