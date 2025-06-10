@@ -73,7 +73,6 @@ in {
       networkmanager # Manage wireless networks
       pulsemixer # CLI to control puleaudio
       alsa-utils # for amixer to mute mic
-      flashfocus # Python script that flashes window I switch focus to
       wdisplays # xrandr type gui to mess with monitor placement
       wl-mirror # simple wayland display mirror program
     ]
