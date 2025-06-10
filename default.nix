@@ -126,6 +126,7 @@
   environment.shellAliases = {
     ls = "exa --icons -F -H --group-directories-first --git -1";
     ll = "ls -alF";
+    k = "kubectl";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
