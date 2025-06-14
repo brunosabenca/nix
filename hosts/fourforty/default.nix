@@ -25,7 +25,7 @@
     keyboards = {
       myKMonadOutput = {
         device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-        config = builtins.readFile "${config.users.users.bruno.home}/.config/kmonad/miryoku_kmonad.kbd";
+        config = builtins.readFile "miryoku_kmonad.kbd";
       };
     };
   };
