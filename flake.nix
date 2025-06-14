@@ -29,8 +29,11 @@
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-      # Optional but recommended to limit the size of your system closure.
+    kmonad = {
+      url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -40,6 +43,7 @@
     nixpkgs,
     stylix,
     lanzaboote,
+    kmonad,
     ...
   } @ inputs: let
     supportedSystems = ["x86_64-linux"];
@@ -102,6 +106,7 @@
             ./modules/dev
             ./modules/neovim
             stylix.nixosModules.stylix
+            kmonad.nixosModules.default
           ];
         };
 

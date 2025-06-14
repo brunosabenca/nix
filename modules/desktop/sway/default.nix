@@ -151,7 +151,6 @@ in {
   # bluetooth manager
   services.blueman.enable = true;
 
-  # symlink to sway config file in dotfiles repo
   home-manager.users.${username} = {
     config,
     pkgs,
@@ -200,6 +199,7 @@ in {
 
     # stylix.targets.kde.enable = false;
 
+    # symlink to sway config file in dotfiles repo
     xdg.configFile = {
       "sway/config" = {
         source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/nix/dotfiles/.config/sway/config";

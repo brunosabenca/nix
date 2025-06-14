@@ -20,6 +20,15 @@
       PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
     };
   };
+  services.kmonad = {
+    enable = true;
+    keyboards = {
+      myKMonadOutput = {
+        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
+        config = builtins.readFile "${config.users.users.bruno.home}/.config/kmonad/miryoku_kmonad.kbd;
+      }
+    };
+  };
   networking = {
     hostName = "fourforty";
     networkmanager.enable = true;
@@ -44,7 +53,7 @@
     device = "bruno@192.168.0.14:/mnt/data";
     fsType = "fuse.sshfs";
     options = [
-      "identityfile=/home/bruno/.ssh/id_ed25519"
+      "identityfile=${config.users.users.bruno.home}/.ssh/id_ed25519"
       "idmap=user"
       "x-systemd.automount" #< mount the filesystem automatically on first access
       "allow_other" #< don't restrict access to only the user which `mount`s it (because that's probably systemd who mounts it, not you)
