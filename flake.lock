@@ -508,6 +508,28 @@
         "type": "github"
       }
     },
+    "kmonad": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "nix",
+        "lastModified": 1746742173,
+        "narHash": "sha256-kid5CnnkWXjd6fkn+ckBVnLs9pTvlkacV5Ohual4UxM=",
+        "owner": "kmonad",
+        "repo": "kmonad",
+        "rev": "e716fb08a734e68eac3dd6ace784d4d8dd1c017a",
+        "type": "github"
+      },
+      "original": {
+        "dir": "nix",
+        "owner": "kmonad",
+        "repo": "kmonad",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -734,6 +756,7 @@
         "catppuccin": "catppuccin",
         "dotfiles": "dotfiles",
         "home-manager": "home-manager",
+        "kmonad": "kmonad",
         "lanzaboote": "lanzaboote",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nil-lsp": "nil-lsp",
