@@ -157,6 +157,34 @@ in {
     pkgs,
     ...
   }: {
+    # Configure cursor
+    wayland.windowManager.sway = {
+      config = {
+        seat = {
+          "*" = {
+            xcursor_theme = "${config.gtk.cursorTheme.name} ${toString config.gtk.cursorTheme.size}";
+          };
+        };
+      };
+    };
+
+    home.pointerCursor = {
+      name = "Banana";
+      size = 32;
+      package = pkgs.banana-cursor;
+      x11.enable = true;
+      gtk.enable = true;
+    };
+
+    gtk = {
+      enable = true;
+      cursorTheme = {
+        name = "Banana";
+        size = 32;
+        package = pkgs.banana-cursor;
+      };
+    };
+
     # Services required for a smooth sway/waybar experience
     services.batsignal.enable = true;
 
