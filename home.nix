@@ -10,6 +10,19 @@
     inputs.catppuccin.homeModules.catppuccin
   ];
 
+  programs.ssh = {
+    enable = true; 
+    matchBlocks = {
+      "instance-20250201-1204" = {
+        hostname = "79.72.68.252";
+        user = "ubuntu";
+        identityFile = [
+          "~/.ssh/instance-20250201-1204.key"
+        ];
+      };
+    };
+  };
+
   # allow fontconfig to discover fonts and configurations installed through home.packages
   fonts.fontconfig.enable = true;
 
