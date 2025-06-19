@@ -13,6 +13,9 @@
   programs.ssh = {
     enable = true; 
     matchBlocks = {
+      "cave" = {
+        hostname = "192.168.0.14";
+      };
       "instance-20250201-1204" = {
         hostname = "79.72.68.252";
         user = "ubuntu";
