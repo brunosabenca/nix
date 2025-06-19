@@ -67,6 +67,7 @@
             ./modules/core
             ./modules/dev
             ./modules/neovim
+            ./modules/vscode
             stylix.nixosModules.stylix
 
             lanzaboote.nixosModules.lanzaboote
