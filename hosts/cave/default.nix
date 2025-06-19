@@ -1,4 +1,7 @@
 {
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./audio-configuration.nix
