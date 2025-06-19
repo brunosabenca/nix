@@ -45,11 +45,8 @@
     lm_sensors
     xdg-utils
     firefox
-    ungoogled-chromium
-    spotify
     sublime-merge
     discord
-    tor-browser
     htop
     btop
     scrcpy
@@ -61,7 +58,6 @@
     telegram-desktop
     qbittorrent
     calibre
-    quassel
     obsidian
     freetube
     youtube-tui
