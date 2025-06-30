@@ -42,8 +42,8 @@
         to = 22;
       }
       {
-        from = 8080;
-        to = 8080;
+        from = 9090;
+        to = 9090;
       }
     ];
     firewall.allowedUDPPortRanges = [
