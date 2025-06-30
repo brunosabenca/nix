@@ -51,6 +51,10 @@
         from = 38843;
         to = 38843;
       }
+      {
+        from = 9090;
+        to = 9090;
+      }
     ];
   };
   fileSystems."/mnt/cave" = {
