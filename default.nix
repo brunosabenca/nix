@@ -26,8 +26,6 @@
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
   };
 
-  services.actual.enable = true;
-
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
   home-manager.verbose = true;
@@ -61,9 +59,6 @@
   };
 
   services = {
-    displayManager = {
-      gdm.enable = true;
-    };
     xserver = {
       enable = true;
       xkb = {

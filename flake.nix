@@ -63,7 +63,7 @@
           modules = [
             ./.
             ./hosts/monolith
-            ./modules/desktop/sway
+            ./modules/desktop/kde-wayland
             ./modules/core
             ./modules/dev
             ./modules/neovim
@@ -102,7 +102,7 @@
           modules = [
             ./.
             ./hosts/fourforty
-            ./modules/desktop/kde-wayland
+            ./modules/desktop/sway
             ./modules/core
             ./modules/dev
             ./modules/neovim
