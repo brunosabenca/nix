@@ -111,7 +111,7 @@ in {
     package = pkgs.sway;
 
     wrapperFeatures.gtk = true;
-    xwayland.enable = false;
+    xwayland.enable = true;
 
     # clear out default packages
     extraPackages = [];
