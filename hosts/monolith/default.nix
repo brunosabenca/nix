@@ -26,7 +26,6 @@
       }
     ];
   };
-  };
 
   fileSystems."/mnt/cave" = {
     device = "bruno@192.168.0.14:/mnt/data";
