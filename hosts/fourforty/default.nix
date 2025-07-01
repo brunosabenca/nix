@@ -41,19 +41,11 @@
         from = 22;
         to = 22;
       }
-      {
-        from = 9090;
-        to = 9090;
-      }
     ];
     firewall.allowedUDPPortRanges = [
       {
         from = 38843;
         to = 38843;
-      }
-      {
-        from = 9090;
-        to = 9090;
       }
     ];
   };

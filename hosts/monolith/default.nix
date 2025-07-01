@@ -13,6 +13,19 @@
   networking = {
     hostName = "monolith";
     networkmanager.enable = true;
+    firewall.allowedTCPPortRanges = [
+      {
+        from = 9090;
+        to = 9090;
+      }
+    ];
+    firewall.allowedUDPPortRanges = [
+      {
+        from = 9090;
+        to = 9090;
+      }
+    ];
+  };
   };
 
   fileSystems."/mnt/cave" = {
