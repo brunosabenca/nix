@@ -14,7 +14,7 @@
     enable = true; 
     matchBlocks = {
       "cave" = {
-        hostname = "192.168.0.14";
+        hostname = "192.168.1.30";
       };
       "instance-20250201-1204" = {
         hostname = "79.72.68.252";
