@@ -104,6 +104,7 @@
       flavour = ["mocha"];
       accents = ["lavender"];
     })
+    league-of-moveable-type
     font-awesome
     fira-sans
     powerline-fonts
@@ -115,6 +116,7 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+    #
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
