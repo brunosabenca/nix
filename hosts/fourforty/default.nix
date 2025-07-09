@@ -50,7 +50,7 @@
     ];
   };
   fileSystems."/mnt/cave" = {
-    device = "bruno@192.168.0.14:/mnt/data";
+    device = "bruno@192.168.1.30:/mnt/data";
     fsType = "fuse.sshfs";
     options = [
       "identityfile=${config.users.users.bruno.home}/.ssh/id_ed25519"
