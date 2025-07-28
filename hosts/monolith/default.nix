@@ -85,6 +85,15 @@
     };
   };
 
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      "domain-needed" = true;
+      "bogus-priv" = true;
+      "no-resolv" = true; # don't use /etc/resolv.conf
+    };
+  };
+
   services.samba = {
     enable = true;
     openFirewall = true;
