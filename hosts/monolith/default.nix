@@ -90,7 +90,7 @@
     settings = {
       "domain-needed" = true;
       "bogus-priv" = true;
-      "no-resolv" = true; # don't use /etc/resolv.conf
+      #"no-resolv" = true; # don't use /etc/resolv.conf
     };
   };
 
