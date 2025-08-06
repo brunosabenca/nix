@@ -33,7 +33,7 @@
     device = "bruno@192.168.1.30:/mnt/data";
     fsType = "fuse.sshfs";
     options = [
-      "identityfile=/home/bruno/.ssh/id_ed25519"
+      "identityfile=${config.users.users.bruno.home}/.ssh/id_ed25519"
       "idmap=user"
       "x-systemd.automount" #< mount the filesystem automatically on first access
       "allow_other" #< don't restrict access to only the user which `mount`s it (because that's probably systemd who mounts it, not you)
@@ -82,15 +82,6 @@
     };
     corectrl = {
       enable = true;
-    };
-  };
-
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      "domain-needed" = true;
-      "bogus-priv" = true;
-      #"no-resolv" = true; # don't use /etc/resolv.conf
     };
   };
 
