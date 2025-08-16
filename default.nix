@@ -34,11 +34,7 @@
 
   programs.zsh.enable = true;
 
-  virtualisation.docker.enable = true;
-  virtualisation.docker.rootless = {
-    enable = true;
-    setSocketVariable = true;
-  };
+  virtualisation.docker.enable = false;
 
   # Set your time zone.
   time.timeZone = "Europe/London";
