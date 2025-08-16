@@ -26,7 +26,7 @@
         key_file = ${config.users.users.bruno.home}/.ssh/id_ed25519
       '';
 
-      systemd.user.services.example-mounts = {
+      systemd.user.services.cave-mount = {
         Unit = {
           Description = "Mount cave with rclone";
           After = [ "network-online.target" ];
