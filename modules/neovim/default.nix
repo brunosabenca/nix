@@ -47,7 +47,7 @@
         name = "nvim";
         comment = "Edit text files";
         icon = "nvim";
-        exec = "${pkgs.kitty}/bin/kitty -e ${pkgs.zsh}/bin/zsh -l -c \"${inputs.neovim-nightly-overlay.packages.${pkgs.system}.default}/bin/nvim %F\"";
+        exec = "${pkgs.wezterm}/bin/wezterm -e ${pkgs.zsh}/bin/zsh -l -c \"${inputs.neovim-nightly-overlay.packages.${pkgs.system}.default}/bin/nvim %F\"";
         categories = ["Development" "Utility" "TextEditor"];
         terminal = false;
         mimeType = nvimMimeTypes;

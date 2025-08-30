@@ -196,14 +196,6 @@
     };
   };
 
-  programs.kitty = {
-    enable = true;
-    settings = {
-      font = "FatasqueSansM Nerd Font";
-      font_size = "14";
-    };
-  };
-
   catppuccin.mpv.enable = false;
 
   programs.mpv = {
