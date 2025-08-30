@@ -64,8 +64,8 @@
     btop
     scrcpy
     fortune
-    darktable
-    ansel
+    #darktable
+    #ansel
     rawtherapee
     gimp
     telegram-desktop

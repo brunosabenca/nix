@@ -26,14 +26,13 @@
         key_file = ${config.users.users.bruno.home}/.ssh/id_ed25519
       '';
 
-      systemd.user.services.cave-mount = {
+      systemd.user.services.mount-cave = {
         Unit = {
           Description = "Mount cave with rclone";
           After = [ "network-online.target" ];
         };
         Service = {
           Type = "notify";
-          ExecStartPre = "/usr/bin/env mkdir -p %h/cave";
           ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"cave\"";
           ExecStop="/bin/fusermount -u %h/cave/%i";
         };
