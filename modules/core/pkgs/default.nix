@@ -78,5 +78,6 @@
     gnomeExtensions.unite
     wezterm
     lazygit
+    nixfmt
   ];
 }
