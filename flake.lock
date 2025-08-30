@@ -103,11 +103,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1756546659,
-        "narHash": "sha256-h8OX+P8VM0qfd/VyR8ZDFnlafBf5Bn2oYrY2kpApKuQ=",
+        "lastModified": 1756546995,
+        "narHash": "sha256-e81rZiCXlSWOYXr2tUWkuM6dqjW4W1TgdDwZn9wHlKM=",
         "owner": "brunosabenca",
         "repo": "dotfiles",
-        "rev": "60482530bf2bb271f67db1ba401139830d767310",
+        "rev": "d1859cf5be665490927dd35e7c7d8ad3592fb53a",
         "type": "github"
       },
       "original": {
@@ -701,13 +701,13 @@
       "locked": {
         "lastModified": 1755997543,
         "narHash": "sha256-/fejmCQ7AWa655YxyPxRDbhdU7c5+wYsFSjmEMXoBCM=",
-        "owner": "danth",
+        "owner": "nix-community",
         "repo": "stylix",
         "rev": "f47c0edcf71e802378b1b7725fa57bb44fe85ee8",
         "type": "github"
       },
       "original": {
-        "owner": "danth",
+        "owner": "nix-community",
         "repo": "stylix",
         "type": "github"
       }

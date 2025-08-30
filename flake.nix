@@ -16,7 +16,7 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:nix-community/stylix";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
