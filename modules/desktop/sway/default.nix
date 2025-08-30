@@ -197,8 +197,6 @@ in {
     home.packages = [pkgs.dconf];
     dconf.settings."org/blueman/plugins/powermanager".auto-power-on = false;
 
-    # stylix.targets.kde.enable = false;
-
     # symlink to sway config file in dotfiles repo
     xdg.configFile = {
       "sway/config" = {

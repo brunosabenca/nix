@@ -69,6 +69,6 @@
   };
 
   home-manager.users.${username} = {
-    stylix.targets.kde.enable = false;
+    stylix.targets.kde.enable = true;
   };
 }

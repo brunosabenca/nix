@@ -2,7 +2,9 @@
   description = "Bruno's NixOS system configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # temporarily pinned until stylix is updated
+    # https://github.com/nix-community/stylix/issues/1865
+    nixpkgs.url = "github:nixos/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4";
 
     dotfiles = {
       url = "github:brunosabenca/dotfiles";
