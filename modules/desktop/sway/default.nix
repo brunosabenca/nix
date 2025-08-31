@@ -4,7 +4,8 @@
   config,
   username,
   ...
-}: let
+}:
+let
   # bash script to let dbus know about important env variables and
   # propagate them to relevant services run at the end of sway config
   # see
@@ -49,56 +50,34 @@
         exec $APP_COMMAND &
     fi
   '';
-in {
+in
+{
   imports = [
     ../components/waybar
     ../components/mako
     ../components/wofi
   ];
 
-  environment.systemPackages = with pkgs;
-    [
-      dbus-sway-environment
-      sway-launch-or-focus
-      wev # wayland event viewer (find out key names)
-      notify-desktop # provides the notify-send binary to trigger mako
-      grim # screenshot functionality
-      slurp # screenshot functionality
-      wl-clipboard-rs # wl-copy and wl-paste for copy/paste from stdin / stdout
-      xclip # TODO: figure out why I still need this
-      swaylock-fancy # Fancy lock screen
-      libinput # Handles input devices in Wayland compositors
-      libinput-gestures # Gesture mapper for libinput
-      brightnessctl # CLI to control brightness
-      networkmanager # Manage wireless networks
-      pulsemixer # CLI to control puleaudio
-      alsa-utils # for amixer to mute mic
-      wdisplays # xrandr type gui to mess with monitor placement
-      wl-mirror # simple wayland display mirror program
-    ]
-    # Add some KDE packages I have become used to
-    ++ (with kdePackages; [
-      konsole
-      ark
-      dolphin
-      dolphin-plugins
-      gwenview
-      kdegraphics-thumbnailers
-      kfilemetadata
-      kimageformats
-      qtimageformats
-      kio
-      kio-admin
-      kio-extras
-      kio-fuse
-      kservice
-      libheif
-      okular
-      polkit-kde-agent-1
-      # plasma-workspace
-      qtwayland
-      kdialog
-    ]);
+  environment.systemPackages = with pkgs; [
+    dbus-sway-environment
+    sway-launch-or-focus
+    wev # wayland event viewer (find out key names)
+    notify-desktop # provides the notify-send binary to trigger mako
+    grim # screenshot functionality
+    slurp # screenshot functionality
+    wl-clipboard-rs # wl-copy and wl-paste for copy/paste from stdin / stdout
+    xclip # TODO: figure out why I still need this
+    swaylock-fancy # Fancy lock screen
+    libinput # Handles input devices in Wayland compositors
+    libinput-gestures # Gesture mapper for libinput
+    brightnessctl # CLI to control brightness
+    networkmanager # Manage wireless networks
+    pulsemixer # CLI to control puleaudio
+    alsa-utils # for amixer to mute mic
+    wdisplays # xrandr type gui to mess with monitor placement
+    wl-mirror # simple wayland display mirror program
+    nautilus
+  ];
 
   # Enable the gnome-keyring secrets vault.
   # Will be exposed through DBus to programs willing to store secrets.
@@ -114,7 +93,7 @@ in {
     xwayland.enable = true;
 
     # clear out default packages
-    extraPackages = [];
+    extraPackages = [ ];
 
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
@@ -151,60 +130,62 @@ in {
   # bluetooth manager
   services.blueman.enable = true;
 
-  home-manager.users.${username} = {
-    config,
-    pkgs,
-    ...
-  }: {
-    # Configure cursor
-    wayland.windowManager.sway = {
-      config = {
-        seat = {
-          "*" = {
-            xcursor_theme = "${config.gtk.cursorTheme.name} ${toString config.gtk.cursorTheme.size}";
+  home-manager.users.${username} =
+    {
+      config,
+      pkgs,
+      ...
+    }:
+    {
+      # Configure cursor
+      wayland.windowManager.sway = {
+        config = {
+          seat = {
+            "*" = {
+              xcursor_theme = "${config.gtk.cursorTheme.name} ${toString config.gtk.cursorTheme.size}";
+            };
           };
         };
       };
-    };
 
-    home.pointerCursor = {
-      name = "Banana";
-      size = 32;
-      package = pkgs.banana-cursor;
-      x11.enable = true;
-      gtk.enable = true;
-    };
-
-    gtk = {
-      enable = true;
-      cursorTheme = {
+      home.pointerCursor = {
         name = "Banana";
         size = 32;
         package = pkgs.banana-cursor;
+        x11.enable = true;
+        gtk.enable = true;
+      };
+
+      gtk = {
+        enable = true;
+        cursorTheme = {
+          name = "Banana";
+          size = 32;
+          package = pkgs.banana-cursor;
+        };
+      };
+
+      # Services required for a smooth sway/waybar experience
+      services.batsignal.enable = true;
+
+      # Automount sd/usb
+      services.udiskie.enable = true;
+
+      # Enable the playerctld to be able to control music players and mpris-proxy to proxy bluetooth devices.
+      services.playerctld.enable = true;
+      services.mpris-proxy.enable = true;
+
+      home.packages = [ pkgs.dconf ];
+      dconf.settings."org/blueman/plugins/powermanager".auto-power-on = false;
+
+      # symlink to sway config file in dotfiles repo
+      xdg.configFile = {
+        "sway/config" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/nix/dotfiles/.config/sway/config";
+        };
+        "sway/run-or-raise" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/nix/dotfiles/.config/sway/run-or-raise";
+        };
       };
     };
-
-    # Services required for a smooth sway/waybar experience
-    services.batsignal.enable = true;
-
-    # Automount sd/usb
-    services.udiskie.enable = true;
-
-    # Enable the playerctld to be able to control music players and mpris-proxy to proxy bluetooth devices.
-    services.playerctld.enable = true;
-    services.mpris-proxy.enable = true;
-
-    home.packages = [pkgs.dconf];
-    dconf.settings."org/blueman/plugins/powermanager".auto-power-on = false;
-
-    # symlink to sway config file in dotfiles repo
-    xdg.configFile = {
-      "sway/config" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/nix/dotfiles/.config/sway/config";
-      };
-      "sway/run-or-raise" = {
-        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/git/nix/dotfiles/.config/sway/run-or-raise";
-      };
-    };
-  };
 }

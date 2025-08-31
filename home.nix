@@ -5,13 +5,14 @@
   pkgs,
   commands,
   ...
-}: {
+}:
+{
   imports = [
     inputs.catppuccin.homeModules.catppuccin
   ];
 
   programs.ssh = {
-    enable = true; 
+    enable = true;
     enableDefaultConfig = false;
     matchBlocks = {
       "cave" = {
@@ -54,6 +55,7 @@
   };
 
   home.packages = with pkgs; [
+    pulseaudio # to use pactl
     blueberry
     lm_sensors
     xdg-utils
@@ -114,8 +116,8 @@
     #emulationstation-de
 
     (catppuccin-kde.override {
-      flavour = ["mocha"];
-      accents = ["lavender"];
+      flavour = [ "mocha" ];
+      accents = [ "lavender" ];
     })
     league-of-moveable-type
     font-awesome
@@ -243,19 +245,19 @@
     # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default image/png
     defaultApplications = {
       # "text/plain" = ["neovide.desktop"];
-      "application/pdf" = ["zathura.desktop"];
-      "image/jpeg" = ["okular.desktop"];
-      "image/png" = ["okular.desktop"];
-      "image/*" = ["okular.desktop"];
-      "video/png" = ["mpv.desktop"];
-      "video/jpg" = ["mpv.desktop"];
-      "video/*" = ["mpv.desktop"];
-      "text/html" = ["firefox.desktop"];
-      "x-scheme-handler/http" = ["firefox.desktop"];
-      "x-scheme-handler/https" = ["firefox.desktop"];
-      "x-scheme-handler/about" = ["firefox.desktop"];
-      "x-scheme-handler/unknown" = ["firefox.desktop"];
+      "application/pdf" = [ "zathura.desktop" ];
+      "image/jpeg" = [ "okular.desktop" ];
+      "image/png" = [ "okular.desktop" ];
+      "image/*" = [ "okular.desktop" ];
+      "video/png" = [ "mpv.desktop" ];
+      "video/jpg" = [ "mpv.desktop" ];
+      "video/*" = [ "mpv.desktop" ];
+      "text/html" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/about" = [ "firefox.desktop" ];
+      "x-scheme-handler/unknown" = [ "firefox.desktop" ];
     };
-    associations.added = {};
+    associations.added = { };
   };
 }
