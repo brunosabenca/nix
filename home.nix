@@ -56,6 +56,7 @@
 
   home.packages = with pkgs; [
     pulseaudio # to use pactl
+    bitwarden-desktop
     blueberry
     lm_sensors
     xdg-utils
