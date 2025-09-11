@@ -2,9 +2,7 @@
   description = "Bruno's NixOS system configuration";
 
   inputs = {
-    # temporarily pinned until stylix is updated
-    # https://github.com/nix-community/stylix/issues/1865
-    nixpkgs.url = "github:nixos/nixpkgs?rev=20075955deac2583bb12f07151c2df830ef346b4";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     dotfiles = {
       url = "github:brunosabenca/dotfiles";
@@ -124,11 +122,23 @@
             ./.
             ./hosts/cave
             ./modules/nixos/qbittorrent-service
+            ./modules/core/terminal
+            ./modules/core/git
+            ./modules/core/man
             stylix.nixosModules.stylix
           ];
         };
     };
 
     #formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nix-community.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
   };
 }

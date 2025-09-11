@@ -10,6 +10,15 @@
     ./audio-configuration.nix
   ];
 
+  systemd.sleep.extraConfig = ''
+    AllowSuspend=no
+    AllowHibernation=no
+    AllowHybridSleep=no
+    AllowSuspendThenHibernate=no
+  '';
+
+  services.getty.autologinUser = "bruno";
+
   systemd.services.navidrome.serviceConfig = {
     ProtectHome = lib.mkForce false;
     BindReadOnlyPaths = [
