@@ -17,8 +17,4 @@
     ranger
     jq
   ];
-
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
 }

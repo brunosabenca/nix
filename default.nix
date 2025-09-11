@@ -5,14 +5,15 @@
   username,
   config,
   ...
-}: {
+}:
+{
   imports = [
     home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "backup";
-      home-manager.extraSpecialArgs = {inherit inputs;};
+      home-manager.extraSpecialArgs = { inherit inputs; };
     }
     ./hosts
     ./modules
@@ -88,11 +89,17 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "Bruno";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.zsh;
   };
 
-  nix.settings.trusted-users = ["root" "@wheel"];
+  nix.settings.trusted-users = [
+    "root"
+    "@wheel"
+  ];
 
   # Enable nix-ld to use dynamically linked executables with hardcoded paths
   programs.nix-ld = {
@@ -109,6 +116,8 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     # Hint electron aps to use wayland
     NIXOS_OZONE_WL = "1";
+
+    MOZ_USE_XINPUT2 = "1";
   };
 
   environment.shellAliases = {

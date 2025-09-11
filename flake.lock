@@ -398,6 +398,11 @@
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "6d7c11a0adee0db21e3a8ef90ae07bb89bc20b8f",
+        "lastModified": 1757256385,
+        "narHash": "sha256-WK7tOhWwr15mipcckhDg2no/eSpM1nIh4C9le8HgHhk=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "f35703b412c67b48e97beb6e27a6ab96a084cd37",
         "type": "github"
       },
       "original": {
@@ -470,6 +475,11 @@
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
         "rev": "d83810bcf7a46837e2c3962b5fd396a0677c219a",
+        "lastModified": 1757289981,
+        "narHash": "sha256-2qTjBLhsykMF4tsGx2Z73Ikp7pkY3lUJ+Un5i0DuUTA=",
+        "owner": "nix-community",
+        "repo": "neovim-nightly-overlay",
+        "rev": "a42a3e965670904167733d4998040e11cb64c429",
         "type": "github"
       },
       "original": {
@@ -486,6 +496,11 @@
         "owner": "neovim",
         "repo": "neovim",
         "rev": "9076fdc1238c4d9720efa89c72b44154be729a2c",
+        "lastModified": 1757285134,
+        "narHash": "sha256-Iq2uZRJEiqafQFGI05Gw5/PvqV3iGOyM1RKaMd6ER/s=",
+        "owner": "neovim",
+        "repo": "neovim",
+        "rev": "ad22d0ace9965907a83088fb52dd407b92222992",
         "type": "github"
       },
       "original": {
@@ -569,6 +584,11 @@
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "ab0f3607a6c7486ea22229b92ed2d355f1482ee0",
+        "lastModified": 1757068644,
+        "narHash": "sha256-NOrUtIhTkIIumj1E/Rsv1J37Yi3xGStISEo8tZm3KW4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "8eb28adfa3dc4de28e792e3bf49fcf9007ca8ac9",
         "type": "github"
       },
       "original": {
@@ -704,6 +724,11 @@
         "owner": "nix-community",
         "repo": "stylix",
         "rev": "834a743c11d66ea18e8c54872fbcc72ce48bc57f",
+        "lastModified": 1757172691,
+        "narHash": "sha256-VOn/s24rb+iO6auhmGfT5kyr0ixRK6weBsNCKkGo2yY=",
+        "owner": "nix-community",
+        "repo": "stylix",
+        "rev": "9991299fe9aad330fb6b96bb58def37033271177",
         "type": "github"
       },
       "original": {
