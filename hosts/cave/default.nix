@@ -1,15 +1,35 @@
 {
+  config,
+  lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     ./audio-configuration.nix
   ];
 
+  systemd.services.navidrome.serviceConfig = {
+    ProtectHome = lib.mkForce false;
+    BindReadOnlyPaths = [
+      "/etc"
+      "/mnt/data/Music"
+    ];
+  };
+
+  services.navidrome = {
+    enable = true;
+    user = "navidrome";
+    group = "users";
+    settings = {
+      musicFolder = "/mnt/data/Music";
+    };
+  };
+
   services.openssh = {
     enable = true;
-    ports = [22];
+    ports = [ 22 ];
     settings = {
       PasswordAuthentication = true;
       AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
@@ -17,6 +37,23 @@
       X11Forwarding = false;
       PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
     };
+  };
+
+  services.nginx = {
+    enable = true;
+    virtualHosts = {
+      "navidrome.cave.lan" = {
+        addSSL = false;
+        #forceSSL  = true;
+        #enableACME = true;
+        locations."/".proxyPass = "http://127.0.0.1:4533";
+      };
+    };
+  };
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "bruno@brunosabenca.com";
   };
 
   networking = {
@@ -31,6 +68,14 @@
       {
         from = 22;
         to = 22;
+      }
+      {
+        from = 80;
+        to = 80;
+      }
+      {
+        from = 443;
+        to = 443;
       }
     ];
     firewall.allowedUDPPortRanges = [
@@ -57,7 +102,7 @@
     enable = true;
     keyboards = {
       default = {
-        ids = ["*"];
+        ids = [ "*" ];
         extraConfig = ''
           [main]
           f1 = back
