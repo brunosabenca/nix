@@ -126,7 +126,7 @@
             modules = [
               ./.
               ./hosts/fourforty
-              ./modules/desktop/sway
+              ./modules/desktop/kde-wayland
               ./modules/core
               ./modules/dev
               ./modules/neovim

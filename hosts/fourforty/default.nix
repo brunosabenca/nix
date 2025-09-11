@@ -6,17 +6,19 @@
   username,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
   ];
 
-  home-manager.users.${username} = 
+  home-manager.users.${username} =
     {
       pkgs,
       ...
-    }: {
-      home.packages = [pkgs.rclone];
+    }:
+    {
+      home.packages = [ pkgs.rclone ];
       xdg.configFile."rclone/rclone-nixos.conf".text = ''
         [cave]
         type = sftp
@@ -33,16 +35,18 @@
         Service = {
           ExecStartPre = "/run/current-system/sw/bin/mkdir -p ${config.users.users.bruno.home}/cave";
           ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone-nixos.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"cave\"";
-          ExecStop="/run/current-system/sw/bin/fusermount -u %h/cave/%i";
+          ExecStop = "/run/current-system/sw/bin/fusermount -u %h/cave/%i";
           Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         };
         Install.WantedBy = [ "default.target" ];
       };
-  };
+
+      services.kdeconnect.enable = true;
+    };
 
   services.openssh = {
     enable = true;
-    ports = [22];
+    ports = [ 22 ];
     settings = {
       PasswordAuthentication = true;
       AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
