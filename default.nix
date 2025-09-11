@@ -1,6 +1,7 @@
 {
   inputs,
   home-manager,
+  plasma-manager,
   pkgs,
   username,
   config,
@@ -14,6 +15,7 @@
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = { inherit inputs; };
+      home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
     }
     ./hosts
     ./modules
@@ -161,14 +163,6 @@
       hinting.enable = true;
       hinting.autohint = true;
     };
-  };
-
-  programs.thunar = {
-    enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
   };
 
   programs.partition-manager.enable = true;

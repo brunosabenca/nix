@@ -14,6 +14,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     catppuccin.url = "github:catppuccin/nix";
 
     stylix.url = "github:nix-community/stylix";
@@ -80,6 +86,7 @@
               ./modules/dev
               ./modules/neovim
               ./modules/vscode
+              ./modules/home
               stylix.nixosModules.stylix
 
               lanzaboote.nixosModules.lanzaboote
@@ -130,6 +137,7 @@
               ./modules/core
               ./modules/dev
               ./modules/neovim
+              ./modules/home
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
             ];
