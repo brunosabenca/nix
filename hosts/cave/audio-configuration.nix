@@ -3,7 +3,8 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   # caveAudioFiles = pkgs.fetchzip {
   #   url = "https://github.com/nebulakl/cave-audio/archive/0ac059e243c8663908500ec01d7a11ee116041d9.tar.gz";
   #   sha256 = "0c9bdj96d3d12fyiyh3fiim47b1lhsw1pbqb52ny0sp5wh64dwl5";
@@ -16,7 +17,8 @@
   #   url = "https://github.com/WeirdTreeThing/chromebook-linux-audio/blob/99eef5cc3d2f82f451c34764f230f3d5d22239cf/blobs/avs-topology_2024.02.tar.gz";
   #   sha256 = "";
   # };
-in {
+in
+{
   boot.extraModprobeConfig = ''
     options snd-intel-dspcfg dsp_driver=4
     options snd-soc-avs ignore_fw_version=1

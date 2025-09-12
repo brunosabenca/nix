@@ -14,7 +14,7 @@
     btop
     fortune
     shellcheck
-    ranger
+    yazi
     jq
   ];
 }

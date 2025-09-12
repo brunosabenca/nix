@@ -42,6 +42,11 @@
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -61,10 +66,12 @@
       inherit (self) outputs;
     in
     {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+
       nixosConfigurations = {
         monolith =
           let
-            system = "xf86_64-linux";
+            system = "x86_64-linux";
             hostname = "monolith";
           in
           nixpkgs.lib.nixosSystem {
@@ -116,7 +123,7 @@
 
         fourforty =
           let
-            system = "xf86_64-linux";
+            system = "x86_64-linux";
             hostname = "fourforty";
           in
           nixpkgs.lib.nixosSystem {
@@ -138,6 +145,7 @@
               ./modules/dev
               ./modules/neovim
               ./modules/home
+              ./modules/zen-browser
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
             ];
@@ -145,7 +153,7 @@
 
         cave =
           let
-            system = "xf86_64-linux";
+            system = "x86_64-linux";
             hostname = "cave";
           in
           nixpkgs.lib.nixosSystem {

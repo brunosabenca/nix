@@ -4,7 +4,8 @@
   pkgs,
   username,
   ...
-}: {
+}:
+{
   home-manager.users.${username} = {
     programs.zsh = {
       enable = true;

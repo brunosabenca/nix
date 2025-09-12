@@ -1,8 +1,9 @@
-{...}: {
-    imports = [
-      ./core
-      ./desktop
-      ./dev
-      ./neovim
-    ];
-  }
+{ ... }:
+{
+  imports = [
+    ./core
+    ./desktop
+    ./dev
+    ./neovim
+  ];
+}

@@ -1,4 +1,17 @@
-{ config, lib, pkgs, modulesPath, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
+{
+  hardware.trackpoint = {
+    enable = true;
+    sensitivity = 240;
+    speed = 97;
+  };
+
   ###############################################
 
   # THE BELOW CODE IS COPIED FROM THE AUTO-GENERATED 'configuration.nix'.
@@ -20,12 +33,21 @@
 
   # THE BELOW CODE IS COPIED FROM THE AUTO-GENERATED 'hardware-configuration.nix'.
   # IT MAY CONTAIN EDITS.
-  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" "rtsx_pci_sdmmc"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ehci_pci"
+    "ahci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "sr_mod"
+    "rtsx_pci_sdmmc"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/32804bc1-f114-432a-b198-f760aebe000a";
@@ -37,7 +59,7 @@
     fsType = "vfat";
   };
 
-  swapDevices = [{device = "/dev/disk/by-uuid/ac120e23-72ed-4395-b59f-eddd5e7293d8";}];
+  swapDevices = [ { device = "/dev/disk/by-uuid/ac120e23-72ed-4395-b59f-eddd5e7293d8"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

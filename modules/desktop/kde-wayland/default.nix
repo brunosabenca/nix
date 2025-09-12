@@ -77,6 +77,7 @@
       panels = [
         {
           location = "bottom";
+          hiding = "windowscover";
           widgets = [
             {
               kickoff = {

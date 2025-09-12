@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Default system packages
   environment.systemPackages = with pkgs; [
     home-manager # manage my home dir/programs
@@ -79,5 +80,6 @@
     wezterm
     lazygit
     nixfmt
+    nixfmt-tree
   ];
 }

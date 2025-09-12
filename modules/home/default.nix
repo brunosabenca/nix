@@ -56,8 +56,7 @@
         zathura
         sxiv
         jhead
-        ranger
-        digikam
+        yazi
         jq
         nvd
         wlogout

@@ -7,17 +7,19 @@
   modulesPath,
   inputs,
   ...
-}:{
+}:
+{
   imports = [
     ./hardware-configuration.nix
   ];
 
-  home-manager.users.${username} = 
+  home-manager.users.${username} =
     {
       pkgs,
       ...
-    }: {
-      home.packages = [pkgs.rclone];
+    }:
+    {
+      home.packages = [ pkgs.rclone ];
       xdg.configFile."rclone/rclone.conf".text = ''
         [cave]
         type = sftp
@@ -34,11 +36,11 @@
         Service = {
           Type = "notify";
           ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"cave\"";
-          ExecStop="/bin/fusermount -u %h/cave/%i";
+          ExecStop = "/bin/fusermount -u %h/cave/%i";
         };
         Install.WantedBy = [ "default.target" ];
       };
-  };
+    };
 
   networking = {
     hostName = "monolith";
@@ -72,11 +74,10 @@
     ];
   };
 
-
   # Force radv
   environment.variables.AMD_VULKAN_ICD = "RADV";
   services.xserver.dpi = 108;
-  services.xserver.videoDrivers = ["amdgpu"];
+  services.xserver.videoDrivers = [ "amdgpu" ];
 
   # Needed for corectrl
   hardware.amdgpu.overdrive.enable = true;
