@@ -20,7 +20,7 @@
     }:
     {
       home.packages = [ pkgs.rclone ];
-      xdg.configFile."rclone/rclone.conf".text = ''
+      xdg.configFile."rclone/rclone-nixos.conf".text = ''
         [cave]
         type = sftp
         host = 192.168.1.30
@@ -34,9 +34,10 @@
           After = [ "network-online.target" ];
         };
         Service = {
-          Type = "notify";
-          ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"cave\"";
-          ExecStop = "/bin/fusermount -u %h/cave/%i";
+          ExecStartPre = "/run/current-system/sw/bin/mkdir -p ${config.users.users.bruno.home}/cave";
+          ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone-nixos.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"cave\"";
+          ExecStop = "/run/current-system/sw/bin/fusermount -u %h/cave/%i";
+          Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         };
         Install.WantedBy = [ "default.target" ];
       };
