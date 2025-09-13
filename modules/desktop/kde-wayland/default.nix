@@ -77,7 +77,7 @@
       panels = [
         {
           location = "bottom";
-          hiding = "windowscover";
+          hiding = "dodgewindows";
           widgets = [
             {
               kickoff = {
@@ -91,7 +91,7 @@
                   "applications:systemsettings.desktop"
                   "applications:org.wezfurlong.wezterm.desktop"
                   "applications:org.kde.dolphin.desktop"
-                  "applications:firefox.desktop"
+                  "applications:zen-beta.desktop"
                   "applications:obsidian.desktop"
                   "applications:neovide.desktop"
                   "applications:sublime_merge.desktop"
