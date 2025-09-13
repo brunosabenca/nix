@@ -94,6 +94,7 @@
               ./modules/neovim
               ./modules/vscode
               ./modules/home
+              ./modules/zen-browser
               stylix.nixosModules.stylix
 
               lanzaboote.nixosModules.lanzaboote
