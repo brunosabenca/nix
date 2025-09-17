@@ -68,7 +68,6 @@
         oci-cli
         kubectl
         kubernetes-helm
-        cloudflared
         kustomize
 
         phockup
