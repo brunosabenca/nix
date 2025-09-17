@@ -6,11 +6,19 @@
   pkgs,
   username,
   config,
+  system,
   ...
 }:
 {
   imports = [
+    # Load agenix and install client package
     agenix.nixosModules.default
+    {
+      environment.systemPackages = [
+        agenix.packages."${system}".default
+      ];
+    }
+
     home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
