@@ -1,5 +1,6 @@
 {
   inputs,
+  agenix,
   home-manager,
   plasma-manager,
   pkgs,
@@ -9,6 +10,7 @@
 }:
 {
   imports = [
+    agenix.nixosModules.default
     home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;

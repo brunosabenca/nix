@@ -4,20 +4,26 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    dotfiles = {
-      url = "github:brunosabenca/dotfiles";
-      flake = false;
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
+    };
+
+    dotfiles = {
+      url = "github:brunosabenca/dotfiles";
+      flake = false;
     };
 
     catppuccin.url = "github:catppuccin/nix";
@@ -96,7 +102,6 @@
               ./modules/home
               ./modules/zen-browser
               stylix.nixosModules.stylix
-
               lanzaboote.nixosModules.lanzaboote
               (
                 { pkgs, lib, ... }:
