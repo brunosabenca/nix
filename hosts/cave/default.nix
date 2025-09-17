@@ -105,8 +105,16 @@
         from = 443;
         to = 443;
       }
+      {
+        from = 4533;
+        to = 4533;
+      }
     ];
     firewall.allowedUDPPortRanges = [
+      {
+        from = 4533;
+        to = 4533;
+      }
       {
         from = 38844;
         to = 38844;

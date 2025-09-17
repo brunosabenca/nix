@@ -29,6 +29,7 @@
       #};
 
       home.packages = with pkgs; [
+        feishin # subsonic client
         pulseaudio # to use pactl
         bitwarden-desktop
         blueberry
