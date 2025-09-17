@@ -48,13 +48,20 @@
     };
   };
 
+  age.secrets."navidrome.acme".file = ./navidrome.acme.age;
+
+  security.acme.certs."navidrome.brunosabenca.com" = {
+    dnsProvider = "cloudflare";
+    credentialsFile = config.age.secrets."navidrome.acme".path;
+    group = config.services.nginx.group;
+  };
+
   services.nginx = {
     enable = true;
     virtualHosts = {
-      "navidrome.cave.lan" = {
-        addSSL = false;
-        #forceSSL  = true;
-        #enableACME = true;
+      "navidrome.brunosabenca.com" = {
+        useACMEHost = "navidrome.brunosabenca.com";
+        forceSSL = true;
         locations."/".proxyPass = "http://127.0.0.1:4533";
       };
     };
@@ -62,7 +69,7 @@
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = "bruno@brunosabenca.com";
+    defaults.email = "admin+acme@brunosabenca.com";
   };
 
   networking = {
