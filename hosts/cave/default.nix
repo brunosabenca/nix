@@ -17,7 +17,7 @@
     AllowSuspendThenHibernate=no
   '';
 
-  age.secrets."cloudflared".file = ./cludflared.age;
+  age.secrets."cloudflared".file = ./cloudflared.age;
 
   services.cloudflared = {
     enable = true;
