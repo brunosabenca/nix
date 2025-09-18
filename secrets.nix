@@ -3,4 +3,5 @@ let
 in
 {
   "navidrome.acme.age".publicKeys = [ cave ];
+  "cloudflared.age".publicKeys = [ cave ];
 }
