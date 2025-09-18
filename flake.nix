@@ -182,6 +182,9 @@
               ./modules/core/terminal
               ./modules/core/git
               ./modules/core/man
+              ./modules/core/man
+              ./modules/cloudflared
+              ./modules/navidrome
               stylix.nixosModules.stylix
             ];
           };

@@ -10,43 +10,14 @@
     ./audio-configuration.nix
   ];
 
+  services.getty.autologinUser = "bruno";
+
   systemd.sleep.extraConfig = ''
     AllowSuspend=no
     AllowHibernation=no
     AllowHybridSleep=no
     AllowSuspendThenHibernate=no
   '';
-
-  age.secrets."cloudflared".file = ./cloudflared.age;
-
-  services.cloudflared = {
-    enable = true;
-    tunnels = {
-      "33acef66-7c08-48a8-916f-75b913578957" = {
-        credentialsFile = config.age.secrets."cloudflared".path;
-        default = "http_status:404";
-      };
-    };
-  };
-
-  services.getty.autologinUser = "bruno";
-
-  systemd.services.navidrome.serviceConfig = {
-    ProtectHome = lib.mkForce false;
-    BindReadOnlyPaths = [
-      "/etc"
-      "/mnt/data/Music"
-    ];
-  };
-
-  services.navidrome = {
-    enable = true;
-    user = "navidrome";
-    group = "users";
-    settings = {
-      musicFolder = "/mnt/data/Music";
-    };
-  };
 
   services.openssh = {
     enable = true;
@@ -58,30 +29,6 @@
       X11Forwarding = false;
       PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
     };
-  };
-
-  age.secrets."navidrome.acme".file = ./navidrome.acme.age;
-
-  security.acme.certs."navidrome.brunosabenca.com" = {
-    dnsProvider = "cloudflare";
-    credentialsFile = config.age.secrets."navidrome.acme".path;
-    group = config.services.nginx.group;
-  };
-
-  services.nginx = {
-    enable = true;
-    virtualHosts = {
-      "navidrome.brunosabenca.com" = {
-        useACMEHost = "navidrome.brunosabenca.com";
-        forceSSL = true;
-        locations."/".proxyPass = "http://127.0.0.1:4533";
-      };
-    };
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "admin+acme@brunosabenca.com";
   };
 
   networking = {
@@ -97,22 +44,15 @@
         from = 22;
         to = 22;
       }
-      {
-        from = 4533;
-        to = 4533;
-      }
     ];
     firewall.allowedUDPPortRanges = [
-      {
-        from = 4533;
-        to = 4533;
-      }
       {
         from = 38844;
         to = 38844;
       }
     ];
   };
+
   powerManagement.cpuFreqGovernor = "performance";
 
   services.acpid.enable = true;
