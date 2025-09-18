@@ -61,8 +61,6 @@
     colemak-dh
     curl
     neocmakelsp
-    clang-tools
-    clang_17
     gnumake
     libnotify
     kdePackages.polkit-kde-agent-1
