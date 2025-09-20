@@ -3,7 +3,6 @@
   # Default system packages
   environment.systemPackages = with pkgs; [
     home-manager # manage my home dir/programs
-    sops # manage my nixos secrets
     cowsay # very important
     neofetch # very important
     eza # better ls
@@ -73,8 +72,6 @@
     #       sha256 = "1a3fd50ec57e92cf1b86c170538efea019ac60e6b495030765ea90dff2079bd1";
     #     };
     #   })
-    gnome-tweaks
-    gnomeExtensions.unite
     wezterm
     lazygit
     nixfmt

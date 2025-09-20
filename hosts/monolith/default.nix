@@ -19,7 +19,11 @@
       ...
     }:
     {
-      home.packages = [ pkgs.rclone ];
+      home.packages = with pkgs; [
+        rclone
+        bottles
+      ];
+
       xdg.configFile."rclone/rclone-nixos.conf".text = ''
         [cave]
         type = sftp
