@@ -156,10 +156,10 @@
       lid_state=$(cat /proc/acpi/button/lid/LID0/state | awk '{print $NF}')
       if [ $lid_state = "closed" ]; then
         # Set brightness to zero
-        echo 0  > /sys/class/backlight/acpi_video0/brightness
+        echo 0  > /sys/class/backlight/intel_backlight/brightness
       else
         # Reset the brightness
-        echo 50  > /sys/class/backlight/acpi_video0/brightness
+        echo 50  > /sys/class/backlight/intel_backlight/brightness
       fi
     '';
 
