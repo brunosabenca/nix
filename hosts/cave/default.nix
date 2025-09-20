@@ -54,7 +54,7 @@
   services = {
     getty.autologinUser = "bruno";
 
-    logind.settings.Login = {
+    logind = {
       settings.Login = {
         HandleLidSwitch = "ignore";
         HandlePowerKey = "ignore";
