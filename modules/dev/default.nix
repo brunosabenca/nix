@@ -12,12 +12,14 @@
   environment.systemPackages = with pkgs; [
     nil # Nix language server
     lua
+    gcc
     gdb
     cmake
     gnumake
     python3
     ruby
-    gopls
+    go # Go
+    gopls # Go language server
     nodejs_20
     git-open
     codespell
