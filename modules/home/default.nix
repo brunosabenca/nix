@@ -115,21 +115,27 @@
         # Useful commands for debugging:
         # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query filetype example.png
         # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default image/png
-        defaultApplications = {
-          # "text/plain" = ["neovide.desktop"];
-          "application/pdf" = [ "zathura.desktop" ];
-          "image/jpeg" = [ "okular.desktop" ];
-          "image/png" = [ "okular.desktop" ];
-          "image/*" = [ "okular.desktop" ];
-          "video/png" = [ "mpv.desktop" ];
-          "video/jpg" = [ "mpv.desktop" ];
-          "video/*" = [ "mpv.desktop" ];
-          "text/html" = [ "firefox.desktop" ];
-          "x-scheme-handler/http" = [ "firefox.desktop" ];
-          "x-scheme-handler/https" = [ "firefox.desktop" ];
-          "x-scheme-handler/about" = [ "firefox.desktop" ];
-          "x-scheme-handler/unknown" = [ "firefox.desktop" ];
-        };
+        defaultApplications =
+          let
+            browser = "zen-beta.desktop";
+            videoPlayer = "mpv.desktop";
+            imageViewer = "okular.desktop";
+          in
+          {
+            # "text/plain" = ["neovide.desktop"];
+            "application/pdf" = [ "zathura.desktop" ];
+            "image/jpeg" = [ imageViewer ];
+            "image/png" = [ imageViewer ];
+            "image/*" = [ imageViewer ];
+            "video/png" = [ videoPlayer ];
+            "video/jpg" = [ videoPlayer ];
+            "video/*" = [ videoPlayer ];
+            "text/html" = [ browser ];
+            "x-scheme-handler/http" = [ browser ];
+            "x-scheme-handler/https" = [ browser ];
+            "x-scheme-handler/about" = [ browser ];
+            "x-scheme-handler/unknown" = [ browser ];
+          };
         associations.added = { };
       };
     };
