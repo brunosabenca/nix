@@ -54,11 +54,11 @@
   services = {
     getty.autologinUser = "bruno";
 
-    logind = {
-      lidSwitch = "ignore";
-      extraConfig = ''
-        HandlePowerKey=ignore
-      '';
+    logind.settings.Login = {
+      settings.Login = {
+        HandleLidSwitch = "ignore";
+        HandlePowerKey = "ignore";
+      };
     };
 
     acpid = {
