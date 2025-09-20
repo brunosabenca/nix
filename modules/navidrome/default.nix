@@ -45,6 +45,4 @@
     acceptTerms = true;
     defaults.email = "admin+acme@brunosabenca.com";
   };
-
-  age.secrets."navidrome.acme".file = ./navidrome.acme.age;
 }
