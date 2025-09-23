@@ -1,7 +1,4 @@
 {
-  inputs,
-  pkgs,
-  home-manager,
   username,
   ...
 }:
@@ -19,12 +16,10 @@
     {
       programs.vscode = {
         enable = true;
-        package = pkgs.vscode.fhsWithPackages (
-          ps: with ps; [
-            patched-openssh # https://github.com/nix-community/home-manager/issues/322#issuecomment-1178614454
-            # add extension-specific dependencies here
-          ]
-        );
+        package = pkgs.vscode.fhsWithPackages (ps: [
+          patched-openssh # https://github.com/nix-community/home-manager/issues/322#issuecomment-1178614454
+          # add extension-specific dependencies here
+        ]);
       };
     };
 }

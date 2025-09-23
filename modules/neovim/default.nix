@@ -1,11 +1,7 @@
 {
   inputs,
-  config,
   pkgs,
   lib,
-  home-manager,
-  neovim-nightly-overlay,
-  system,
   username,
   ...
 }:
