@@ -172,6 +172,7 @@
       };
 
       configFile = {
+        # Disable GTK settings synchronization service as it conflicts with Stylix
         # System Settings -> Session (very bottom category) -> Background Services -> GNOME/GTK Settings Synchronization Service
         kded5rc."Module-gtkconfig"."autoload" = false;
         # Use detailed view for file picker
