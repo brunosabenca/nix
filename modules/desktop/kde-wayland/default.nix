@@ -85,6 +85,7 @@
             }
             {
               iconTasks = {
+                #  ~/.config/plasma-org.kde.plasma.desktop-appletsrc
                 launchers = [
                   "applications:systemsettings.desktop"
                   "applications:org.wezfurlong.wezterm.desktop"
