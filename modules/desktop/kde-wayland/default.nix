@@ -93,6 +93,8 @@
                   "applications:obsidian.desktop"
                   "applications:neovide.desktop"
                   "applications:sublime_merge.desktop"
+                  "applications:org.telegram.desktop.desktop"
+                  "applications:discord.desktop"
                 ];
               };
             }
