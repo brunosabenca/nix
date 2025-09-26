@@ -68,6 +68,7 @@
 
   home-manager.users.${username} = {
     stylix.targets.kde.enable = true;
+    stylix.targets.qt.enable = false;
 
     programs.plasma = {
       enable = true;
@@ -117,17 +118,16 @@
           ];
         }
       ];
+
       shortcuts = {
-        kaccess = {
-          "Toggle Screen Reader On and Off" = [
-            "Meta+Alt+Ctrl+Esc"
-          ];
-        };
+        # System Settings > Keyboard > Shortcuts > Session Management
         ksmserver = {
           "Lock Session" = [
-            "Meta+Alt+Ctrl+Esc"
+            "Meta+Alt+Ctrl+Shift+Esc"
           ];
         };
+
+        # System Settings > Keyboard > Shortcuts > Window Management
         kwin = {
           "Window Maximize" = [
             "Meta+F"
@@ -135,7 +135,15 @@
           "Window Close" = [
             "Meta+Q"
           ];
+          "Walk Through Windows" = [
+            "Alt+Tab"
+          ];
+          "Walk Through Windows (Reverse)" = [
+            "Alt+Shift+Tab"
+          ];
         };
+
+        # System Settings > Keyboard > Shortcuts > Plasma Workspace
         plasmashell = {
           "activate task manager entry 1" = "Meta+1,Meta+1,Activate Task Manager Entry 1";
           "activate task manager entry 10" = ",,Activate Task Manager Entry 10";
@@ -149,7 +157,25 @@
           "activate task manager entry 9" = "Meta+9,Meta+9,Activate Task Manager Entry 9";
         };
       };
+
+      # System Settings > Session > Desktop Session
+      session = {
+        general.askForConfirmationOnLogout = false;
+        sessionRestore.restoreOpenApplicationsOnLogin = "startWithEmptySession";
+      };
+
+      #
+      # KRunner
+      #
+      krunner = {
+        position = "center";
+      };
+
       configFile = {
+        # System Settings -> Session (very bottom category) -> Background Services -> GNOME/GTK Settings Synchronization Service
+        kded5rc."Module-gtkconfig"."autoload" = false;
+        # Use detailed view for file picker
+        kdeglobals."KFileDialog Settings"."View Style" = "Detail";
         #"dolphinrc"."DetailsMode"."PreviewSize" = 160;
         #"dolphinrc"."ExtractDialog"."2560x1440 screen: Height" = 720;
         #"dolphinrc"."ExtractDialog"."2560x1440 screen: Width" = 1651;
@@ -217,7 +243,37 @@
         #"spectaclerc"."ImageSave"."translatedScreenshotsFolder" = "Screenshots";
         #"spectaclerc"."VideoSave"."translatedScreencastsFolder" = "Screencasts";
       };
+
       dataFile = {
+      };
+
+      # System Settings > Text & Fonts > Fonts
+      fonts = {
+        fixedWidth = {
+          family = "Monaspace Krypton Medium";
+          pointSize = 10;
+        };
+        general = {
+          family = "Noto Sans";
+          pointSize = 10;
+        };
+        menu = {
+          family = "Noto Sans";
+          pointSize = 10;
+        };
+        small = {
+          family = "Noto Sans";
+          pointSize = 10;
+        };
+        toolbar = {
+          family = "Noto Sans";
+          pointSize = 10;
+        };
+        windowTitle = {
+          family = "Noto Sans";
+          styleName = "SemiBold";
+          pointSize = 11;
+        };
       };
     };
   };

@@ -37,6 +37,18 @@
     enable = true;
     image = config.lib.stylix.pixel "base0A";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
+    fonts = {
+      serif.name = "Noto Serif";
+      sansSerif.name = "Noto Sans";
+      monospace.name = "Monaspace Krypton";
+
+      sizes = {
+        terminal = 12;
+        applications = 10;
+        popups = 10;
+        desktop = 10;
+      };
+    };
   };
 
   home-manager.useUserPackages = true;
@@ -170,8 +182,11 @@
     enableDefaultPackages = true;
     fontconfig = {
       antialias = true;
-      hinting.enable = true;
-      hinting.autohint = true;
+      hinting = {
+        enable = true;
+        autohint = true;
+      };
+      subpixel.rgba = "rgb";
     };
   };
 
