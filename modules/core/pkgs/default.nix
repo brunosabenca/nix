@@ -76,7 +76,5 @@
     lazygit
     nixfmt
     nixfmt-tree
-
-    ghostty
   ];
 }
