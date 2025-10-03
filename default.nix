@@ -40,7 +40,7 @@
     fonts = {
       serif.name = "Noto Serif";
       sansSerif.name = "Noto Sans";
-      monospace.name = "Monaspace Krypton";
+      monospace.name = "JetBrains Mono NF";
 
       sizes = {
         terminal = 12;

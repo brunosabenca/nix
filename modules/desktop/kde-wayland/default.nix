@@ -254,29 +254,29 @@
       # System Settings > Text & Fonts > Fonts
       fonts = {
         fixedWidth = {
-          family = "Monaspace Krypton Medium";
-          pointSize = 10;
+          family = "JetBrains Mono NF";
+          pointSize = 12;
         };
         general = {
           family = "Noto Sans";
-          pointSize = 10;
+          pointSize = 12;
         };
         menu = {
           family = "Noto Sans";
-          pointSize = 10;
+          pointSize = 12;
         };
         small = {
           family = "Noto Sans";
-          pointSize = 10;
+          pointSize = 12;
         };
         toolbar = {
           family = "Noto Sans";
-          pointSize = 10;
+          pointSize = 12;
         };
         windowTitle = {
           family = "Noto Sans";
           styleName = "SemiBold";
-          pointSize = 11;
+          pointSize = 12;
         };
       };
     };
