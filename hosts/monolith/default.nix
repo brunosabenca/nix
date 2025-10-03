@@ -73,14 +73,8 @@
 
   hardware.graphics = {
     enable = true;
-
-    extraPackages = with pkgs; [
-      amdvlk
-    ];
   };
 
-  # Force radv
-  environment.variables.AMD_VULKAN_ICD = "RADV";
   services.xserver.dpi = 108;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
