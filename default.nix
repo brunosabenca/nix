@@ -148,6 +148,7 @@
     ls = "exa --icons -F -H --group-directories-first --git -1";
     ll = "ls -alF";
     k = "kubectl";
+    n = "nvim";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
