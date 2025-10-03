@@ -26,7 +26,7 @@
       home.packages = with pkgs; [
         feishin # subsonic client
         pulseaudio # to use pactl
-        inputleap
+        deskflow
         bitwarden-desktop
         blueberry
         lm_sensors
