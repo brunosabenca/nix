@@ -18,7 +18,7 @@
     ruby
     go # Go
     gopls # Go language server
-    nodejs_20
+    nodejs_22
     git-open
     codespell
     prettierd
