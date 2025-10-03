@@ -189,6 +189,9 @@
       };
       subpixel.rgba = "rgb";
     };
+    packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+    ];
   };
 
   programs.partition-manager.enable = true;
