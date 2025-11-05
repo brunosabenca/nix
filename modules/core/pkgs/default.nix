@@ -45,10 +45,10 @@
     nethogs # network monitor tool
     sniffnet # network monitor tool
     imagemagick # a classic
-    poppler_utils # pdfunite and other pdf utils
+    poppler-utils # pdfunite and other pdf utils
     pandoc # classic haskell lib for file type conversions
     ffmpeg # its ffmpeg
-    tdesktop # telegram desktop
+    telegram-desktop # telegram desktop
     qimgv # image viewer
     picard # GUI to edit music metadata
     zenity # spawn xdg portals
@@ -73,6 +73,7 @@
     #     };
     #   })
     wezterm
+    ghostty
     lazygit
     nixfmt
     nixfmt-tree

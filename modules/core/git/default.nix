@@ -6,10 +6,11 @@
   home-manager.users.${username} = {
     programs.git = {
       enable = true;
-      userName = "Bruno Sabença";
-      userEmail = "bruno@brunosabenca.com";
-      delta.enable = true;
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Bruno Sabença";
+          email = "bruno@brunosabenca.com";
+        };
         format = {
           pretty = "oneline";
         };
@@ -18,6 +19,10 @@
           abbrevCommit = true;
         };
       };
+    };
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
     };
   };
 }

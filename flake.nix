@@ -42,17 +42,12 @@
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     kmonad = {
       url = "github:kmonad/kmonad?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -102,7 +97,6 @@
               ./modules/neovim
               ./modules/vscode
               ./modules/home
-              ./modules/zen-browser
               stylix.nixosModules.stylix
               lanzaboote.nixosModules.lanzaboote
               (
@@ -153,7 +147,6 @@
               ./modules/dev
               ./modules/neovim
               ./modules/home
-              ./modules/zen-browser
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
             ];

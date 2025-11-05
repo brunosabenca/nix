@@ -126,10 +126,7 @@
   ];
 
   # Enable nix-ld to use dynamically linked executables with hardcoded paths
-  programs.nix-ld = {
-    enable = true;
-    package = pkgs.nix-ld-rs;
-  };
+  programs.nix-ld.enable = true;
 
   # Enable envfs for fhs compatibility
   services.envfs.enable = true;

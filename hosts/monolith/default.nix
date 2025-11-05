@@ -72,6 +72,13 @@
     ];
   };
 
+  services.syncthing = {
+    enable = true;
+    group = "users";
+    user = "bruno";
+    dataDir = "/home/bruno/Sync"; # Default folder for new synced folders
+    configDir = "/home/bruno/.config/syncthing"; # Folder for Syncthing's settings and keys
+  };
   services.actual.enable = true;
 
   boot.supportedFilesystems = [
@@ -82,6 +89,13 @@
   hardware.graphics = {
     enable = true;
   };
+
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
+
+  environment.systemPackages = [ pkgs.distrobox ];
 
   services.xserver.dpi = 108;
   services.xserver.videoDrivers = [ "amdgpu" ];

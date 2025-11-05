@@ -60,7 +60,7 @@
         filezilla
         vlc
         easyeffects
-        bitwarden
+        localsend
 
         oci-cli
         kubectl
