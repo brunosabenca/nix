@@ -88,7 +88,7 @@
                 #  ~/.config/plasma-org.kde.plasma.desktop-appletsrc
                 launchers = [
                   "applications:systemsettings.desktop"
-                  "applications:com.mitchellh.ghostty.desktop"
+                  "applications:org.wezfurlong.wezterm.desktop"
                   "applications:org.kde.dolphin.desktop"
                   "applications:firefox.desktop"
                   "applications:obsidian.desktop"

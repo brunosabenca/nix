@@ -131,6 +131,7 @@
       };
 
       home.shellAliases = {
+        n = "nvim";
         vi = "nvim";
         vim = "nvim";
         vimdiff = "nvim -d";
@@ -140,7 +141,7 @@
         name = "nvim";
         comment = "Edit text files";
         icon = "nvim";
-        exec = "${pkgs.wezterm}/bin/ghostty -e ${pkgs.zsh}/bin/zsh -l -c \"${
+        exec = "${pkgs.wezterm}/bin/wezterm -e ${pkgs.zsh}/bin/zsh -l -c \"${
           inputs.neovim-nightly-overlay.packages.${pkgs.system}.default
         }/bin/nvim %F\"";
         categories = [

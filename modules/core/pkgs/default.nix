@@ -74,6 +74,7 @@
     #   })
     wezterm
     ghostty
+    zoxide
     lazygit
     nixfmt
     nixfmt-tree
