@@ -16,6 +16,8 @@
       '';
     };
 
+    programs.starship.enable = true;
+
     programs.fzf = {
       enable = true;
       enableZshIntegration = true;

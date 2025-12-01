@@ -18,7 +18,10 @@
       ...
     }:
     {
-      home.packages = [ pkgs.rclone ];
+      home.packages = [
+        pkgs.rclone
+        pkgs.vial
+      ];
       xdg.configFile."rclone/rclone-nixos.conf".text = ''
         [cave]
         type = sftp
@@ -43,6 +46,18 @@
 
       services.kdeconnect.enable = true;
     };
+
+  services.udev = {
+
+    packages = with pkgs; [
+      qmk
+      qmk-udev-rules
+      qmk_hid
+      via
+      vial
+    ]; # packages
+
+  }; # udev
 
   services.openssh = {
     enable = true;
