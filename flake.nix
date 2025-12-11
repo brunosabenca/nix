@@ -95,6 +95,7 @@
               ./.
               ./hosts/monolith
               ./modules/desktop/kde-wayland
+              ./modules/desktop/niri
               ./modules/core
               ./modules/dev
               ./modules/neovim
