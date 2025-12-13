@@ -1,6 +1,7 @@
 {
   pkgs,
   username,
+  lib,
   ...
 }:
 {
@@ -29,17 +30,41 @@
       ...
     }:
     {
-      programs.alacritty.enable = true; # Super+T in the default setting (terminal)
-      programs.fuzzel.enable = true; # Super+D in the default setting (app launcher)
-      programs.swaylock.enable = true; # Super+Alt+L in the default setting (screen locker)
-      programs.waybar.enable = true; # launch on startup in the default setting (bar)
+      programs.alacritty.enable = true;
+      programs.fuzzel = {
+        enable = true;
+        settings = {
+          main = {
+            font = lib.mkForce "JetBrains Mono:size=23";
+            horizontal-pad = 20;
+            lines = 8;
+            exit-on-keyboard-focus-loss = true;
+            terminal = "alacritty -e";
+          };
+          border = {
+            width = 4;
+            radius = 8;
+          };
+          colours = {
+            background = "1e1e2ef7";
+            text = "cdd6f4ff";
+            match = "cba6f7ff";
+            selection = "585b70ff";
+            selection-text = "cdd6f4ff";
+            selection-match = "cba6f7ff";
+            border = "cba6f7ff";
+          };
+        };
+      };
+      programs.swaylock.enable = true;
+      programs.waybar.enable = true;
 
-      services.mako.enable = true; # notification daemon
-      services.swayidle.enable = true; # idle management daemon
-      services.polkit-gnome.enable = true; # polkit
+      services.mako.enable = true;
+      services.swayidle.enable = true;
+      services.polkit-gnome.enable = true;
 
       home.packages = with pkgs; [
-        swaybg # wallpaper
+        swaybg
       ];
     };
 }
