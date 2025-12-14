@@ -26,6 +26,7 @@
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+      home-manager.modules = [ agenix.homeManagerModules.default ];
     }
     ./hosts
     ./modules
