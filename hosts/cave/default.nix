@@ -1,7 +1,6 @@
 {
-  config,
-  lib,
   pkgs,
+  copyparty,
   ...
 }:
 {
@@ -9,6 +8,10 @@
     ./hardware-configuration.nix
     ./audio-configuration.nix
   ];
+
+  nixpkgs.overlays = [ copyparty.overlays.default ];
+  environment.systemPackages = [ pkgs.copyparty ];
+  services.copyparty.enable = true;
 
   networking = {
     hostName = "cave";

@@ -53,6 +53,8 @@
       url = "github:kmonad/kmonad?dir=nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    copyparty.url = "github:9001/copyparty";
   };
 
   outputs =
@@ -62,6 +64,7 @@
       stylix,
       lanzaboote,
       kmonad,
+      copyparty,
       ...
     }@inputs:
     let
@@ -183,6 +186,7 @@
               ./modules/cloudflared
               ./modules/navidrome
               stylix.nixosModules.stylix
+              copyparty.nixosModules.default
             ];
           };
       };
