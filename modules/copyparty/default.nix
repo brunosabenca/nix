@@ -1,21 +1,18 @@
 {
   config,
   pkgs,
-  username,
   copyparty,
   ...
 }:
 {
-  home-manager.users.${username} =
-    {
-      age,
-      config,
-      ...
-    }:
-    {
-      age.secrets."copyparty.bruno".file = ./copyparty.bruno.age;
+  age.secrets."copyparty.acme".file = ./copyparty.acme.age;
 
-    };
+  age.secrets."copyparty.bruno" = {
+    file = ./copyparty.bruno.age;
+    mode = "770";
+    owner = "copyparty";
+    group = "copyparty";
+  };
 
   services.copyparty = {
     enable = true;
@@ -65,8 +62,6 @@
     # you may increase the open file limit for the process
     openFilesLimit = 8192;
   };
-
-  age.secrets."copyparty.acme".file = ./copyparty.acme.age;
 
   nixpkgs.overlays = [ copyparty.overlays.default ];
   environment.systemPackages = [
