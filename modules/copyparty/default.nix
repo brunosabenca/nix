@@ -31,7 +31,7 @@
     };
 
     accounts = {
-      bruno.passwordFile = config.age.secrets."copyparty.bruno.age".path;
+      bruno.passwordFile = config.age.secrets."copyparty.bruno".path;
     };
 
     volumes = {
