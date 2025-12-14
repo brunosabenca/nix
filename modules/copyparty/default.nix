@@ -11,7 +11,7 @@
     pkgs.copyparty
   ];
 
-  age.secrets."copyparty.bruno.".file = ./copyparty.bruno.age;
+  age.secrets."copyparty.bruno".file = ./copyparty.bruno.age;
   age.secrets."copyparty.acme".file = ./copyparty.acme.age;
 
   services.copyparty = {
