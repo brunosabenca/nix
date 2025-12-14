@@ -94,8 +94,8 @@
             modules = [
               ./.
               ./hosts/monolith
-              ./modules/desktop/kde-wayland
               ./modules/desktop/niri
+              ./modules/desktop/dms
               ./modules/core
               ./modules/dev
               ./modules/neovim
