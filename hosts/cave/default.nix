@@ -22,6 +22,10 @@
 
     firewall.allowedTCPPortRanges = [
       {
+        from = 3923;
+        to = 3923;
+      }
+      {
         from = 38844;
         to = 38844;
       }
@@ -31,6 +35,10 @@
       }
     ];
     firewall.allowedUDPPortRanges = [
+      {
+        from = 3923;
+        to = 3923;
+      }
       {
         from = 38844;
         to = 38844;
