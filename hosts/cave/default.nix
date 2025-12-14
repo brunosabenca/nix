@@ -14,7 +14,6 @@
     pkgs.copyparty
     pkgs.cfssl
   ];
-  services.copyparty.enable = true;
   services.tailscale.enable = true;
 
   networking = {
