@@ -187,6 +187,7 @@
               ./modules/navidrome
               stylix.nixosModules.stylix
               copyparty.nixosModules.default
+              ./modules/copyparty
             ];
           };
       };
