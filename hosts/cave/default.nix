@@ -10,8 +10,12 @@
   ];
 
   nixpkgs.overlays = [ copyparty.overlays.default ];
-  environment.systemPackages = [ pkgs.copyparty ];
+  environment.systemPackages = [
+    pkgs.copyparty
+    pkgs.cfssl
+  ];
   services.copyparty.enable = true;
+  services.tailscale.enable = true;
 
   networking = {
     hostName = "cave";
