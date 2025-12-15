@@ -17,6 +17,12 @@
   services.copyparty = {
     enable = true;
 
+
+    settings = {
+      i = "0.0.0.0";
+      p = [ 3921 3923 3945 3990 ];
+    };
+
     accounts = {
       bruno.passwordFile = config.age.secrets."copyparty.bruno".path;
     };
@@ -54,26 +60,4 @@
   environment.systemPackages = [
     pkgs.copyparty
   ];
-
-  security.acme.certs."copyparty.brunosabenca.com" = {
-    dnsProvider = "cloudflare";
-    credentialsFile = config.age.secrets."copyparty.acme".path;
-    group = config.services.nginx.group;
-  };
-
-  services.nginx = {
-    enable = true;
-    virtualHosts = {
-      "copyparty.brunosabenca.com" = {
-        useACMEHost = "copyparty.brunosabenca.com";
-        forceSSL = true;
-        locations."/".proxyPass = "http://127.0.0.1:3923";
-      };
-    };
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "admin+acme@brunosabenca.com";
-  };
 }
