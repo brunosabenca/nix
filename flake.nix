@@ -159,6 +159,36 @@
             ];
           };
 
+        firefly =
+          let
+            system = "x86_64-linux";
+            hostname = "firefly";
+          in
+          nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit
+                system
+                hostname
+                username
+                inputs
+                ;
+            }
+            // inputs;
+
+            modules = [
+              ./.
+              ./hosts/firefly
+              ./modules/desktop/niri
+              ./modules/desktop/dms
+              ./modules/core
+              ./modules/dev
+              ./modules/neovim
+              ./modules/home
+              stylix.nixosModules.stylix
+              kmonad.nixosModules.default
+            ];
+          };
+
         cave =
           let
             system = "x86_64-linux";
