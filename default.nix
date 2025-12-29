@@ -1,6 +1,7 @@
 {
   inputs,
   agenix,
+  neovim,
   home-manager,
   plasma-manager,
   pkgs,
@@ -30,8 +31,13 @@
         agenix.homeManagerModules.default
       ];
     }
+
     ./hosts
     ./modules
+  ];
+
+  environment.systemPackages = [
+    neovim.packages."${system}".default
   ];
 
   # Todo: move below to appropriate modules

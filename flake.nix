@@ -39,6 +39,11 @@
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
+    neovim = {
+      url = "github:brunosabenca/neovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nil-lsp = {
       url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -65,6 +70,7 @@
       lanzaboote,
       kmonad,
       copyparty,
+      neovim,
       ...
     }@inputs:
     let
@@ -101,7 +107,7 @@
               ./modules/desktop/dms
               ./modules/core
               ./modules/dev
-              ./modules/neovim
+              ./modules/neovim-lazyvim
               ./modules/vscode
               ./modules/home
               stylix.nixosModules.stylix
@@ -152,7 +158,7 @@
               ./modules/desktop/kde-wayland
               ./modules/core
               ./modules/dev
-              ./modules/neovim
+              ./modules/neovim-lazyvim
               ./modules/home
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
@@ -182,7 +188,6 @@
               ./modules/desktop/dms
               ./modules/core
               ./modules/dev
-              ./modules/neovim
               ./modules/home
               stylix.nixosModules.stylix
               kmonad.nixosModules.default

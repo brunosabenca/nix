@@ -18,8 +18,6 @@
           decorate = "short";
           abbrevCommit = true;
         };
-      };
-      extraConfig = {
         init.defaultBranch = "main";
       };
     };
