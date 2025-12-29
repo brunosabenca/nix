@@ -27,7 +27,7 @@ update:
 
 # Update a specific flake input
 up input:
-    nix flake lock --update-input {{ input }}
+    sudo nix flake update {{ input }}
 
 # Open a nix repl
 repl:

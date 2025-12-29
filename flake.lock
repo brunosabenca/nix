@@ -475,11 +475,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1767020065,
-        "narHash": "sha256-jGaB7KtuCY7h1Vxej+zcKHJGEcz6VwhxpaqHjlfPQkE=",
+        "lastModified": 1767027187,
+        "narHash": "sha256-7KhdJ/qHQ/qbJfpvbOVeTTWnYPKy3u84BxqI0yIriqk=",
         "owner": "brunosabenca",
         "repo": "neovim",
-        "rev": "21a1f10e8effe2eb428e4bdcbc7fc484bf57a94f",
+        "rev": "ac8dea2c940ba56b4c54c37a4989291a4b04069a",
         "type": "github"
       },
       "original": {
