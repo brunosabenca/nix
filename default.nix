@@ -9,8 +9,7 @@
   config,
   system,
   ...
-}:
-{
+}: {
   imports = [
     # Load agenix and install client package
     agenix.nixosModules.default
@@ -25,7 +24,7 @@
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "backup";
-      home-manager.extraSpecialArgs = { inherit inputs; };
+      home-manager.extraSpecialArgs = {inherit inputs;};
       home-manager.sharedModules = [
         plasma-manager.homeModules.plasma-manager
         agenix.homeManagerModules.default
@@ -36,9 +35,7 @@
     ./modules
   ];
 
-  environment.systemPackages = [
-    neovim.packages."${system}".default
-  ];
+  environment.systemPackages = [neovim.packages."${system}".neovimConfigured];
 
   # Todo: move below to appropriate modules
 

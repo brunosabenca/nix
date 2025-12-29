@@ -6,19 +6,13 @@
   username,
   modulesPath,
   ...
-}:
-{
+}: {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  home-manager.users.${username} =
-    {
-      pkgs,
-      ...
-    }:
-    {
-    };
+  home-manager.users.${username} = {pkgs, ...}: {
+  };
 
   networking = {
     hostName = "firefly";

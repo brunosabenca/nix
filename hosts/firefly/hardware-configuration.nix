@@ -6,9 +6,7 @@
   lib,
   modulesPath,
   ...
-}:
-{
-
+}: {
   ###############################################
 
   # THE BELOW CODE IS COPIED FROM THE AUTO-GENERATED 'configuration.nix'.
@@ -60,8 +58,8 @@
     "dm-snapshot"
     "cryptd"
   ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/NixOS-Root";
@@ -80,7 +78,7 @@
   boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/NixOS-Encrypted";
 
   swapDevices = [
-    { device = "/dev/disk/by-label/NixOS-Swap"; }
+    {device = "/dev/disk/by-label/NixOS-Swap";}
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
