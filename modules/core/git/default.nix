@@ -19,6 +19,9 @@
           abbrevCommit = true;
         };
       };
+      extraConfig = {
+        init.defaultBranch = "main";
+      };
     };
     programs.delta = {
       enable = true;
