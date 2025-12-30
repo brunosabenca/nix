@@ -35,12 +35,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-    };
-
     neovim = {
-      url = "github:brunosabenca/neovim";
+      url = "github:brunosabenca/nixCats-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -70,7 +66,6 @@
       lanzaboote,
       kmonad,
       copyparty,
-      neovim,
       ...
     }@inputs:
     let
@@ -113,9 +108,12 @@
               stylix.nixosModules.stylix
               lanzaboote.nixosModules.lanzaboote
               (
-                { pkgs, lib, ... }:
                 {
-
+                  pkgs,
+                  lib,
+                  ...
+                }:
+                {
                   environment.systemPackages = [
                     # For debugging and troubleshooting Secure Boot.
                     pkgs.sbctl
