@@ -102,7 +102,6 @@
               ./modules/desktop/dms
               ./modules/core
               ./modules/dev
-              ./modules/neovim-lazyvim
               ./modules/vscode
               ./modules/home
               stylix.nixosModules.stylix
@@ -153,10 +152,10 @@
             modules = [
               ./.
               ./hosts/fourforty
-              ./modules/desktop/kde-wayland
+              ./modules/desktop/niri
+              ./modules/desktop/dms
               ./modules/core
               ./modules/dev
-              ./modules/neovim-lazyvim
               ./modules/home
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
@@ -214,7 +213,6 @@
               ./modules/nixos/qbittorrent-service
               ./modules/core/terminal
               ./modules/core/git
-              ./modules/core/man
               ./modules/core/man
               ./modules/cloudflared
               ./modules/navidrome
