@@ -36,6 +36,7 @@
     ./modules
   ];
 
+  # Neovim
   environment.systemPackages = [ neovim.packages."${system}".nixCats ];
 
   # Todo: move below to appropriate modules

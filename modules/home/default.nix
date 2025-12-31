@@ -31,7 +31,6 @@
         blueberry
         lm_sensors
         xdg-utils
-        firefox
         sublime-merge
         discord
         htop

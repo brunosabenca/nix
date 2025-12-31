@@ -56,6 +56,11 @@
     };
 
     copyparty.url = "github:9001/copyparty";
+
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -66,12 +71,11 @@
       lanzaboote,
       kmonad,
       copyparty,
+      nur,
       ...
     }@inputs:
     let
-      supportedSystems = [ "x86_64-linux" ];
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
+      forAllSystems = with nixpkgs; (lib.genAttrs lib.systems.flakeExposed);
       username = "bruno";
       inherit (self) outputs;
     in
@@ -186,8 +190,10 @@
               ./modules/core
               ./modules/dev
               ./modules/home
+              ./modules/firefox
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
+              nur.modules.nixos.default
             ];
           };
 

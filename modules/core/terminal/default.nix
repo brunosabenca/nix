@@ -16,10 +16,21 @@
       '';
     };
 
+    programs.fish = {
+      enable = true;
+    };
+
     programs.starship.enable = true;
 
     programs.fzf = {
       enable = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+    };
+
+    programs.zellij = {
+      enable = true;
+      enableFishIntegration = true;
       enableZshIntegration = true;
     };
   };
