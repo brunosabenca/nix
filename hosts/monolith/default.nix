@@ -95,7 +95,10 @@
     dockerCompat = true;
   };
 
-  environment.systemPackages = [ pkgs.distrobox ];
+  environment.systemPackages = [
+    pkgs.distrobox
+    pkgs.spotify
+  ];
 
   services.xserver.dpi = 108;
   services.xserver.videoDrivers = [ "amdgpu" ];
