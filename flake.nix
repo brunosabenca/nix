@@ -103,7 +103,6 @@
               ./.
               ./hosts/monolith
               ./modules/desktop/niri
-              ./modules/desktop/dms
               ./modules/core
               ./modules/dev
               ./modules/vscode
@@ -159,7 +158,6 @@
               ./.
               ./hosts/fourforty
               ./modules/desktop/niri
-              ./modules/desktop/dms
               ./modules/core
               ./modules/dev
               ./modules/home
@@ -188,7 +186,6 @@
               ./.
               ./hosts/firefly
               ./modules/desktop/niri
-              ./modules/desktop/dms
               ./modules/core
               ./modules/dev
               ./modules/home

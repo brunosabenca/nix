@@ -635,8 +635,8 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-include "dms/alttab.kdl"
-include "dms/binds.kdl"
-include "dms/colors.kdl"
-include "dms/layout.kdl"
-include "dms/wpblur.kdl"
+include optional=true "dms/alttab.kdl"
+include optional=true "dms/binds.kdl"
+include optional=true "dms/colors.kdl"
+include optional=true "dms/layout.kdl"
+include optional=true "dms/wpblur.kdl"
