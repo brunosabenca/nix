@@ -108,6 +108,7 @@
               ./modules/dev
               ./modules/vscode
               ./modules/home
+              ./modules/firefox
               stylix.nixosModules.stylix
               lanzaboote.nixosModules.lanzaboote
               (
@@ -134,6 +135,7 @@
                   };
                 }
               )
+              nur.modules.nixos.default
             ];
           };
 
