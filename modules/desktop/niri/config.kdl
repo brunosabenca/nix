@@ -1,5 +1,14 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
+ 
+cursor {
+    xcursor-theme "catppuccin-cursors-mocha-mauve"
+    xcursor-size 48
+
+    hide-when-typing
+    hide-after-inactive-ms 1000
+}
+
 
 // https://yalter.github.io/niri/Configuration:-Input
 input {

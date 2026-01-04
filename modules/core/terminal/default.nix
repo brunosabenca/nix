@@ -20,8 +20,6 @@
       enable = true;
     };
 
-    programs.man.generateCaches = false; # causes slow build times
-
     programs.starship.enable = true;
 
     programs.fzf = {
