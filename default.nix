@@ -8,6 +8,7 @@
   username,
   config,
   system,
+  lib,
   ...
 }:
 {
@@ -29,15 +30,13 @@
       home-manager.sharedModules = [
         plasma-manager.homeModules.plasma-manager
         agenix.homeManagerModules.default
+        neovim.homeModules.default
       ];
     }
 
     ./hosts
     ./modules
   ];
-
-  # Neovim
-  environment.systemPackages = [ neovim.packages."${system}".nixCats ];
 
   # Todo: move below to appropriate modules
 

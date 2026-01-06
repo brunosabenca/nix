@@ -72,6 +72,7 @@
       kmonad,
       copyparty,
       nur,
+      neovim,
       ...
     }@inputs:
     let
@@ -108,6 +109,7 @@
               ./modules/vscode
               ./modules/home
               ./modules/firefox
+              ./modules/neovim
               stylix.nixosModules.stylix
               lanzaboote.nixosModules.lanzaboote
               (
@@ -161,6 +163,7 @@
               ./modules/core
               ./modules/dev
               ./modules/home
+              ./modules/neovim
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
             ];
@@ -190,6 +193,7 @@
               ./modules/dev
               ./modules/home
               ./modules/firefox
+              ./modules/neovim
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
               nur.modules.nixos.default
