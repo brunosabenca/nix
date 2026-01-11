@@ -19,6 +19,9 @@
 
     programs.fish = {
       enable = true;
+      interactiveShellInit = ''
+        set fish_greeting # Disable greeting
+      '';
     };
 
     programs.starship.enable = true;
@@ -42,6 +45,7 @@
         enableBashIntegration = true;
       };
       settings = {
+        shell = "fish";
         confirm_os_window_close = 0;
         dynamic_background_opacity = true;
         enable_audio_bell = false;
