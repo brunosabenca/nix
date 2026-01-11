@@ -49,6 +49,7 @@
         window_padding_width = 10;
         background_opacity = "0.9";
         background_blur = 5;
+        cursor_trail = 1;
       };
     };
     stylix.targets.kitty.enable = true;
