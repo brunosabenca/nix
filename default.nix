@@ -42,6 +42,7 @@
 
   stylix = {
     enable = true;
+    autoEnable = false;
     image = config.lib.stylix.pixel "base0A";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     fonts = {
@@ -117,7 +118,7 @@
   programs.zsh.enable = true;
   programs.fish.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set g password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
     description = "Bruno";
@@ -141,12 +142,17 @@
 
   environment.sessionVariables = {
     EDITOR = "nvim";
+
     # If your cursor becomes invisible
     WLR_NO_HARDWARE_CURSORS = "1";
+
     # Hint electron aps to use wayland
     NIXOS_OZONE_WL = "1";
 
     MOZ_USE_XINPUT2 = "1";
+
+    QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
+    GTK_USE_PORTAL = "1";
   };
 
   environment.shellAliases = {

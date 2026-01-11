@@ -9,6 +9,32 @@
       ...
     }:
     {
+      xdg.portal = {
+        enable = true;
+        xdgOpenUsePortal = true;
+        config = {
+          common.default = [ "gtk" ];
+          common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
+        };
+        extraPortals = [
+          pkgs.xdg-desktop-portal-termfilechooser
+          pkgs.xdg-desktop-portal-gtk
+        ];
+      };
+      xdg.configFile = {
+        "xdg-desktop-portal-termfilechooser/config" = {
+          force = true;
+          text = ''
+            [filechooser]
+            cmd=yazi-wrapper.sh
+            default_dir=$HOME
+            env=TERMCMD=kitty --title="terminal-filechooser" -e
+            open_mode = suggested
+            save_mode = last
+          '';
+        };
+      };
+
       # allow fontconfig to discover fonts and configurations installed through home.packages
       fonts.fontconfig.enable = true;
 

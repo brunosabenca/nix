@@ -1,5 +1,11 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
+environment {
+    // kitty file picker
+    QT_QPA_PLATFORMTHEME "xdgdesktopportal";
+    GTK_USE_PORTAL "1";
+}
+
  
 cursor {
     xcursor-theme "catppuccin-cursors-mocha-mauve"
@@ -128,6 +134,11 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match title=r#"terminal-filechooser$"#
+    open-floating true
+}
+
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
@@ -158,13 +169,17 @@ binds {
 
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+T hotkey-overlay-title="Terminal: alacritty" { spawn "alacritty"; }
+    Mod+T hotkey-overlay-title="Terminal: kitty" { spawn "kitty"; }
 
     Mod+D hotkey-overlay-title="Application Launcher" { 
         spawn "dms" "ipc" "call" "spotlight" "toggle"; 
     }
 
-    Mod+Alt+Ctrl+Shift+Escape hotkey-overlay-title="Power Mnu" { 
+    Mod+Space hotkey-overlay-title="Application Launcher" { 
+        spawn "dms" "ipc" "call" "spotlight" "toggle"; 
+    }
+
+    Mod+Alt+Ctrl+Shift+Escape hotkey-overlay-title="Power Menu" { 
         spawn "dms" "ipc" "call" "powermenu" "toggle"; 
     }
 
@@ -418,7 +433,6 @@ binds {
 }
 
 include "dms/alttab.kdl"
-include "dms/binds.kdl"
 include "dms/colors.kdl"
 include "dms/layout.kdl"
 include "dms/wpblur.kdl"

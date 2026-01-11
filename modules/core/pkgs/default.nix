@@ -74,6 +74,7 @@
     #   })
     wezterm
     ghostty
+    kitty
     zoxide
     lazygit
     nixfmt

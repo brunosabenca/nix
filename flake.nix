@@ -164,8 +164,10 @@
               ./modules/dev
               ./modules/home
               ./modules/neovim
+              ./modules/firefox
               stylix.nixosModules.stylix
               kmonad.nixosModules.default
+              nur.modules.nixos.default
             ];
           };
 
