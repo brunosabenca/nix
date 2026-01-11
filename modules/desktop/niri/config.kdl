@@ -8,7 +8,7 @@ environment {
 
  
 cursor {
-    xcursor-theme "catppuccin-cursors-mocha-mauve"
+    xcursor-theme "Adwaita"
     xcursor-size 48
 
     hide-when-typing
