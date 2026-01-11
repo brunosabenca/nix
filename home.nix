@@ -11,7 +11,6 @@
     btop
     fortune
     shellcheck
-    yazi
     jq
   ];
 }

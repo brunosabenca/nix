@@ -78,7 +78,6 @@
         zathura
         sxiv
         jhead
-        yazi
         jq
         nvd
         wlogout
