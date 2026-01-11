@@ -9,7 +9,7 @@ environment {
  
 cursor {
     xcursor-theme "Bibata-Modern-Ice"
-    xcursor-size 24
+    xcursor-size 22
 
     hide-when-typing
     hide-after-inactive-ms 1000
