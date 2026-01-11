@@ -26,9 +26,9 @@
           After = [ "network-online.target" ];
         };
         Service = {
-          ExecStartPre = "/run/current-system/sw/bin/mkdir -p ${config.users.users.bruno.home}/cave";
-          ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone-nixos.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"cave\"";
-          ExecStop = "/run/current-system/sw/bin/fusermount -u %h/cave/%i";
+          ExecStartPre = "/run/current-system/sw/bin/mkdir -p ${config.users.users.bruno.home}/network/cave";
+          ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone-nixos.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"%h/network/cave\"";
+          ExecStop = "/run/current-system/sw/bin/fusermount -u %h/network/cave/%i";
           Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         };
         Install.WantedBy = [ "default.target" ];
