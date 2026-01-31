@@ -6,12 +6,15 @@
   username,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
   ];
 
-  home-manager.users.${username} = {pkgs, ...}: {
+  home-manager.users.${username} =
+    { pkgs, ... }:
+    {
       xdg.configFile."rclone/rclone-nixos.conf".text = ''
         [cave]
         type = sftp
@@ -33,6 +36,27 @@
         };
         Install.WantedBy = [ "default.target" ];
       };
+    };
+
+  environment.systemPackages = [
+    pkgs.distrobox
+    pkgs.spotify
+  ];
+
+  services.readeck = {
+    enable = true;
+
+    settings = {
+      main = {
+        log_level = "info";
+        secret_key = "cat kodak face toolkit";
+        # data_directory = "/mnt/data/readeck/data";
+      };
+      server = {
+        host = "0.0.0.0";
+        port = 9030;
+      };
+    };
   };
 
   services.kmonad = {
@@ -48,5 +72,11 @@
   networking = {
     hostName = "firefly";
     networkmanager.enable = true;
+    firewall.allowedTCPPortRanges = [
+      {
+        from = 9030;
+        to = 9030;
+      }
+    ];
   };
 }

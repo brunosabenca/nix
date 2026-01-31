@@ -32,19 +32,17 @@ input {
 
 // https://yalter.github.io/niri/Configuration:-Outputs
 // niri msg outputs
-output "PNP(BNQ) BenQ LCD P4M01449019" {
-  position x=0 y=0
-}
 
 output "eDP-1" {
     mode "1920x1200"
     scale 1
+    position x=0 y=0
+}
 
-    // Transform allows to rotate the output counter-clockwise, valid values are:
-    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
-
-    position x=0 y=1440
+output "Dell Inc. DELL P2419H J3YKRB3" {
+    mode "1920x1080"
+    scale 1
+    position x=0 y=-1080
 }
 
 output "PNP(BNQ) BenQ LCD P4M01449019" {
@@ -56,7 +54,7 @@ output "PNP(BNQ) BenQ LCD P4M01449019" {
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
 
-    position x=0 y=0
+    position x=0 y=-1440
 }
 
 // https://yalter.github.io/niri/Configuration:-Layout
