@@ -202,6 +202,38 @@
             ];
           };
 
+        phoenix =
+          let
+            system = "x86_64-linux";
+            hostname = "phoenix";
+          in
+          nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit
+                system
+                hostname
+                username
+                inputs
+                ;
+            }
+            // inputs;
+
+            modules = [
+              ./.
+              ./hosts/phoenix
+              ./modules/desktop/niri
+              ./modules/core
+              ./modules/dev
+              ./modules/home
+              ./modules/firefox
+              ./modules/neovim
+              stylix.nixosModules.stylix
+              kmonad.nixosModules.default
+              nur.modules.nixos.default
+            ];
+          };
+
+
         cave =
           let
             system = "x86_64-linux";
