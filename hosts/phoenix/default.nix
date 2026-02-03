@@ -43,22 +43,6 @@
     pkgs.spotify
   ];
 
-  services.readeck = {
-    enable = true;
-
-    settings = {
-      main = {
-        log_level = "info";
-        secret_key = "cat kodak face toolkit";
-        # data_directory = "/mnt/data/readeck/data";
-      };
-      server = {
-        host = "0.0.0.0";
-        port = 9030;
-      };
-    };
-  };
-
   services.kmonad = {
     enable = true;
     keyboards = {
@@ -70,7 +54,7 @@
   };
 
   networking = {
-    hostName = "firefly";
+    hostName = "phoenix";
     networkmanager.enable = true;
     firewall.allowedTCPPortRanges = [
       {
