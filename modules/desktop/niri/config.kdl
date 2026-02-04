@@ -33,9 +33,9 @@ input {
 // https://yalter.github.io/niri/Configuration:-Outputs
 // niri msg outputs
 
-output "eDP-1" {
-    mode "1920x1200"
-    scale 1
+output "Sharp Corporation 0x14A8 Unknown" {
+    mode "3840x2400@59.994"
+    scale 2
     position x=0 y=0
 }
 
