@@ -22,6 +22,7 @@ in
   boot.extraModprobeConfig = ''
     options snd-intel-dspcfg dsp_driver=4
     options snd-soc-avs ignore_fw_version=1
+    options usb-storage quirks=174c:1153:u
   '';
 
   # hardware.enableRedistributableFirmware = true;
