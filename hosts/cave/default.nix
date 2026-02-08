@@ -47,6 +47,18 @@ services.tlp = {
     hostName = "cave";
     networkmanager.enable = true;
 
+    interfaces.enp0s20f0u1u1 = {
+      ipv4.addresses = [{
+        address = "192.168.1.30";
+        prefixLength = 24;
+      }];
+    };
+
+    defaultGateway = {
+      address = "192.168.1.1";
+      interface = "enp0s20f0u1u1";
+    };
+
     firewall.allowedTCPPortRanges = [
       {
         from = 3921;
