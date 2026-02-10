@@ -253,6 +253,7 @@
             modules = [
               ./.
               ./hosts/cave
+              ./modules/desktop/niri
               ./modules/nixos/qbittorrent-service
               ./modules/core/terminal
               ./modules/core/git
