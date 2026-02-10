@@ -27,6 +27,7 @@
     networkmanager.enable = true;
 
     interfaces.wlp1s0 = {
+      useDHCP = false;
       ipv4.addresses = [
         {
           address = "192.168.1.30";
