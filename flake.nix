@@ -258,6 +258,7 @@
               ./modules/core/terminal
               ./modules/core/git
               ./modules/core/man
+              ./modules/neovim
               ./modules/cloudflared
               ./modules/navidrome
               stylix.nixosModules.stylix

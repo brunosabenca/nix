@@ -9,31 +9,10 @@
     ./audio-configuration.nix
   ];
 
-virtualisation.podman = {
-  enable = true;
-  dockerCompat = true;
-};
-
-
-services.tlp = {
-      enable = false;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-        CPU_MIN_PERF_ON_AC = 0;
-        CPU_MAX_PERF_ON_AC = 100;
-        CPU_MIN_PERF_ON_BAT = 0;
-        CPU_MAX_PERF_ON_BAT = 20;
-
-       START_CHARGE_THRESH_BAT0 = 40;
-       STOP_CHARGE_THRESH_BAT0 = 80;
-
-      };
-};
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+  };
 
   nixpkgs.overlays = [ copyparty.overlays.default ];
   environment.systemPackages = [
@@ -48,15 +27,21 @@ services.tlp = {
     networkmanager.enable = true;
 
     interfaces.enp0s20f0u2u1 = {
-      ipv4.addresses = [{
-        address = "192.168.1.30";
-        prefixLength = 24;
-      }];
+      ipv4.addresses = [
+        {
+          address = "192.168.1.30";
+          prefixLength = 24;
+        }
+      ];
     };
 
-    defaultGateway = {
-      address = "192.168.1.1";
-      interface = "enp0s20f0u2u1";
+    interfaces.enp0s20f0u1u1 = {
+      ipv4.addresses = [
+        {
+          address = "192.168.1.30";
+          prefixLength = 24;
+        }
+      ];
     };
 
     firewall.allowedTCPPortRanges = [
