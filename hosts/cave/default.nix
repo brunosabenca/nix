@@ -26,6 +26,9 @@
     hostName = "cave";
     networkmanager.enable = true;
 
+    networking.defaultGateway = "192.168.1.1";
+    networking.nameservers = [ "192.168.1.111" ];
+
     interfaces.wlp1s0 = {
       useDHCP = false;
       ipv4.addresses = [
