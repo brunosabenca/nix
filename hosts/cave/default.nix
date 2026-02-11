@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   copyparty,
   ...
 }:
@@ -25,37 +26,6 @@
   networking = {
     hostName = "cave";
     networkmanager.enable = true;
-
-    defaultGateway = "192.168.1.1";
-    nameservers = [ "192.168.1.111" ];
-
-    interfaces.wlp1s0 = {
-      useDHCP = false;
-      ipv4.addresses = [
-        {
-          address = "192.168.1.30";
-          prefixLength = 24;
-        }
-      ];
-    };
-
-    interfaces.enp0s20f0u2u1 = {
-      ipv4.addresses = [
-        {
-          address = "192.168.1.30";
-          prefixLength = 24;
-        }
-      ];
-    };
-
-    interfaces.enp0s20f0u1u1 = {
-      ipv4.addresses = [
-        {
-          address = "192.168.1.30";
-          prefixLength = 24;
-        }
-      ];
-    };
 
     firewall.allowedTCPPortRanges = [
       {
