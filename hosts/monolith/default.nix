@@ -122,7 +122,7 @@
       enable = true;
     };
     corectrl = {
-      enable = true;
+      enable = false;
     };
   };
 

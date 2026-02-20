@@ -72,7 +72,6 @@
         obsidian
         freetube
         youtube-tui
-        networkmanagerapplet
         shellcheck
         swww
         zathura
