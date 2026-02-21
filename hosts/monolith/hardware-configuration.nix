@@ -52,17 +52,6 @@
     fsType = "vfat";
   };
 
-  fileSystems."/mnt/red" = {
-    device = "/dev/disk/by-uuid/182dc111-33a9-4853-abd7-867f05121aa8";
-    fsType = "btrfs";
-    options = [
-      "nosuid"
-      "nodev"
-      "nofail"
-      "x-gvfs-show"
-    ];
-  };
-
   fileSystems."/mnt/extra" = {
     device = "/dev/disk/by-uuid/6649d4db-5724-4d8e-b8da-acf4aeaf06d3";
     fsType = "btrfs";
