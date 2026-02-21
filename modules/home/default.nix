@@ -135,9 +135,9 @@
         # XDG_UTILS_DEBUG_LEVEL=2 xdg-mime query default image/png
         defaultApplications =
           let
-            browser = "zen-beta.desktop";
+            browser = "firefox.desktop";
             videoPlayer = "mpv.desktop";
-            imageViewer = "okular.desktop";
+            imageViewer = "qimgv.desktop";
           in
           {
             # "text/plain" = ["neovide.desktop"];
