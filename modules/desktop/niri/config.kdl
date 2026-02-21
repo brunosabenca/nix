@@ -1,12 +1,5 @@
 // https://yalter.github.io/niri/Configuration:-Introduction
 
-environment {
-    // kitty file picker
-    QT_QPA_PLATFORMTHEME "xdgdesktopportal";
-    GTK_USE_PORTAL "1";
-}
-
- 
 cursor {
     xcursor-theme "Bibata-Modern-Ice"
     xcursor-size 24

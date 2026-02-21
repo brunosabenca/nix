@@ -150,9 +150,6 @@
     NIXOS_OZONE_WL = "1";
 
     MOZ_USE_XINPUT2 = "1";
-
-    QT_QPA_PLATFORMTHEME = "xdgdesktopportal";
-    GTK_USE_PORTAL = "1";
   };
 
   environment.shellAliases = {
