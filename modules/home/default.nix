@@ -101,7 +101,6 @@
         swappy
 
         bibata-cursors
-        gruvbox-dark-icons-gtk
         adw-gtk3
 
         #emulationstation-de
