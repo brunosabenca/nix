@@ -79,7 +79,6 @@
     lazygit
     nixfmt
     nixfmt-tree
-    p7zip
     p7zip-rar
     kcc
   ];
