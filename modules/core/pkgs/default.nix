@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     home-manager # manage my home dir/programs
     cowsay # very important
-    neofetch # very important
+    fastfetch # very important
     eza # better ls
     duf # better df (file system tool)
     dysk # another better df
@@ -80,6 +80,7 @@
     nixfmt
     nixfmt-tree
     p7zip-rar
+    atool
     kcc
   ];
 }
