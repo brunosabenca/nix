@@ -54,7 +54,7 @@
         pulseaudio # to use pactl
         deskflow
         bitwarden-desktop
-        blueberry
+        blueman
         lm_sensors
         xdg-utils
         sublime-merge
@@ -71,7 +71,6 @@
         calibre
         obsidian
         freetube
-        youtube-tui
         shellcheck
         swww
         zathura
