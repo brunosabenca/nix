@@ -57,6 +57,8 @@
 
     copyparty.url = "github:9001/copyparty";
 
+    claude-code.url = "github:sadjow/claude-code-nix";
+
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -72,7 +74,7 @@
       kmonad,
       copyparty,
       nur,
-      neovim,
+      claude-code,
       ...
     }@inputs:
     let
