@@ -5,13 +5,17 @@
   home-manager,
   username,
   modulesPath,
+  inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
   ];
 
-  home-manager.users.${username} = {pkgs, ...}: {
+  home-manager.users.${username} =
+    { pkgs, ... }:
+    {
       xdg.configFile."rclone/rclone-nixos.conf".text = ''
         [cave]
         type = sftp
@@ -33,7 +37,7 @@
         };
         Install.WantedBy = [ "default.target" ];
       };
-  };
+    };
 
   services.kmonad = {
     enable = true;
@@ -49,4 +53,9 @@
     hostName = "firefly";
     networkmanager.enable = true;
   };
+
+  environment.systemPackages = [
+    pkgs.distrobox
+    pkgs.spotify
+  ];
 }
