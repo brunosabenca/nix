@@ -37,7 +37,7 @@
       enable = true;
     };
 
-    programs.kitty = lib.mkForce {
+    programs.kitty = {
       enable = true;
       shellIntegration = {
         enableFishIntegration = true;
@@ -54,9 +54,20 @@
         background_opacity = "0.9";
         background_blur = 5;
         cursor_trail = 1;
+        font_size = 14;
+        font_family = "JetBrainsMono Nerd Font";
+        bold_font = "auto";
+        italic_font = "auto";
+        bold_italic_font = "auto";
+
       };
+      extraConfig = ''
+        include dank-tabs.conf
+        include dank-theme.conf
+        map ctrl+shift+t new_tab_with_cwd
+      '';
     };
-    stylix.targets.kitty.enable = true;
+    stylix.targets.kitty.enable = false;
 
     programs.yazi = {
       enable = true;
