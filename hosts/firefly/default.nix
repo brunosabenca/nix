@@ -54,8 +54,8 @@
     networkmanager.enable = true;
   };
 
-  environment.systemPackages = [
-    pkgs.distrobox
-    pkgs.spotify
+  environment.systemPackages = with pkgs; [
+    distrobox
+    spotify
   ];
 }

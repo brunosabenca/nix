@@ -47,6 +47,8 @@
       };
     };
 
+  services.tailscale.enable = true;
+
   networking = {
     hostName = "monolith";
     networkmanager.enable = true;
@@ -79,7 +81,6 @@
     dataDir = "/home/bruno/Sync"; # Default folder for new synced folders
     configDir = "/home/bruno/.config/syncthing"; # Folder for Syncthing's settings and keys
   };
-  services.actual.enable = true;
 
   boot.supportedFilesystems = [
     "ntfs"
@@ -95,9 +96,10 @@
     dockerCompat = true;
   };
 
-  environment.systemPackages = [
-    pkgs.distrobox
-    pkgs.spotify
+  environment.systemPackages = with pkgs; [
+    distrobox
+    spotify
+    lmstudio
   ];
 
   services.xserver.dpi = 108;
