@@ -16,7 +16,7 @@
     programs.home-manager.enable = true;
     home.username = username;
     home.homeDirectory = "/home/${username}";
-    home.stateVersion = "23.05";
+    home.stateVersion = "26.05";
   };
 
   # Perform automatic garbage collection of the nix store

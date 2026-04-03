@@ -6,6 +6,9 @@
   home-manager.users.${username} = {
     programs.git = {
       enable = true;
+      signing = {
+        format = "openpgp";
+      };
       settings = {
         user = {
           name = "Bruno Sabença";

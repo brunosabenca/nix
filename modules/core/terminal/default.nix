@@ -6,6 +6,8 @@
 }:
 {
   home-manager.users.${username} = {
+    xdg.enable = true;
+
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;

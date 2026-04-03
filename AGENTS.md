@@ -115,3 +115,23 @@ Or build without switching:
 ```bash
 nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel
 ```
+
+## State Version Management
+
+### Two Different stateVersion Options
+
+| Option | Location | Can Bump? | Risk | Controls |
+|--------|----------|-----------|------|----------|
+| `home.stateVersion` | `modules/core/nix/default.nix` | ✅ Yes | Low | User apps (GTK, Git, shells) |
+| `system.stateVersion` | `hosts/<hostname>/hardware-configuration.nix` | ❌ **NEVER** | **HIGH** | Databases, system services |
+
+**Rule**: Only modify `home.stateVersion`. Never touch `system.stateVersion`.
+
+**Current values:**
+- `home.stateVersion`: "26.05" (all hosts)
+- `system.stateVersion`: monolith=23.05, firefly=25.11, cave=24.05, fourforty=23.11
+
+**Need newer software?** Explicitly set package versions:
+```nix
+services.postgresql.package = pkgs.postgresql_17;  # Don't bump stateVersion
+```

@@ -73,7 +73,7 @@
         obsidian
         freetube
         shellcheck
-        swww
+        awww
         zathura
         sxiv
         jhead

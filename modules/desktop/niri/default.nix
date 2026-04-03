@@ -78,6 +78,8 @@
 
       xdg.configFile."niri/config.kdl".source = ./config.kdl;
 
+      xdg.enable = true;
+
       dconf = {
         enable = true;
         settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
@@ -89,6 +91,7 @@
           name = "Papirus";
           package = pkgs.papirus-icon-theme;
         };
+        gtk4.theme = config.gtk.theme;
       };
     };
 }
