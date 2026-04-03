@@ -22,6 +22,7 @@
       home.packages = with pkgs; [
         rclone
         bottles
+        vial
       ];
 
       xdg.configFile."rclone/rclone-nixos.conf".text = ''
@@ -46,6 +47,18 @@
         Install.WantedBy = [ "default.target" ];
       };
     };
+
+  services.udev = {
+
+    packages = with pkgs; [
+      qmk
+      qmk-udev-rules
+      qmk_hid
+      via
+      vial
+    ]; # packages
+
+  }; # udev
 
   services.tailscale.enable = true;
 
@@ -100,6 +113,7 @@
     distrobox
     spotify
     lmstudio
+    opencode
   ];
 
   services.xserver.dpi = 108;
