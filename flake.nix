@@ -63,7 +63,6 @@
       kmonad,
       copyparty,
       nur,
-      claude-code,
       ...
     }@inputs:
     let
@@ -85,8 +84,7 @@
               username
               inputs
               ;
-          }
-          // inputs;
+          };
 
           modules = [
             ./.

@@ -1,7 +1,7 @@
 {
   config,
   pkgs,
-  copyparty,
+  inputs,
   ...
 }:
 {
@@ -56,7 +56,7 @@
     openFilesLimit = 8192;
   };
 
-  nixpkgs.overlays = [ copyparty.overlays.default ];
+  nixpkgs.overlays = [ inputs.copyparty.overlays.default ];
   environment.systemPackages = [
     pkgs.copyparty
   ];
