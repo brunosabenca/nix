@@ -17,12 +17,6 @@
       inputs.darwin.follows = "";
     };
 
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
     dotfiles = {
       url = "github:brunosabenca/dotfiles";
       flake = false;
@@ -37,11 +31,6 @@
 
     neovim = {
       url = "github:brunosabenca/nixCats-nvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nil-lsp = {
-      url = "github:oxalica/nil";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -81,159 +70,109 @@
       forAllSystems = with nixpkgs; (lib.genAttrs lib.systems.flakeExposed);
       username = "bruno";
       inherit (self) outputs;
+
+      mkHost =
+        {
+          hostname,
+          system ? "x86_64-linux",
+          extraModules ? [ ],
+        }:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit
+              system
+              hostname
+              username
+              inputs
+              ;
+          }
+          // inputs;
+
+          modules = [
+            ./.
+            ./hosts/${hostname}
+            stylix.nixosModules.stylix
+            nur.modules.nixos.default
+          ]
+          ++ extraModules;
+        };
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
 
       nixosConfigurations = {
-        monolith =
-          let
-            system = "x86_64-linux";
-            hostname = "monolith";
-          in
-          nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit
-                system
-                hostname
-                username
-                inputs
-                ;
-            }
-            // inputs;
+        monolith = mkHost {
+          hostname = "monolith";
+          extraModules = [
+            ./modules/desktop/niri
+            ./modules/core
+            ./modules/dev
+            ./modules/vscode
+            ./modules/home
+            ./modules/firefox
+            ./modules/neovim
+            lanzaboote.nixosModules.lanzaboote
+            (
+              {
+                pkgs,
+                lib,
+                ...
+              }:
+              {
+                environment.systemPackages = [
+                  pkgs.sbctl
+                ];
 
-            modules = [
-              ./.
-              ./hosts/monolith
-              ./modules/desktop/niri
-              ./modules/core
-              ./modules/dev
-              ./modules/vscode
-              ./modules/home
-              ./modules/firefox
-              ./modules/neovim
-              stylix.nixosModules.stylix
-              lanzaboote.nixosModules.lanzaboote
-              (
-                {
-                  pkgs,
-                  lib,
-                  ...
-                }:
-                {
-                  environment.systemPackages = [
-                    # For debugging and troubleshooting Secure Boot.
-                    pkgs.sbctl
-                  ];
+                boot.loader.systemd-boot.enable = lib.mkForce false;
 
-                  # Lanzaboote currently replaces the systemd-boot module.
-                  # This setting is usually set to true in configuration.nix
-                  # generated at installation time. So we force it to false
-                  # for now.
-                  boot.loader.systemd-boot.enable = lib.mkForce false;
+                boot.lanzaboote = {
+                  enable = true;
+                  pkiBundle = "/var/lib/sbctl";
+                };
+              }
+            )
+          ];
+        };
 
-                  boot.lanzaboote = {
-                    enable = true;
-                    pkiBundle = "/var/lib/sbctl";
-                  };
-                }
-              )
-              nur.modules.nixos.default
-            ];
-          };
+        fourforty = mkHost {
+          hostname = "fourforty";
+          extraModules = [
+            ./modules/desktop/niri
+            ./modules/core
+            ./modules/dev
+            ./modules/home
+            ./modules/neovim
+            ./modules/firefox
+            kmonad.nixosModules.default
+          ];
+        };
 
-        fourforty =
-          let
-            system = "x86_64-linux";
-            hostname = "fourforty";
-          in
-          nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit
-                system
-                hostname
-                username
-                inputs
-                ;
-            }
-            // inputs;
+        firefly = mkHost {
+          hostname = "firefly";
+          extraModules = [
+            ./modules/desktop/niri
+            ./modules/core
+            ./modules/dev
+            ./modules/home
+            ./modules/firefox
+            ./modules/neovim
+            kmonad.nixosModules.default
+          ];
+        };
 
-            modules = [
-              ./.
-              ./hosts/fourforty
-              ./modules/desktop/niri
-              ./modules/core
-              ./modules/dev
-              ./modules/home
-              ./modules/neovim
-              ./modules/firefox
-              stylix.nixosModules.stylix
-              kmonad.nixosModules.default
-              nur.modules.nixos.default
-            ];
-          };
-
-        firefly =
-          let
-            system = "x86_64-linux";
-            hostname = "firefly";
-          in
-          nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit
-                system
-                hostname
-                username
-                inputs
-                ;
-            }
-            // inputs;
-
-            modules = [
-              ./.
-              ./hosts/firefly
-              ./modules/desktop/niri
-              ./modules/core
-              ./modules/dev
-              ./modules/home
-              ./modules/firefox
-              ./modules/neovim
-              stylix.nixosModules.stylix
-              kmonad.nixosModules.default
-              nur.modules.nixos.default
-            ];
-          };
-
-        cave =
-          let
-            system = "x86_64-linux";
-            hostname = "cave";
-          in
-          nixpkgs.lib.nixosSystem {
-            specialArgs = {
-              inherit
-                system
-                hostname
-                username
-                inputs
-                ;
-            }
-            // inputs;
-
-            modules = [
-              ./.
-              ./hosts/cave
-              ./modules/nixos/qbittorrent-service
-              ./modules/core/terminal
-              ./modules/core/git
-              ./modules/core/man
-              ./modules/cloudflared
-              ./modules/navidrome
-              stylix.nixosModules.stylix
-              copyparty.nixosModules.default
-              ./modules/copyparty
-            ];
-          };
+        cave = mkHost {
+          hostname = "cave";
+          extraModules = [
+            ./modules/nixos/qbittorrent-service
+            ./modules/core/terminal
+            ./modules/core/git
+            ./modules/core/man
+            ./modules/cloudflared
+            ./modules/navidrome
+            copyparty.nixosModules.default
+            ./modules/copyparty
+          ];
+        };
       };
     };
 
