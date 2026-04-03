@@ -1,5 +1,7 @@
 {
   pkgs,
+  inputs,
+  system,
   ...
 }:
 {
@@ -8,6 +10,10 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    (pkgs.runCommand "claude" { } ''
+      mkdir -p $out/bin
+      ln -s ${inputs.claude-code.packages.${system}.claude-code-bun}/bin/claude-bun $out/bin/claude
+    '')
     nil # Nix language server
     lua
     gcc
