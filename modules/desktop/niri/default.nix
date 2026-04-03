@@ -5,6 +5,8 @@
   ...
 }:
 {
+  imports = [ ../common ];
+
   environment.systemPackages = with pkgs; [
     wev # wayland event viewer (find out key names)
     notify-desktop # provides the notify-send binary to trigger mako
@@ -39,12 +41,10 @@
 
   home-manager.users.${username} =
     {
-      config,
       pkgs,
       ...
     }:
     {
-      programs.alacritty.enable = true;
       programs.fuzzel = {
         enable = true;
         settings = {
@@ -70,28 +70,7 @@
           };
         };
       };
-      services.polkit-gnome.enable = true;
-
-      home.packages = with pkgs; [
-        swaybg
-      ];
 
       xdg.configFile."niri/config.kdl".source = ./config.kdl;
-
-      xdg.enable = true;
-
-      dconf = {
-        enable = true;
-        settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-      };
-
-      gtk = {
-        enable = true;
-        iconTheme = {
-          name = "Papirus";
-          package = pkgs.papirus-icon-theme;
-        };
-        gtk4.theme = config.gtk.theme;
-      };
     };
 }
