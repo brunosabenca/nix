@@ -84,7 +84,8 @@
               username
               inputs
               ;
-          };
+          }
+          // inputs;
 
           modules = [
             ./.

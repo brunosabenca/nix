@@ -73,11 +73,13 @@ mkHost {
 
 ## Flake Input Conventions
 
-### Accessing inputs in modules
-`mkHost` passes `inputs` as a `specialArg`. Modules access flake inputs via `inputs.foo` — e.g. `inputs.agenix`, `inputs.copyparty`. Do not spread `// inputs` into `specialArgs`; pass `inputs` as a single arg and be explicit.
+### `// inputs` spread in `specialArgs`
+`mkHost` passes `// inputs` into `specialArgs`, making every flake input available as a direct module argument alongside the explicit `inputs` arg. This is intentional for this personal config — it avoids verbosity like `inputs.agenix` in favour of plain `agenix`.
+
+**Do not remove `// inputs`** — modules such as `default.nix` (`agenix`, `neovim`, `home-manager`) and `modules/copyparty` (`copyparty`) rely on it.
 
 ### Explicit destructuring in `outputs`
-Only destructure inputs in the `outputs` function args when they are used **directly in `flake.nix`** (e.g. `stylix.nixosModules.stylix`, `nur.modules.nixos.default`). Inputs only accessed inside modules via `inputs.foo` should not appear in the `outputs` destructuring.
+Only destructure inputs in the `outputs` function args when they are used **directly in `flake.nix`** (e.g. `stylix.nixosModules.stylix`, `nur.modules.nixos.default`). Inputs only used inside modules via the `inputs` arg or `// inputs` spread should not appear in the `outputs` destructuring.
 
 ## Design Principles
 
