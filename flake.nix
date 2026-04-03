@@ -60,7 +60,6 @@
       nixpkgs,
       stylix,
       lanzaboote,
-      kmonad,
       copyparty,
       nur,
       ...
@@ -101,6 +100,7 @@
         monolith = mkHost {
           hostname = "monolith";
           extraModules = [
+            ./modules/mount-cave
             ./modules/desktop/niri
             ./modules/core
             ./modules/dev
@@ -134,26 +134,28 @@
         fourforty = mkHost {
           hostname = "fourforty";
           extraModules = [
+            ./modules/mount-cave
             ./modules/desktop/niri
             ./modules/core
             ./modules/dev
             ./modules/home
             ./modules/neovim
             ./modules/firefox
-            kmonad.nixosModules.default
+            ./modules/kmonad
           ];
         };
 
         firefly = mkHost {
           hostname = "firefly";
           extraModules = [
+            ./modules/mount-cave
             ./modules/desktop/niri
             ./modules/core
             ./modules/dev
             ./modules/home
             ./modules/firefox
             ./modules/neovim
-            kmonad.nixosModules.default
+            ./modules/kmonad
           ];
         };
 

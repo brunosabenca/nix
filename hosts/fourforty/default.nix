@@ -18,31 +18,7 @@
       ...
     }:
     {
-      home.packages = [
-        pkgs.rclone
-        pkgs.vial
-      ];
-      xdg.configFile."rclone/rclone-nixos.conf".text = ''
-        [cave]
-        type = sftp
-        host = 192.168.1.83
-        user = bruno
-        key_file = ${config.users.users.bruno.home}/.ssh/id_ed25519
-      '';
-
-      systemd.user.services.mount-cave = {
-        Unit = {
-          Description = "Mount cave with rclone";
-          After = [ "network-online.target" ];
-        };
-        Service = {
-          ExecStartPre = "/run/current-system/sw/bin/mkdir -p ${config.users.users.bruno.home}/cave";
-          ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone-nixos.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"cave\"";
-          ExecStop = "/run/current-system/sw/bin/fusermount -u %h/cave/%i";
-          Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
-        };
-        Install.WantedBy = [ "default.target" ];
-      };
+      home.packages = [ pkgs.vial ];
 
       services.kdeconnect.enable = true;
     };
@@ -68,15 +44,6 @@
       UseDns = true;
       X11Forwarding = false;
       PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
-    };
-  };
-  services.kmonad = {
-    enable = true;
-    keyboards = {
-      myKMonadOutput = {
-        device = "/dev/input/by-path/platform-i8042-serio-0-event-kbd";
-        config = (builtins.readFile ../../miryoku_kmonad.kbd);
-      };
     };
   };
   networking = {
