@@ -66,9 +66,7 @@
       ...
     }@inputs:
     let
-      forAllSystems = with nixpkgs; (lib.genAttrs lib.systems.flakeExposed);
       username = "bruno";
-      inherit (self) outputs;
 
       mkHost =
         {
