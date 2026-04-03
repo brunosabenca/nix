@@ -3,7 +3,6 @@
   agenix,
   neovim,
   home-manager,
-  plasma-manager,
   pkgs,
   username,
   config,
@@ -28,111 +27,15 @@
       home-manager.backupFileExtension = "backup";
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.sharedModules = [
-        plasma-manager.homeModules.plasma-manager
         agenix.homeManagerModules.default
         neovim.homeModules.default
       ];
     }
 
-    ./hosts
     ./modules
   ];
 
-  # Todo: move below to appropriate modules
-
-  stylix = {
-    enable = true;
-    autoEnable = false;
-    image = config.lib.stylix.pixel "base0A";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-    fonts = {
-      serif.name = "Noto Serif";
-      sansSerif.name = "Noto Sans";
-      monospace.name = "JetBrains Mono NF";
-
-      sizes = {
-        terminal = 12;
-        applications = 10;
-        popups = 10;
-        desktop = 10;
-      };
-    };
-  };
-
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
-  home-manager.verbose = true;
-
-  home-manager.users.${username} = import ./home.nix;
-
   virtualisation.docker.enable = false;
-
-  # Set your time zone.
-  time.timeZone = "Europe/London";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_GB.UTF-8";
-    LC_IDENTIFICATION = "en_GB.UTF-8";
-    LC_MEASUREMENT = "en_GB.UTF-8";
-    LC_MONETARY = "en_GB.UTF-8";
-    LC_NAME = "en_GB.UTF-8";
-    LC_NUMERIC = "en_GB.UTF-8";
-    LC_PAPER = "en_GB.UTF-8";
-    LC_TELEPHONE = "en_GB.UTF-8";
-    LC_TIME = "en_GB.UTF-8";
-  };
-
-  services = {
-    xserver = {
-      enable = true;
-      xkb = {
-        layout = "us";
-        variant = "";
-      };
-    };
-
-    printing.enable = false;
-    pulseaudio.enable = false;
-  };
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
-  programs.zsh.enable = true;
-  programs.fish.enable = true;
-
-  # Define a user account. Don't forget to set g password with ‘passwd’.
-  users.users.${username} = {
-    isNormalUser = true;
-    description = "Bruno";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-    shell = pkgs.zsh;
-  };
-
-  nix.settings.trusted-users = [
-    "root"
-    "@wheel"
-  ];
 
   # Enable nix-ld to use dynamically linked executables with hardcoded paths
   programs.nix-ld.enable = true;
@@ -184,7 +87,18 @@
     50341
   ];
 
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth = {
+    enable = true;
+    settings = {
+      General = {
+        Enable = "Source,Sink,Media,Socket";
+        AutoEnable = true;
+        ControllerMode = "bredr";
+      };
+      General.UserspaceHID = true;
+    };
+  };
+  services.blueman.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
   fonts = {

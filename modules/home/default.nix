@@ -50,6 +50,7 @@
       #};
 
       home.packages = with pkgs; [
+        cloudflared
         feishin # subsonic client
         pulseaudio # to use pactl
         deskflow

@@ -1,4 +1,8 @@
-{ ... }:
+{
+  pkgs,
+  username,
+  ...
+}:
 {
   imports = [
     ./man
@@ -7,5 +11,11 @@
     ./git
     ./terminal
     ./mpv
+    ./locale
+    ./audio
+    ./users
   ];
+
+  programs.zsh.enable = true;
+  programs.fish.enable = true;
 }

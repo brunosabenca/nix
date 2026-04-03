@@ -23,7 +23,6 @@
     codespell
     prettierd
     sshfs
-    nodePackages_latest.prettier
-    bash-language-server
+bash-language-server
   ];
 }

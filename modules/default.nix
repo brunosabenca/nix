@@ -4,5 +4,6 @@
     ./core
     ./desktop
     ./dev
+    ./stylix
   ];
 }
