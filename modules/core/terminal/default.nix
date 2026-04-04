@@ -21,16 +21,33 @@
 
     programs.fish = {
       enable = true;
+      shellAbbrs = {
+        "--help" = "--help | bat -plhelp";
+        "-h" = "-h | bat -plhelp";
+      };
+      functions = {
+        fdp = "fd --type file --type symlink $argv -X bat";
+        starship_transient_prompt_func = "starship module character";
+      };
+      plugins = [
+        { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+      ];
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
+        enable_transience
       '';
+    };
+
+    programs.zoxide = {
+      enable = true;
+      enableFishIntegration = true;
     };
 
     programs.starship.enable = true;
 
     programs.fzf = {
       enable = true;
-      enableFishIntegration = true;
+      enableFishIntegration = false; # fzf-fish plugin handles this
       enableZshIntegration = true;
       enableBashIntegration = true;
     };
