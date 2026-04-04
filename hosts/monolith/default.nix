@@ -90,7 +90,6 @@
     distrobox
     spotify
     lmstudio
-    opencode
   ];
 
   services.xserver.dpi = 108;
