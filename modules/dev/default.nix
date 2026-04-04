@@ -69,6 +69,7 @@
     go # Go
     gopls # Go language server
     nodejs_22
+    gh
     git-open
     codespell
     prettierd
