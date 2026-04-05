@@ -92,6 +92,19 @@
     lmstudio
   ];
 
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    algorithm = "zstd";
+  };
+
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 5;
+    freeSwapThreshold = 5;
+    enableNotifications = true;
+  };
+
   services.xserver.dpi = 108;
   services.xserver.videoDrivers = [ "amdgpu" ];
 
