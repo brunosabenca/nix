@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   lib,
   username,
   ...
@@ -12,7 +11,7 @@ in
 {
   options.services.mount-cave.mountPoint = lib.mkOption {
     type = lib.types.str;
-    default = "cave";
+    default = "network/cave";
     description = "Path relative to home directory where cave will be mounted";
   };
 

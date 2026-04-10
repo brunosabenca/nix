@@ -23,6 +23,8 @@
         bottles
         vial
       ];
+
+      services.easyeffects.enable = true;
     };
 
   services.udev = {
