@@ -42,6 +42,7 @@
     unzip # unzip stuff
     yt-dlp # youtube-dl fork
     inkscape # wish I was smart enough for this
+    dig # DNS lookup
     nethogs # network monitor tool
     sniffnet # network monitor tool
     imagemagick # a classic
