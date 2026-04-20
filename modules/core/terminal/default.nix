@@ -89,7 +89,7 @@
         map ctrl+shift+t new_tab_with_cwd
 
         # kitty-scrollback.nvim Kitten alias
-        action_alias kitty_scrollback_nvim kitten '/nix/store/v0ynp8w83pk38xi63gcp16c4lkalp217-vim-pack-dir/pack/myNeovimPackages/start/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py'
+        action_alias kitty_scrollback_nvim kitten '${pkgs.vimPlugins.kitty-scrollback-nvim}/python/kitty_scrollback_nvim.py'
         # Browse scrollback buffer in nvim
         map kitty_mod+h kitty_scrollback_nvim
         # Browse output of the last shell command in nvim
