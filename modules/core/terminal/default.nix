@@ -30,7 +30,10 @@
         starship_transient_prompt_func = "starship module character";
       };
       plugins = [
-        { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+        {
+          name = "fzf-fish";
+          src = pkgs.fishPlugins.fzf-fish.src;
+        }
       ];
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
@@ -84,6 +87,15 @@
         include dank-tabs.conf
         include dank-theme.conf
         map ctrl+shift+t new_tab_with_cwd
+
+        # kitty-scrollback.nvim Kitten alias
+        action_alias kitty_scrollback_nvim kitten '/nix/store/v0ynp8w83pk38xi63gcp16c4lkalp217-vim-pack-dir/pack/myNeovimPackages/start/kitty-scrollback.nvim/python/kitty_scrollback_nvim.py'
+        # Browse scrollback buffer in nvim
+        map kitty_mod+h kitty_scrollback_nvim
+        # Browse output of the last shell command in nvim
+        map kitty_mod+g kitty_scrollback_nvim --config ksb_builtin_last_cmd_output
+        # Show clicked command output in nvim
+        mouse_map ctrl+shift+right press ungrabbed combine : mouse_select_command_output : kitty_scrollback_nvim --config ksb_builtin_last_visited_cmd_output
       '';
     };
     stylix.targets.kitty.enable = false;
