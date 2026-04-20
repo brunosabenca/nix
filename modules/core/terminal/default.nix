@@ -76,6 +76,8 @@
         background_opacity = "0.9";
         background_blur = 5;
         cursor_trail = 1;
+        allow_remote_control = "yes";
+        listen_on = "unix:/tmp/kitty";
         font_size = 14;
         font_family = "JetBrainsMono Nerd Font";
         bold_font = "auto";
