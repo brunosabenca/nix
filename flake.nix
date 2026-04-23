@@ -159,6 +159,20 @@
           ];
         };
 
+        phoenix = mkHost {
+          hostname = "phoenix";
+          extraModules = [
+            ./modules/mount-cave
+            ./modules/desktop/niri
+            ./modules/core
+            ./modules/dev
+            ./modules/home
+            ./modules/firefox
+            ./modules/neovim
+            ./modules/kmonad
+          ];
+        };
+
         cave = mkHost {
           hostname = "cave";
           extraModules = [
