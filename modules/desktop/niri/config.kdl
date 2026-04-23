@@ -29,6 +29,11 @@ output "PNP(BNQ) BenQ LCD P4M01449019" {
   position x=0 y=0
 }
 
+output "Sharp Corporation 0x14A8 Unknown" {
+  position x=0 y=0
+  scale 2
+}
+
 output "eDP-1" {
     mode "1920x1200"
     scale 1
