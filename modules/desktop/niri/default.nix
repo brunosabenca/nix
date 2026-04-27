@@ -10,10 +10,8 @@
   environment.systemPackages = with pkgs; [
     wev # wayland event viewer (find out key names)
     notify-desktop # provides the notify-send binary to trigger mako
-    wl-clipboard-rs # wl-copy and wl-paste for copy/paste from stdin / stdout
     libinput # Handles input devices in Wayland compositors
     libinput-gestures # Gesture mapper for libinput
-    brightnessctl # CLI to control brightness
     networkmanager # Manage wireless networks
     pulsemixer # CLI to control puleaudio
     alsa-utils # for amixer to mute mic
@@ -55,7 +53,7 @@
             horizontal-pad = 20;
             lines = 8;
             exit-on-keyboard-focus-loss = true;
-            terminal = "alacritty -e";
+            terminal = "kitty";
           };
           border = {
             width = 4;

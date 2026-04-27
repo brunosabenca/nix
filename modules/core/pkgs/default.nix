@@ -49,7 +49,6 @@
     poppler-utils # pdfunite and other pdf utils
     pandoc # classic haskell lib for file type conversions
     ffmpeg # its ffmpeg
-    telegram-desktop # telegram desktop
     qimgv # image viewer
     picard # GUI to edit music metadata
     zenity # spawn xdg portals
@@ -74,7 +73,6 @@
     #     };
     #   })
     wezterm
-    ghostty
     kitty
     zoxide
     lazygit

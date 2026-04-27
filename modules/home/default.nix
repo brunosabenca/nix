@@ -29,12 +29,10 @@
         pulseaudio # to use pactl
         deskflow
         bitwarden-desktop
-        blueman
         lm_sensors
         xdg-utils
         sublime-merge
         discord
-        htop
         btop
         scrcpy
         fortune
@@ -42,7 +40,6 @@
         ansel
         rawtherapee
         gimp
-        telegram-desktop
         calibre
         obsidian
         freetube
@@ -51,7 +48,7 @@
         zathura
         sxiv
         jhead
-        jq
+        telegram-desktop
         nvd
         wlogout
         filezilla

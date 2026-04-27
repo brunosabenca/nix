@@ -98,7 +98,6 @@
       General.UserspaceHID = true;
     };
   };
-  services.blueman.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
   fonts = {
