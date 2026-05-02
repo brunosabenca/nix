@@ -16,32 +16,6 @@ input {
     }
     focus-follows-mouse max-scroll-amount="0%"
 }
-// https://yalter.github.io/niri/Configuration:-Outputs
-// niri msg outputs
-output "PNP(BNQ) BenQ LCD P4M01449019" {
-    position x=0 y=0
-}
-output "Sharp Corporation 0x14A8 Unknown" {
-    position x=0 y=0
-    scale 2
-}
-output "eDP-1" {
-    mode "1920x1200"
-    scale 1
-    // Transform allows to rotate the output counter-clockwise, valid values are:
-    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
-    position x=0 y=1440
-}
-output "PNP(BNQ) BenQ LCD P4M01449019" {
-    mode "2560x1440"
-    focus-at-startup
-    scale 1
-    // Transform allows to rotate the output counter-clockwise, valid values are:
-    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
-    position x=0 y=0
-}
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     gaps 8
