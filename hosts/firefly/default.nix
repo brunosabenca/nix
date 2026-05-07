@@ -1,5 +1,6 @@
 {
   pkgs,
+  username,
   ...
 }:
 {
@@ -16,4 +17,15 @@
     distrobox
     spotify
   ];
+
+  home-manager.users.${username}.programs.fish.functions = {
+    battery-full = {
+      description = "Temporarily charge battery to 100%";
+      body = "echo 100 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold > /dev/null";
+    };
+    battery-save = {
+      description = "Restore battery charge limit to 80%";
+      body = "echo 80 | sudo tee /sys/class/power_supply/BAT0/charge_control_end_threshold > /dev/null";
+    };
+  };
 }
