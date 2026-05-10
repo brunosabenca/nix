@@ -5,9 +5,17 @@
 deploy:
     sudo nixos-rebuild switch --flake .
 
+# Show what will be built vs fetched
+dry hostname=`hostname`:
+    nix build '.#nixosConfigurations.{{hostname}}.config.system.build.toplevel' --dry-run 2>&1
+
 # Print all available just commands
 help:
     @just --list
+
+# Build and stage for next boot (use when critical components change)
+boot:
+    sudo nixos-rebuild boot --flake .
 
 # Build and deploy this NixOS derivation
 build:

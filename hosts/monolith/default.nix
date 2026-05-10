@@ -13,6 +13,12 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
+    })
+  ];
+
   home-manager.users.${username} =
     {
       pkgs,
@@ -85,6 +91,12 @@
     "fuse.sshfs"
   ];
 
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=10 card_label="Nikon Webcam" exclusive_caps=1
+  '';
+
   hardware.graphics = {
     enable = true;
   };
@@ -98,6 +110,8 @@
     distrobox
     spotify
     lmstudio
+    gphoto2
+    ffmpeg
   ];
 
   zramSwap = {
