@@ -26,7 +26,6 @@
     gptfdisk # manage disk partitions
     kalker # cmdline calculator
     just # simple cmd runner
-    bitwarden-cli # CLI for bitwarden
     asciiquarium # very important
     lshw # Detailed info on connected hardware
     busybox # unix utilities

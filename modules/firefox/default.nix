@@ -19,7 +19,7 @@
       programs.firefox.profiles.main = {
         id = 0;
 
-        extensions.force = true;
+        extensions.force = false;
         extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           bitwarden
           clearurls
