@@ -41,6 +41,12 @@
 
   services.tailscale.enable = true;
 
+  services.sunshine = {
+    enable = true;
+    openFirewall = true;
+    capSysAdmin = true;
+  };
+
   networking = {
     hostName = "monolith";
     networkmanager.enable = true;
