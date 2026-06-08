@@ -8,6 +8,11 @@
   home-manager.users.${username} = {
     xdg.enable = true;
 
+    home.file.".local/bin/splitcue.py" = {
+      source = ./splitcue.py;
+      executable = true;
+    };
+
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
