@@ -1,23 +1,28 @@
 #!/usr/bin/env python3
-"""Split a FLAC+CUE into individual Opus tracks using ffmpeg."""
+"""Split an audio file + CUE sheet into individual Opus tracks using ffmpeg."""
 import re
 import subprocess
 import sys
 import os
 
-flac_path, cue_path, out_dir = sys.argv[1], sys.argv[2], sys.argv[3]
+cue_path, out_dir = sys.argv[1], sys.argv[2]
+cue_dir = os.path.dirname(os.path.abspath(cue_path))
 
 # Parse CUE
 album_artist = ""
 album_title = ""
 album_date = ""
 album_genre = ""
+audio_file = None
 tracks = []
 current = {}
 
 with open(cue_path, encoding="utf-8", errors="replace") as f:
     for line in f:
         line = line.strip()
+        m = re.match(r'FILE "(.+)"', line)
+        if m and not audio_file:
+            audio_file = os.path.join(cue_dir, m.group(1))
         m = re.match(r'REM DATE\s+"?(.+?)"?$', line)
         if m:
             album_date = m.group(1)
@@ -49,6 +54,20 @@ with open(cue_path, encoding="utf-8", errors="replace") as f:
 if current:
     tracks.append(current)
 
+if not audio_file or not os.path.exists(audio_file):
+    # CUE often references .wav even when file is .flac/.ape/.wv — try same stem
+    stem = os.path.splitext(audio_file)[0] if audio_file else None
+    found = None
+    for ext in (".flac", ".ape", ".wv", ".wav", ".mp3"):
+        candidate = (stem + ext) if stem else None
+        if candidate and os.path.exists(candidate):
+            found = candidate
+            break
+    if not found:
+        print(f"error: audio file not found (looked for: {audio_file})", file=sys.stderr)
+        sys.exit(1)
+    audio_file = found
+
 os.makedirs(out_dir, exist_ok=True)
 
 for i, track in enumerate(tracks):
@@ -56,7 +75,7 @@ for i, track in enumerate(tracks):
     out_file = os.path.join(out_dir, f"{track['num']:02d} - {safe_title}.opus")
     end = tracks[i + 1]["start"] if i + 1 < len(tracks) else None
 
-    cmd = ["ffmpeg", "-y", "-i", flac_path, "-ss", str(track["start"])]
+    cmd = ["ffmpeg", "-y", "-i", audio_file, "-ss", str(track["start"])]
     if end:
         cmd += ["-to", str(end)]
     cmd += [
