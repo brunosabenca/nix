@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Split an audio file + CUE sheet into individual Opus tracks using ffmpeg."""
 import re
+import shutil
 import subprocess
 import sys
 import os
@@ -95,5 +96,19 @@ for i, track in enumerate(tracks):
 
     print(f"[{track['num']:02d}/{len(tracks)}] {track['title']}")
     subprocess.run(cmd, check=True, stderr=subprocess.DEVNULL)
+
+cover_names = {"cover", "folder", "album", "front", "albumart"}
+cover_exts = {".jpg", ".jpeg", ".png", ".webp"}
+cover_src = next(
+    (os.path.join(cue_dir, f) for f in os.listdir(cue_dir)
+     if os.path.splitext(f)[0].lower() in cover_names
+     and os.path.splitext(f)[1].lower() in cover_exts),
+    None
+)
+if cover_src:
+    ext = os.path.splitext(cover_src)[1].lower()
+    dest = os.path.join(out_dir, f"cover{ext}")
+    shutil.copy2(cover_src, dest)
+    print(f"Cover copied: cover{ext}")
 
 print(f"Done — {len(tracks)} tracks written to {out_dir}")
