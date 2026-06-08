@@ -56,6 +56,7 @@
         easyeffects
         localsend
         fooyin
+        lftp
 
         oci-cli
         kubectl
