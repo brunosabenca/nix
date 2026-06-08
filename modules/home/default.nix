@@ -55,6 +55,7 @@
         vlc
         easyeffects
         localsend
+        fooyin
 
         oci-cli
         kubectl

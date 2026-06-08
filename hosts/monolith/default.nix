@@ -108,7 +108,14 @@
     distrobox
     spotify
     lmstudio
+    davfs2
   ];
+
+  fileSystems."/mnt/kepler" = {
+    device = "http://100.127.53.101:8080/kepler";
+    fsType = "davfs";
+    options = [ "noauto" "user" "uid=bruno" "_netdev" ];
+  };
 
   zramSwap = {
     enable = true;
