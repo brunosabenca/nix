@@ -132,7 +132,9 @@
   programs = {
     gamescope = {
       enable = true;
-      capSysNice = true;
+      # disabled: ambient cap_sys_nice propagates to bwrap, which Steam's
+      # runtime sandbox uses and refuses to start with inherited caps
+      capSysNice = false;
     };
     steam = {
       enable = true;
