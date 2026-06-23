@@ -108,7 +108,7 @@
             ./modules/home
             ./modules/firefox
             ./modules/neovim
-            lanzaboote.nixosModules.lanzaboote
+            ./modules/lanzaboote-patched.nix
             (
               {
                 pkgs,
@@ -125,6 +125,7 @@
                 boot.lanzaboote = {
                   enable = true;
                   pkiBundle = "/var/lib/sbctl";
+                  package = lanzaboote.packages.x86_64-linux.tool;
                 };
               }
             )

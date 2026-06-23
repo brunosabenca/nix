@@ -57,6 +57,7 @@
         localsend
         fooyin
         lftp
+        heroic
 
         oci-cli
         kubectl
