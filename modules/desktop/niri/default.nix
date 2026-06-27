@@ -36,8 +36,11 @@
     dms-greeter = {
       enable = true;
       compositor.name = "niri";
+      configHome = "/home/bruno";
     };
   };
+
+  systemd.services.greetd.environment.DMS_GREET_REMEMBER_LAST_SESSION = "0";
 
   home-manager.users.${username} =
     {
