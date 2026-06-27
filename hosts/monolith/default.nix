@@ -86,6 +86,8 @@
     configDir = "/home/bruno/.config/syncthing"; # Folder for Syncthing's settings and keys
   };
 
+  boot.loader.systemd-boot.memtest86.enable = true;
+
   boot.supportedFilesystems = [
     "ntfs"
     "fuse.sshfs"
@@ -141,7 +143,6 @@
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-      gamescopeSession.enable = true;
     };
     gamemode = {
       enable = true;
@@ -149,6 +150,11 @@
     corectrl = {
       enable = false;
     };
+  };
+
+  jovian.steam = {
+    enable = true;
+    desktopSession = "niri";
   };
 
   services.samba = {
