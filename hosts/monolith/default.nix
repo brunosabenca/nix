@@ -33,7 +33,12 @@
       services.easyeffects.enable = true;
     };
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   services.udev = {
+    extraRules = ''
+      ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="bfq"
+    '';
 
     packages = with pkgs; [
       qmk

@@ -29,8 +29,9 @@ test:
 debug:
     sudo nixos-rebuild build --flake . --show-trace --verbose --option eval-cache false
 
-# Update all flake inputs
+# Update all flake inputs (nixCats-nvim first, then main flake)
 update:
+    cd /home/bruno/git/nixCats-nvim && just update
     sudo nix flake update
 
 # Update a specific flake input

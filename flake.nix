@@ -30,7 +30,7 @@
     };
 
     neovim = {
-      url = "path:/home/bruno/git/nixCats-nvim";
+      url = "github:brunosabenca/nixCats-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
