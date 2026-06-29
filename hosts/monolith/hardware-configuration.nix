@@ -42,15 +42,20 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/0f2bfbbf-d5f2-4595-8172-99ea3fd33765";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/mapper/cryptroot";
+      fsType = "ext4";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/072C-10A7";
-    fsType = "vfat";
-  };
+  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/d2ec4988-4e8c-437e-ac3d-ed4fed464ec9";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/4444-7F80";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
+  swapDevices = [ ];
 
   fileSystems."/mnt/extra" = {
     device = "/dev/disk/by-uuid/6649d4db-5724-4d8e-b8da-acf4aeaf06d3";
@@ -63,17 +68,6 @@
     ];
   };
 
-  fileSystems."/mnt/windows" = {
-    device = "/dev/disk/by-uuid/7ADEE1C1DEE175B3";
-    fsType = "ntfs-3g";
-    options = [
-      "rw"
-      "uid=1000"
-      "x-gvfs-show"
-    ];
-  };
-
-  swapDevices = [ { device = "/dev/disk/by-uuid/e0455362-aa9f-4dca-92f9-a9a75bcb8053"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

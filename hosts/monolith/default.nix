@@ -86,7 +86,12 @@
     configDir = "/home/bruno/.config/syncthing"; # Folder for Syncthing's settings and keys
   };
 
+  boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.systemd-boot.memtest86.enable = true;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
 
   boot.supportedFilesystems = [
     "ntfs"

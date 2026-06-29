@@ -30,12 +30,12 @@
     };
 
     neovim = {
-      url = "github:brunosabenca/nixCats-nvim";
+      url = "path:/home/bruno/git/nixCats-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
+      url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -115,7 +115,7 @@
             ./modules/home
             ./modules/firefox
             ./modules/neovim
-            ./modules/lanzaboote-patched.nix
+            lanzaboote.nixosModules.lanzaboote
             (
               {
                 pkgs,
@@ -126,14 +126,6 @@
                 environment.systemPackages = [
                   pkgs.sbctl
                 ];
-
-                boot.loader.systemd-boot.enable = lib.mkForce false;
-
-                boot.lanzaboote = {
-                  enable = true;
-                  pkiBundle = "/var/lib/sbctl";
-                  package = lanzaboote.packages.x86_64-linux.tool;
-                };
               }
             )
           ];
