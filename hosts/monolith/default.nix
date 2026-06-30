@@ -33,9 +33,14 @@
       services.easyeffects.enable = true;
     };
 
+  # plugdev is a Debian convention referenced in qmk-udev-rules; uaccess handles
+  # actual device access, but the group must exist to silence the udevd warning.
+  users.groups.plugdev = { };
+  users.users.${username}.extraGroups = lib.mkAfter [ "plugdev" ];
+
   services.udev = {
     extraRules = ''
-      ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="bfq"
+      ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="bfq"
     '';
 
     packages = with pkgs; [

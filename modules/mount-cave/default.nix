@@ -16,16 +16,19 @@ in
   };
 
   config.home-manager.users.${username} =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     {
       home.packages = [ pkgs.rclone ];
 
-      xdg.configFile."rclone/rclone-nixos.conf".text = ''
-        [cave]
-        type = sftp
-        host = 192.168.1.83
-        user = bruno
-        key_file = ${userHome}/.ssh/id_ed25519
+      # Write as a real file (not a nix store symlink) so rclone can save config updates
+      home.activation.rcloneNixosConf = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        install -Dm600 ${pkgs.writeText "rclone-nixos.conf" ''
+          [cave]
+          type = sftp
+          host = 192.168.1.83
+          user = bruno
+          key_file = ${userHome}/.ssh/id_ed25519
+        ''} "$HOME/.config/rclone/rclone-nixos.conf"
       '';
 
       systemd.user.services.mount-cave = {
