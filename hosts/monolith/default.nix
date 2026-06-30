@@ -96,6 +96,11 @@
     pkiBundle = "/var/lib/sbctl";
   };
 
+  boot.kernel.sysctl = {
+    "vm.dirty_background_bytes" = 134217728; # 128MB - start background writeback
+    "vm.dirty_bytes" = 268435456;            # 256MB - throttle processes
+  };
+
   boot.supportedFilesystems = [
     "ntfs"
     "fuse.sshfs"
