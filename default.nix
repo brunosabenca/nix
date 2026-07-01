@@ -46,9 +46,6 @@
   environment.sessionVariables = {
     EDITOR = "nvim";
 
-    # If your cursor becomes invisible
-    WLR_NO_HARDWARE_CURSORS = "1";
-
     # Hint electron aps to use wayland
     NIXOS_OZONE_WL = "1";
 
