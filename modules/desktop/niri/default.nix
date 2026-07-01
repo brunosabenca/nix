@@ -2,10 +2,15 @@
   pkgs,
   username,
   lib,
+  inputs,
   ...
 }:
 {
-  imports = [ ../common ];
+  imports = [
+    ../common
+    inputs.noctalia.nixosModules.default
+    inputs.noctalia-greeter.nixosModules.default
+  ];
 
   environment.systemPackages = with pkgs; [
     wev # wayland event viewer (find out key names)
@@ -25,22 +30,15 @@
 
   services.upower.enable = true;
 
-  programs.dms-shell = {
+  programs.noctalia = {
     enable = true;
-    systemd = {
-      restartIfChanged = true;
-    };
+    systemd.enable = true;
   };
 
-  services.displayManager = {
-    dms-greeter = {
-      enable = true;
-      compositor.name = "niri";
-      configHome = "/home/bruno";
-    };
+  programs.noctalia-greeter = {
+    enable = true;
+    greeter-args = "--session niri";
   };
-
-  systemd.services.greetd.environment.DMS_GREET_REMEMBER_LAST_SESSION = "0";
 
   home-manager.users.${username} =
     {
@@ -48,6 +46,10 @@
       ...
     }:
     {
+      imports = [ inputs.noctalia.homeModules.default ];
+
+      programs.noctalia.enable = true;
+
       programs.fuzzel = {
         enable = true;
         settings = {

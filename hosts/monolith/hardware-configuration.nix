@@ -47,7 +47,10 @@
       fsType = "ext4";
     };
 
-  boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-label/NixOS-Encrypted";
+  boot.initrd.luks.devices."cryptroot" = {
+    device = "/dev/disk/by-label/NixOS-Encrypted";
+    bypassWorkqueues = true;
+  };
 
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/4444-7F80";

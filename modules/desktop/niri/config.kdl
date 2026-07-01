@@ -121,13 +121,13 @@ binds {
         spawn "kitty"
     }
     Mod+D hotkey-overlay-title="Application Launcher" {
-        spawn "dms" "ipc" "call" "spotlight" "toggle"
+        spawn "noctalia" "msg" "panel-toggle" "launcher"
     }
     Mod+Space hotkey-overlay-title="Application Launcher" {
-        spawn "dms" "ipc" "call" "spotlight" "toggle"
+        spawn "noctalia" "msg" "panel-toggle" "launcher"
     }
     Mod+Alt+Ctrl+Shift+Escape hotkey-overlay-title="Power Menu" {
-        spawn "dms" "ipc" "call" "powermenu" "toggle"
+        spawn "noctalia" "msg" "panel-toggle" "session"
     }
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -574,12 +574,4 @@ binds {
         power-off-monitors
     }
 }
-include "dms/alttab.kdl"
-include "dms/binds.kdl"
-include "dms/colors.kdl"
-include "dms/cursor.kdl"
-include "dms/layout.kdl"
-include "dms/outputs.kdl"
-include "dms/windowrules.kdl"
-include "dms/wpblur.kdl"
 

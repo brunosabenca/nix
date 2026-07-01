@@ -16,6 +16,17 @@
   nixpkgs.overlays = [
     (final: prev: {
       openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
+
+      nautilus = prev.nautilus.overrideAttrs (old: {
+        postInstall = (old.postInstall or "") + ''
+          mv $out/bin/nautilus $out/bin/.nautilus-real
+          {
+            echo '#!/bin/sh'
+            echo "exec systemd-run --user --collect --scope --slice=throttled-io.slice -- $out/bin/.nautilus-real \"\$@\""
+          } > $out/bin/nautilus
+          chmod +x $out/bin/nautilus
+        '';
+      });
     })
   ];
 
@@ -31,6 +42,11 @@
       ];
 
       services.easyeffects.enable = true;
+
+      programs.fish.functions = {
+        cp = "systemd-run --user --collect --scope --slice=throttled-io.slice -- ${pkgs.coreutils}/bin/cp $argv";
+        mv = "systemd-run --user --collect --scope --slice=throttled-io.slice -- ${pkgs.coreutils}/bin/mv $argv";
+      };
     };
 
   # plugdev is a Debian convention referenced in qmk-udev-rules; uaccess handles
@@ -40,7 +56,7 @@
 
   services.udev = {
     extraRules = ''
-      ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="bfq"
+      ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ENV{DEVTYPE}=="disk", ATTR{queue/scheduler}="none"
     '';
 
     packages = with pkgs; [
@@ -102,8 +118,8 @@
   };
 
   boot.kernel.sysctl = {
-    "vm.dirty_background_bytes" = 134217728; # 128MB - start background writeback
-    "vm.dirty_bytes" = 268435456;            # 256MB - throttle processes
+    "vm.dirty_background_bytes" = 67108864;  # 64MB - start background writeback
+    "vm.dirty_bytes" = 536870912;            # 512MB - global stall threshold; cgroup caps protect against floods
   };
 
   boot.supportedFilesystems = [
@@ -189,6 +205,13 @@
       ExecStart = "${pkgs.steamos-manager}/bin/steamosctl set-default-desktop-session niri.desktop";
     };
     wantedBy = [ "graphical-session.target" ];
+  };
+
+  systemd.user.slices."throttled-io" = {
+    sliceConfig = {
+      IOWriteBandwidthMax = "259:0 100M";
+      IOReadBandwidthMax = "259:0 200M";
+    };
   };
 
   services.samba = {

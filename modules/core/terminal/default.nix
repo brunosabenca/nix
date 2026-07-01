@@ -33,8 +33,6 @@
       functions = {
         fdp = "fd --type file --type symlink $argv -X bat";
         starship_transient_prompt_func = "starship module character";
-        cp = "ionice -c 3 command cp $argv";
-        mv = "ionice -c 3 command mv $argv";
       };
       plugins = [
         {
