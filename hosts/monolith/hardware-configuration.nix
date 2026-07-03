@@ -60,6 +60,17 @@
 
   swapDevices = [ ];
 
+  fileSystems."/mnt/steam" = {
+    device = "/dev/disk/by-label/Steam";
+    fsType = "ext4";
+    options = [
+      "nosuid"
+      "nodev"
+      "nofail"
+      "x-gvfs-show"
+    ];
+  };
+
   fileSystems."/mnt/extra" = {
     device = "/dev/disk/by-uuid/6649d4db-5724-4d8e-b8da-acf4aeaf06d3";
     fsType = "btrfs";
