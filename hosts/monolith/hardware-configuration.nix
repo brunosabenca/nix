@@ -58,7 +58,12 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  swapDevices = [ ];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 8192;
+    }
+  ];
 
   fileSystems."/mnt/steam" = {
     device = "/dev/disk/by-label/Steam";

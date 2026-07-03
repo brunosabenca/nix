@@ -22,7 +22,10 @@
       flake = false;
     };
 
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     stylix = {
       url = "github:nix-community/stylix";
@@ -44,9 +47,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    copyparty.url = "github:9001/copyparty";
+    copyparty = {
+      url = "github:9001/copyparty";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-    claude-code.url = "github:sadjow/claude-code-nix";
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nur = {
       url = "github:nix-community/NUR";
@@ -60,12 +69,10 @@
 
     noctalia = {
       url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

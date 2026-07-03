@@ -13,10 +13,10 @@
     ./hardware-configuration.nix
   ];
 
+  nix.settings.cores = 6;
+
   nixpkgs.overlays = [
     (final: prev: {
-      openldap = prev.openldap.overrideAttrs (_: { doCheck = false; });
-
       nautilus = prev.nautilus.overrideAttrs (old: {
         postInstall = (old.postInstall or "") + ''
           mv $out/bin/nautilus $out/bin/.nautilus-real
