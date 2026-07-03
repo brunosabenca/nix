@@ -51,7 +51,7 @@
   systemd.user.services.disk-space-check = {
     script = ''
       USAGE=$(${pkgs.coreutils}/bin/df / --output=pcent | ${pkgs.coreutils}/bin/tail -1 | tr -d ' %')
-      if [ "$USAGE" -gt 10 ]; then
+      if [ "$USAGE" -gt 90 ]; then
         ${pkgs.libnotify}/bin/notify-send \
           --urgency=critical \
           "Disk Space Warning" \
