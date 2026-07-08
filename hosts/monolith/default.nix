@@ -15,21 +15,6 @@
 
   nix.settings.cores = 6;
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      nautilus = prev.nautilus.overrideAttrs (old: {
-        postInstall = (old.postInstall or "") + ''
-          mv $out/bin/nautilus $out/bin/.nautilus-real
-          {
-            echo '#!/bin/sh'
-            echo "exec systemd-run --user --collect --scope --slice=throttled-io.slice -- $out/bin/.nautilus-real \"\$@\""
-          } > $out/bin/nautilus
-          chmod +x $out/bin/nautilus
-        '';
-      });
-    })
-  ];
-
   home-manager.users.${username} =
     {
       pkgs,
@@ -41,7 +26,7 @@
         vial
       ];
 
-      services.easyeffects.enable = true;
+      services.easyeffects.enable = false;
 
       programs.fish.functions = {
         cp = "systemd-run --user --collect --scope --slice=throttled-io.slice -- ${pkgs.coreutils}/bin/cp $argv";
