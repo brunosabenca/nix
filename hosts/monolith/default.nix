@@ -15,6 +15,21 @@
 
   nix.settings.cores = 6;
 
+  # patool's test suite fails on python3.14 (tarfile now guesses MIME types
+  # for compressed tar members differently), which breaks the bottles build
+  # since it depends on patool for archive extraction.
+  nixpkgs.overlays = [
+    (final: prev: {
+      python3Packages = prev.python3Packages.overrideScope (
+        pyFinal: pyPrev: {
+          patool = pyPrev.patool.overridePythonAttrs (old: {
+            doCheck = false;
+          });
+        }
+      );
+    })
+  ];
+
   home-manager.users.${username} =
     {
       pkgs,
