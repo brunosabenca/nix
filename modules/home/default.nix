@@ -58,6 +58,8 @@
         fooyin
         lftp
         heroic
+        file-roller
+        geeqie
 
         oci-cli
         kubectl
