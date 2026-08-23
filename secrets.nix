@@ -3,7 +3,5 @@ let
 in
 {
   "navidrome.acme.age".publicKeys = [ cave ];
-  "copyparty.acme.age".publicKeys = [ cave ];
   "cloudflared.age".publicKeys = [ cave ];
-  "copyparty.bruno.age".publicKeys = [ cave ];
 }

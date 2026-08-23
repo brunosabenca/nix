@@ -134,27 +134,6 @@
         "type": "github"
       }
     },
-    "copyparty": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785623038,
-        "narHash": "sha256-/VtFY1ORzjl8FvRWeSz0A7BsOuwvRCZKA95nbFvU3ZY=",
-        "owner": "9001",
-        "repo": "copyparty",
-        "rev": "5c157be955f8d93a635b66af4c85fa17d80e87f3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "9001",
-        "repo": "copyparty",
-        "type": "github"
-      }
-    },
     "crane": {
       "locked": {
         "lastModified": 1781825982,
@@ -292,21 +271,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
-    "flake-utils_2": {
-      "locked": {
-        "lastModified": 1678901627,
-        "narHash": "sha256-U02riOqrKKzwjsxc/400XnElV+UtPUQWpANPlyazjH0=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "93a2b84fc4b70d9e089d029deacc3583435c2ed6",
         "type": "github"
       },
       "original": {
@@ -722,7 +686,6 @@
         "agenix": "agenix",
         "catppuccin": "catppuccin",
         "claude-code": "claude-code",
-        "copyparty": "copyparty",
         "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "jovian-nixos": "jovian-nixos",

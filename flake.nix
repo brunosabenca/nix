@@ -47,11 +47,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    copyparty = {
-      url = "github:9001/copyparty";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     claude-code = {
       url = "github:sadjow/claude-code-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -82,7 +77,6 @@
       nixpkgs,
       stylix,
       lanzaboote,
-      copyparty,
       nur,
       jovian-nixos,
       ...
@@ -126,8 +120,7 @@
             jovian-nixos.nixosModules.jovian
             ./modules/mount-cave
             ./modules/desktop/niri
-            ./modules/core
-            ./modules/dev
+            ./modules
             ./modules/vscode
             ./modules/home
             ./modules/firefox
@@ -153,8 +146,7 @@
           extraModules = [
             ./modules/mount-cave
             ./modules/desktop/niri
-            ./modules/core
-            ./modules/dev
+            ./modules
             ./modules/home
             ./modules/neovim
             ./modules/firefox
@@ -167,8 +159,7 @@
           extraModules = [
             ./modules/mount-cave
             ./modules/desktop/niri
-            ./modules/core
-            ./modules/dev
+            ./modules
             ./modules/home
             ./modules/firefox
             ./modules/neovim
@@ -181,8 +172,7 @@
           extraModules = [
             ./modules/mount-cave
             ./modules/desktop/niri
-            ./modules/core
-            ./modules/dev
+            ./modules
             ./modules/home
             ./modules/firefox
             ./modules/neovim
@@ -194,13 +184,10 @@
           hostname = "cave";
           extraModules = [
             ./modules/nixos/qbittorrent-service
-            ./modules/core/terminal
-            ./modules/core/git
-            ./modules/core/man
+            ./modules/core
+            ./modules/stylix
             ./modules/cloudflared
             ./modules/navidrome
-            copyparty.nixosModules.default
-            ./modules/copyparty
           ];
         };
       };

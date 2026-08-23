@@ -5,5 +5,6 @@
     ./desktop
     ./dev
     ./stylix
+    ./workstation
   ];
 }

@@ -1,6 +1,5 @@
 {
   pkgs,
-  copyparty,
   ...
 }:
 {
@@ -9,9 +8,7 @@
     ./audio-configuration.nix
   ];
 
-  nixpkgs.overlays = [ copyparty.overlays.default ];
   environment.systemPackages = [
-    pkgs.copyparty
     pkgs.cfssl
   ];
   services.tailscale.enable = true;
@@ -21,22 +18,6 @@
     networkmanager.enable = true;
 
     firewall.allowedTCPPortRanges = [
-      {
-        from = 3921;
-        to = 3921;
-      }
-      {
-        from = 3923;
-        to = 3923;
-      }
-      {
-        from = 3945;
-        to = 3945;
-      }
-      {
-        from = 3990;
-        to = 3990;
-      }
       {
         from = 38844;
         to = 38844;
