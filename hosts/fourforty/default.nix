@@ -12,6 +12,8 @@
     ./hardware-configuration.nix
   ];
 
+  services.syncthing.settings.folders."calibre".path = "/home/${username}/Calibre";
+
   home-manager.users.${username} =
     {
       pkgs,

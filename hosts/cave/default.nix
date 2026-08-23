@@ -1,5 +1,6 @@
 {
   pkgs,
+  username,
   ...
 }:
 {
@@ -7,6 +8,8 @@
     ./hardware-configuration.nix
     ./audio-configuration.nix
   ];
+
+  services.syncthing.settings.folders."calibre".path = "/mnt/data/Calibre";
 
   environment.systemPackages = [
     pkgs.cfssl

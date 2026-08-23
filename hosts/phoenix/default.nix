@@ -1,11 +1,14 @@
 {
   pkgs,
+  username,
   ...
 }:
 {
   imports = [
     ./hardware-configuration.nix
   ];
+
+  services.syncthing.settings.folders."calibre".path = "/home/${username}/Calibre";
 
   environment.systemPackages = [
     pkgs.distrobox

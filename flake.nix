@@ -120,6 +120,7 @@
             jovian-nixos.nixosModules.jovian
             ./modules/mount-cave
             ./modules/desktop/niri
+            ./modules/syncthing
             ./modules
             ./modules/vscode
             ./modules/home
@@ -146,6 +147,7 @@
           extraModules = [
             ./modules/mount-cave
             ./modules/desktop/niri
+            ./modules/syncthing
             ./modules
             ./modules/home
             ./modules/neovim
@@ -159,6 +161,7 @@
           extraModules = [
             ./modules/mount-cave
             ./modules/desktop/niri
+            ./modules/syncthing
             ./modules
             ./modules/home
             ./modules/firefox
@@ -172,6 +175,7 @@
           extraModules = [
             ./modules/mount-cave
             ./modules/desktop/niri
+            ./modules/syncthing
             ./modules
             ./modules/home
             ./modules/firefox
@@ -187,6 +191,7 @@
             ./modules/core
             ./modules/stylix
             ./modules/neovim
+            ./modules/syncthing
             ./modules/cloudflared
             ./modules/navidrome
           ];

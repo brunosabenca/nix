@@ -8,6 +8,8 @@
     ./hardware-configuration.nix
   ];
 
+  services.syncthing.settings.folders."calibre".path = "/home/${username}/Calibre";
+
   networking = {
     hostName = "firefly";
     networkmanager.enable = true;

@@ -13,6 +13,8 @@
     ./hardware-configuration.nix
   ];
 
+  services.syncthing.settings.folders."calibre".path = "/home/${username}/Calibre";
+
   nix.settings.cores = 6;
 
   # patool's test suite fails on python3.14 (tarfile now guesses MIME types
