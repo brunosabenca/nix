@@ -146,6 +146,7 @@
     distrobox
     spotify
     lmstudio
+    grayjay
   ];
 
   zramSwap = {
