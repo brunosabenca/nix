@@ -25,7 +25,7 @@
 
   security.acme.certs."navidrome.brunosabenca.com" = {
     dnsProvider = "cloudflare";
-    credentialsFile = config.age.secrets."navidrome.acme".path;
+    environmentFile = config.age.secrets."navidrome.acme".path;
     group = config.services.nginx.group;
   };
 
