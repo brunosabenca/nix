@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # Default system packages
   environment.systemPackages = with pkgs; [
@@ -25,8 +25,12 @@
     just # simple cmd runner
     asciiquarium # very important
     lshw # Detailed info on connected hardware
-    busybox # unix utilities
-    toybox # unix utilities
+    # lowPrio: their minimal applets (e.g. `hostname`) would otherwise
+    # silently shadow full-featured versions like nettools' `hostname --fqdn`,
+    # which NixOS's own generated /etc/zshrc relies on
+    (lib.lowPrio busybox) # unix utilities
+    (lib.lowPrio toybox) # unix utilities
+    nettools # full-featured hostname/netstat/etc, takes priority over toybox's
     usbutils # lsusb
     pciutils # inspecting and manipulating configuration of PCI devices
     cachix # nix binary cache cli
