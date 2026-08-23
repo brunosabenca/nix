@@ -186,6 +186,7 @@
             ./modules/nixos/qbittorrent-service
             ./modules/core
             ./modules/stylix
+            ./modules/neovim
             ./modules/cloudflared
             ./modules/navidrome
           ];
