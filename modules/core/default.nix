@@ -7,6 +7,7 @@
   imports = [
     ./man
     ./nix
+    ./pkgs
     ./git
     ./terminal
     ./locale
