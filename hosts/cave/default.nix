@@ -10,6 +10,8 @@
   ];
 
   services.syncthing.settings.folders."calibre".path = "/mnt/data/Calibre";
+  # openDefaultPorts doesn't cover the GUI port, and cave needs it reachable remotely
+  networking.firewall.allowedTCPPorts = [ 8384 ];
 
   environment.systemPackages = [
     pkgs.cfssl
