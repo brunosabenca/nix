@@ -29,9 +29,14 @@
     };
   };
 
-  services.udev.extraRules = ''
-    ACTION=="change", SUBSYSTEM=="power_supply", KERNEL=="BAT0", ATTR{status}=="Full", TAG+="systemd", ENV{SYSTEMD_WANTS}="battery-restore-thresholds.service"
-  '';
+  services.udev = {
+    extraRules = ''
+      ACTION=="change", SUBSYSTEM=="power_supply", KERNEL=="BAT0", ATTR{status}=="Full", TAG+="systemd", ENV{SYSTEMD_WANTS}="battery-restore-thresholds.service"
+    '';
+
+    # Lets PlatformIO flash ESP32-based devices (e.g. CrossInk) without root.
+    packages = [ pkgs.platformio-core.udev ];
+  };
 
   home-manager.users.${username}.programs.fish.functions = {
     battery-full = {
