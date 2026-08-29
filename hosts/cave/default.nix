@@ -7,6 +7,7 @@
   imports = [
     ./hardware-configuration.nix
     ./audio-configuration.nix
+    ../../modules/mail-relay
   ];
 
   services.syncthing.settings.folders."calibre".path = "/mnt/data/Calibre";
@@ -61,6 +62,8 @@
   };
 
   services = {
+    smartd.enable = true;
+
     getty.autologinUser = "bruno";
 
     logind = {

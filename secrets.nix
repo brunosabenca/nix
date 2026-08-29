@@ -4,4 +4,6 @@ in
 {
   "navidrome.acme.age".publicKeys = [ cave ];
   "cloudflared.age".publicKeys = [ cave ];
+  "modules/mail-relay/gmail-smtp-password.age".publicKeys = [ cave ];
+  "modules/mail-relay/gmail-smtp-address.age".publicKeys = [ cave ];
 }
