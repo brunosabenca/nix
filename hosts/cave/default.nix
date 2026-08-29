@@ -62,7 +62,12 @@
   };
 
   services = {
-    smartd.enable = true;
+    smartd = {
+      enable = true;
+      # Schedule short self-tests daily at 02:00 and long (full-surface)
+      # self-tests weekly on Sundays at 04:00.
+      defaults.monitored = "-a -o on -s (S/../.././02|L/../../7/04)";
+    };
 
     getty.autologinUser = "bruno";
 
