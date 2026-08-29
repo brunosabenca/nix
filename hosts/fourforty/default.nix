@@ -20,10 +20,17 @@
       ...
     }:
     {
-      home.packages = [ pkgs.vial ];
+      home.packages = with pkgs; [
+        vial
+        whipper # accurate CD ripper (AccurateRip-verified)
+        picard # MusicBrainz tagger
+      ];
 
       services.kdeconnect.enable = true;
     };
+
+  # whipper needs raw access to the optical drive
+  users.users.${username}.extraGroups = lib.mkAfter [ "cdrom" ];
 
   services.udev = {
 
