@@ -15,6 +15,7 @@
 
   environment.systemPackages = [
     pkgs.cfssl
+    pkgs.smartmontools
   ];
   services.tailscale.enable = true;
 
