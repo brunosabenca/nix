@@ -54,7 +54,10 @@
   # plugdev is a Debian convention referenced in qmk-udev-rules; uaccess handles
   # actual device access, but the group must exist to silence the udevd warning.
   users.groups.plugdev = { };
-  users.users.${username}.extraGroups = lib.mkAfter [ "plugdev" ];
+  users.users.${username}.extraGroups = lib.mkAfter [
+    "plugdev"
+    "libvirtd"
+  ];
 
   services.udev = {
     extraRules = ''
@@ -120,8 +123,8 @@
   };
 
   boot.kernel.sysctl = {
-    "vm.dirty_background_bytes" = 67108864;  # 64MB - start background writeback
-    "vm.dirty_bytes" = 536870912;            # 512MB - global stall threshold; cgroup caps protect against floods
+    "vm.dirty_background_bytes" = 67108864; # 64MB - start background writeback
+    "vm.dirty_bytes" = 536870912; # 512MB - global stall threshold; cgroup caps protect against floods
   };
 
   boot.supportedFilesystems = [
@@ -142,12 +145,24 @@
     dockerCompat = true;
   };
 
+  # swtpm emulates a TPM 2.0 device, required by Windows 11.
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu.swtpm.enable = true;
+  };
+  virtualisation.spiceUSBRedirection.enable = true;
+  programs.virt-manager.enable = true;
+
   environment.systemPackages = with pkgs; [
     distrobox
     spotify
     lmstudio
     grayjay
   ];
+
+  # environment.etc, not systemPackages: system-path's buildEnv only links a
+  # whitelist of subpaths and silently drops bare top-level files like this.
+  environment.etc."virtio-win.iso".source = pkgs.virtio-win.src;
 
   zramSwap = {
     enable = true;
