@@ -38,7 +38,7 @@ in
         };
         Service = {
           ExecStartPre = "/run/current-system/sw/bin/mkdir -p ${userHome}/${mountPoint}";
-          ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone-nixos.conf --vfs-cache-mode writes --ignore-checksum mount \"cave:/mnt/data\" \"${mountPoint}\"";
+          ExecStart = "${pkgs.rclone}/bin/rclone --config=%h/.config/rclone/rclone-nixos.conf --vfs-cache-mode writes --ignore-checksum --dir-cache-time 30s mount \"cave:/mnt/data\" \"${mountPoint}\"";
           ExecStop = "/run/current-system/sw/bin/fusermount -u %h/${mountPoint}";
           Environment = [ "PATH=/run/wrappers/bin/:$PATH" ];
         };
