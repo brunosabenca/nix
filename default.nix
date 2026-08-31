@@ -77,9 +77,11 @@
 
   networking.firewall.allowedTCPPorts = [
     50341
+    53317 # LocalSend
   ];
   networking.firewall.allowedUDPPorts = [
     50341
+    53317 # LocalSend
   ];
 
   security.polkit.enable = true;
