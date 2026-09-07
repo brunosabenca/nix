@@ -9,6 +9,7 @@
   ];
 
   services.syncthing.settings.folders."calibre".path = "/home/${username}/Calibre";
+  services.tailscale.enable = true;
 
   networking = {
     hostName = "firefly";
