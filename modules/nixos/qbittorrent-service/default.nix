@@ -1,12 +1,15 @@
 # https://github.com/estebanheish/dots/blob/master/modules/nixos/qbittorrent-service/default.nix
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   qbit-nox = pkgs.qbittorrent.override {
     guiSupport = false;
     webuiSupport = true;
   };
   port = 6881;
-  tailscale = config.services.tailscale.package;
+  setWebuiAddress = pkgs.writeShellScript "qbit-set-webui-address" ''
+    mkdir -p /var/lib/qBittorrent/config
+    ${pkgs.crudini}/bin/crudini --set /var/lib/qBittorrent/config/qBittorrent.conf Preferences 'WebUI\Address' 127.0.0.1
+  '';
 in
 {
   systemd.services.qbit = {
@@ -25,6 +28,7 @@ in
       Group = "qbit";
       StateDirectory = "qBittorrent";
       StateDirectoryMode = "0750";
+      ExecStartPre = "${setWebuiAddress}";
       ExecStart = "${qbit-nox}/bin/qbittorrent-nox";
     };
 
@@ -41,23 +45,4 @@ in
     isSystemUser = true;
   };
   users.groups.qbit = { };
-
-  systemd.services.qbit-tailscale-serve = {
-    description = "Expose qBittorrent WebUI over HTTPS via Tailscale Serve";
-    after = [
-      "tailscaled.service"
-      "qbit.service"
-    ];
-    wants = [ "tailscaled.service" ];
-    wantedBy = [ "multi-user.target" ];
-
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:${toString port}";
-      ExecStop = "${tailscale}/bin/tailscale serve reset";
-    };
-  };
-
-  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [ 443 ];
 }

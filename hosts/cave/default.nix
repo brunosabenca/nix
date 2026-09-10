@@ -1,8 +1,12 @@
 {
+  config,
   pkgs,
   username,
   ...
 }:
+let
+  tailscale = config.services.tailscale.package;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -11,14 +15,44 @@
   ];
 
   services.syncthing.settings.folders."calibre".path = "/mnt/data/Calibre";
-  # openDefaultPorts doesn't cover the GUI port, and cave needs it reachable remotely
-  networking.firewall.allowedTCPPorts = [ 8384 ];
+  services.syncthing.settings.gui.insecureSkipHostcheck = true;
 
   environment.systemPackages = [
     pkgs.cfssl
     pkgs.smartmontools
   ];
   services.tailscale.enable = true;
+
+  # Exposes qbittorrent and syncthing's WebUIs as HTTPS at
+  # https://cave.<tailnet>.ts.net, reachable only from the tailnet. One unit
+  # owns all serve mappings because `tailscale serve reset` clears every
+  # mapping on the node, so splitting this across services would make each
+  # one's stop/restart clobber the others'.
+  systemd.services.tailscale-serve = {
+    description = "Configure Tailscale Serve for cave's HTTPS-only services";
+    after = [
+      "tailscaled.service"
+      "qbit.service"
+      "syncthing.service"
+    ];
+    wants = [ "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = [
+        "${tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:6881"
+        "${tailscale}/bin/tailscale serve --bg --https=8385 http://127.0.0.1:8384"
+      ];
+      ExecStop = "${tailscale}/bin/tailscale serve reset";
+    };
+  };
+
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
+    443
+    8385
+  ];
 
   networking = {
     hostName = "cave";
