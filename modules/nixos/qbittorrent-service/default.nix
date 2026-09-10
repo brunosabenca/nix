@@ -1,11 +1,12 @@
 # https://github.com/estebanheish/dots/blob/master/modules/nixos/qbittorrent-service/default.nix
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   qbit-nox = pkgs.qbittorrent.override {
     guiSupport = false;
     webuiSupport = true;
   };
   port = 6881;
+  tailscale = config.services.tailscale.package;
 in
 {
   systemd.services.qbit = {
@@ -41,5 +42,22 @@ in
   };
   users.groups.qbit = { };
 
-  networking.firewall.allowedTCPPorts = [ port ];
+  systemd.services.qbit-tailscale-serve = {
+    description = "Expose qBittorrent WebUI over HTTPS via Tailscale Serve";
+    after = [
+      "tailscaled.service"
+      "qbit.service"
+    ];
+    wants = [ "tailscaled.service" ];
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:${toString port}";
+      ExecStop = "${tailscale}/bin/tailscale serve reset";
+    };
+  };
+
+  networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [ 443 ];
 }
