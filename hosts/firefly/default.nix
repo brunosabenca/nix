@@ -18,6 +18,7 @@
 
   environment.systemPackages = with pkgs; [
     distrobox
+    grayjay
     libsmbios
     spotify
   ];

@@ -12,6 +12,7 @@
 
   environment.systemPackages = [
     pkgs.distrobox
+    pkgs.grayjay
     pkgs.spotify
   ];
 

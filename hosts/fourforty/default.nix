@@ -14,6 +14,10 @@
 
   services.syncthing.settings.folders."calibre".path = "/home/${username}/Calibre";
 
+  environment.systemPackages = with pkgs; [
+    grayjay
+  ];
+
   home-manager.users.${username} =
     {
       pkgs,
