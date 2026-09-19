@@ -55,6 +55,7 @@
   environment.systemPackages = with pkgs; [
     opencode
     inputs.claude-code.packages.${system}.claude-code
+    herdr
     nil # Nix language server
     lua
     gcc
