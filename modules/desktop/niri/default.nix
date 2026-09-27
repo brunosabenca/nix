@@ -48,7 +48,19 @@
     {
       imports = [ inputs.noctalia.homeModules.default ];
 
-      programs.noctalia.enable = true;
+      programs.noctalia = {
+        enable = true;
+        settings.theme.templates = {
+          # Generates ~/.config/kitty/themes/noctalia.conf and live-reloads kitty
+          builtin_ids = [ "kitty" ];
+          community_ids = [
+            # Rewrites [theme.custom] in ~/.config/herdr/config.toml (must stay unmanaged by Nix)
+            "herdr"
+            # Generates ~/.claude/themes/noctalia.json; select "Noctalia" via /theme
+            "claude-code"
+          ];
+        };
+      };
 
       programs.fuzzel = {
         enable = true;
