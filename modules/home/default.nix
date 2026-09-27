@@ -52,7 +52,20 @@
         nvd
         wlogout
         filezilla
-        vlc
+        # subtitle font via flag rather than a managed vlcrc, so VLC can still save its prefs
+        (symlinkJoin {
+          inherit (vlc) name;
+          meta.mainProgram = "vlc";
+          paths = [ vlc ];
+          nativeBuildInputs = [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/vlc --add-flag "--freetype-font=Lexend Medium"
+            # desktop entry execs the unwrapped binary by absolute path
+            rm $out/share/applications/vlc.desktop
+            sed "s|${vlc}/bin/vlc|$out/bin/vlc|" ${vlc}/share/applications/vlc.desktop \
+              > $out/share/applications/vlc.desktop
+          '';
+        })
         easyeffects
         localsend
         fooyin

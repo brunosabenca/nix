@@ -52,6 +52,7 @@
       subpixel.rgba = "rgb";
     };
     packages = with pkgs; [
+      lexend
       nerd-fonts.jetbrains-mono
     ];
   };

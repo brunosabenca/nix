@@ -42,7 +42,7 @@
         interpolation = true;
         tscale = "oversample";
         video-sync = "display-resample";
-        sub-font = lib.mkForce "Gandhi Sans Bold";
+        sub-font = lib.mkForce "Lexend Medium";
         sub-border-size = 1;
         sub-color = "#CDCDCD";
         # sub-shadow = 3;
