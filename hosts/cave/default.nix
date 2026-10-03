@@ -56,7 +56,27 @@ in
 
   networking = {
     hostName = "cave";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      # Prefer any wired link over Wi-Fi (the saved Wi-Fi profile uses metric 100,
+      # and older auto-created ethernet profiles use 300). Not matched by
+      # interface name since the USB adapter's name depends on the port.
+      ensureProfiles.profiles.wired = {
+        connection = {
+          id = "wired";
+          type = "ethernet";
+          autoconnect-priority = 10;
+        };
+        ipv4 = {
+          method = "auto";
+          route-metric = 50;
+        };
+        ipv6 = {
+          method = "auto";
+          route-metric = 50;
+        };
+      };
+    };
 
     firewall.allowedTCPPortRanges = [
       {
