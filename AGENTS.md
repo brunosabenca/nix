@@ -116,6 +116,8 @@ Only destructure inputs in the `outputs` function args when they are used **dire
 
 ## Testing
 
+**Check which machine you are on before building anything** — run `hostname` and build that host's configuration. Never assume a host.
+
 Always verify after changes:
 ```bash
 sudo nixos-rebuild switch --flake .
