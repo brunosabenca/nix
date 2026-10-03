@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   ...
 }:
@@ -19,29 +18,5 @@
     settings = {
       musicFolder = "/mnt/data/Music";
     };
-  };
-
-  age.secrets."navidrome.acme".file = ./navidrome.acme.age;
-
-  security.acme.certs."navidrome.brunosabenca.com" = {
-    dnsProvider = "cloudflare";
-    environmentFile = config.age.secrets."navidrome.acme".path;
-    group = config.services.nginx.group;
-  };
-
-  services.nginx = {
-    enable = true;
-    virtualHosts = {
-      "navidrome.brunosabenca.com" = {
-        useACMEHost = "navidrome.brunosabenca.com";
-        forceSSL = true;
-        locations."/".proxyPass = "http://127.0.0.1:4533";
-      };
-    };
-  };
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "admin+acme@brunosabenca.com";
   };
 }
