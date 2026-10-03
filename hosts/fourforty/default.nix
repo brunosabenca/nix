@@ -13,6 +13,7 @@
   ];
 
   services.syncthing.settings.folders."calibre".path = "/home/${username}/Calibre";
+  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
     grayjay

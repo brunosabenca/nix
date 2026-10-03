@@ -45,9 +45,12 @@ in
     wantedBy = [ "multi-user.target" ];
   };
 
+  # IDs are pinned because /mnt/data is NFS-exported to monolith, which mirrors
+  # them in modules/mount-cave so file ownership and group access line up.
   users.users.qbit = {
+    uid = 989;
     group = "qbit";
     isSystemUser = true;
   };
-  users.groups.qbit = { };
+  users.groups.qbit.gid = 985;
 }

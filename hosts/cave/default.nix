@@ -50,6 +50,30 @@ in
     };
   };
 
+  # NFSv4 export of the data disk for monolith (the only LAN client; remote hosts
+  # use rclone over Tailscale). NFS trusts the client IP, so both the export and
+  # the firewall rule are pinned to that single address.
+  services.nfs.server = {
+    enable = true;
+    exports = ''
+      /mnt/data 192.168.1.20(rw,sync,no_subtree_check,crossmnt)
+    '';
+  };
+  services.nfs.settings.nfsd = {
+    vers2 = "n";
+    vers3 = "n";
+    vers4 = "y";
+    "vers4.0" = "y";
+    "vers4.1" = "y";
+    "vers4.2" = "y";
+  };
+  networking.firewall.extraCommands = ''
+    iptables -A nixos-fw -p tcp -s 192.168.1.20 --dport 2049 -j nixos-fw-accept
+  '';
+  networking.firewall.extraStopCommands = ''
+    iptables -D nixos-fw -p tcp -s 192.168.1.20 --dport 2049 -j nixos-fw-accept || true
+  '';
+
   networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
     443
     8385
@@ -60,6 +84,9 @@ in
     hostName = "cave";
     networkmanager = {
       enable = true;
+      # Wi-Fi on the same subnet as ethernet made cave answer LAN traffic over
+      # the slow wireless link (~200ms latency), so keep it off.
+      unmanaged = [ "interface-name:wlp1s0" ];
       # Prefer any wired link over Wi-Fi (the saved Wi-Fi profile uses metric 100,
       # and older auto-created ethernet profiles use 300). Not matched by
       # interface name since the USB adapter's name depends on the port.

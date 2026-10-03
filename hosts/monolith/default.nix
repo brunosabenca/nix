@@ -71,6 +71,12 @@
 
   services.tailscale.enable = true;
 
+  # monolith is wired to cave's LAN, so use NFS (cave exports to this IP only)
+  services.mount-cave = {
+    backend = "nfs";
+    host = "192.168.1.236";
+  };
+
   services.sunshine = {
     enable = true;
     openFirewall = true;
