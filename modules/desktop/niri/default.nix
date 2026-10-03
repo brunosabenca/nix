@@ -40,6 +40,13 @@
     greeter-args = "--session niri";
   };
 
+  # The greeter's compositor needs the GPU card node (video) and the render
+  # node (render) to create its EGL/Vulkan renderer.
+  users.users.greeter.extraGroups = [
+    "video"
+    "render"
+  ];
+
   home-manager.users.${username} =
     {
       pkgs,
