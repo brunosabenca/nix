@@ -44,11 +44,6 @@
       ];
 
       services.easyeffects.enable = false;
-
-      programs.fish.functions = {
-        cp = "systemd-run --user --collect --scope --slice=throttled-io.slice -- ${pkgs.coreutils}/bin/cp $argv";
-        mv = "systemd-run --user --collect --scope --slice=throttled-io.slice -- ${pkgs.coreutils}/bin/mv $argv";
-      };
     };
 
   # plugdev is a Debian convention referenced in qmk-udev-rules; uaccess handles
@@ -224,13 +219,6 @@
       ExecStart = "${pkgs.steamos-manager}/bin/steamosctl set-default-desktop-session niri.desktop";
     };
     wantedBy = [ "graphical-session.target" ];
-  };
-
-  systemd.user.slices."throttled-io" = {
-    sliceConfig = {
-      IOWriteBandwidthMax = "259:0 100M";
-      IOReadBandwidthMax = "259:0 200M";
-    };
   };
 
   services.samba = {
