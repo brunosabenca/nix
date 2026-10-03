@@ -2,9 +2,9 @@
 let
   port = 8088;
   stateDir = "/var/lib/kindle-calendar";
-  # Weather location (Open-Meteo). Defaults to central London; change as needed.
-  latitude = "51.5072";
-  longitude = "-0.1276";
+  # Weather location (Open-Meteo): East Ham Station.
+  latitude = "51.5392928";
+  longitude = "0.0512835";
   lexend = "${pkgs.lexend}/share/fonts/truetype/lexend/lexend";
   python = pkgs.python3.withPackages (ps: [
     ps.icalendar

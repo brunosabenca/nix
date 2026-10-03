@@ -335,7 +335,7 @@ for kind, payload, h in items[:n]:
         # Today's forecast is already in the header.
         if weather and offset > 0 and day in weather["daily"]:
             code, hi, lo, rain = weather["daily"][day]
-            text = f"{WMO.get(code, '')}  {hi}°/{lo}°"
+            text = f"{hi}°/{lo}°"
             if rain and rain >= 30:
                 text += f"  {rain}%"
             d.text((W - M, y + 4), text, font=time_font, fill=90, anchor="ra")
