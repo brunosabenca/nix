@@ -75,7 +75,7 @@ def fetch_weather():
         query = urllib.parse.urlencode({
             "latitude": args.lat,
             "longitude": args.lon,
-            "current": "temperature_2m,weather_code",
+            "current": "temperature_2m,weather_code,is_day",
             "daily": "weather_code,temperature_2m_max,temperature_2m_min,"
                      "precipitation_probability_max",
             "timezone": args.tz,
@@ -95,7 +95,8 @@ def fetch_weather():
         }
         return {
             "now": (data["current"]["weather_code"],
-                    round(data["current"]["temperature_2m"])),
+                    round(data["current"]["temperature_2m"]),
+                    bool(data["current"].get("is_day", 1))),
             "daily": daily,
         }
     except Exception as exc:  # weather is optional, never break the calendar
@@ -103,11 +104,11 @@ def fetch_weather():
         return None
 
 
-def icon_kind(code):
+def icon_kind(code, night=False):
     if code in (0, 1):
-        return "clear"
+        return "moon" if night else "clear"
     if code == 2:
-        return "partly"
+        return "moon_cloud" if night else "partly"
     if code == 3:
         return "cloud"
     if code in (45, 48):
@@ -138,11 +139,25 @@ def draw_sun(d, cx, cy, r, ray, width):
                 cx + math.cos(a) * ray, cy + math.sin(a) * ray), fill=0, width=width)
 
 
+def draw_moon(d, cx, cy, r):
+    """Crescent: a disc with a white disc carved out of its upper right."""
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=0)
+    cr = r * .82
+    ox, oy = cx + r * .52, cy - r * .30
+    d.ellipse((ox - cr, oy - cr, ox + cr, oy + cr), fill=255)
+
+
 def draw_icon(d, kind, x, y, s):
     """Weather icon in the s x s box with top-left (x, y)."""
     w = max(3, int(s / 11))
     if kind == "clear":
         draw_sun(d, x + s / 2, y + s / 2, s * .22, s * .46, w)
+    elif kind == "moon":
+        draw_moon(d, x + s * .5, y + s * .5, s * .36)
+    elif kind == "moon_cloud":
+        draw_moon(d, x + s * .34, y + s * .32, s * .28)
+        draw_cloud(d, x + s * .16, y + s * .28, s * .84, halo=True)
+        draw_cloud(d, x + s * .16, y + s * .28, s * .84)
     elif kind == "partly":
         draw_sun(d, x + s * .34, y + s * .32, s * .20, s * .40, w)
         draw_cloud(d, x + s * .14, y + s * .22, s * .86, halo=True)
@@ -230,13 +245,13 @@ y += W // 14 + 8
 d.text((M, y), today.strftime("%-d %B %Y"), font=font(W // 22), fill=60)
 
 if weather:
-    code, temp = weather["now"]
+    code, temp, is_day = weather["now"]
     temp_font = font(W // 10, True)
     d.text((W - M, M), f"{temp}°", font=temp_font, fill=0, anchor="ra")
     # Sized so even the tallest icons (sun rays, thunder bolt) end above the
     # conditions line below the temperature.
     isz = int(W * 0.09)
-    draw_icon(d, icon_kind(code), W - M - d.textlength(f"{temp}°", font=temp_font) - isz - W // 40,
+    draw_icon(d, icon_kind(code, not is_day), W - M - d.textlength(f"{temp}°", font=temp_font) - isz - W // 40,
               M, isz)
     # The icon says it all except for rain and snow, where the wording adds
     # the intensity (drizzle / heavy rain, light / heavy snow).
