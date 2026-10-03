@@ -14,6 +14,17 @@ in
     ../../modules/mail-relay
   ];
 
+  # The data disk's Ugreen enclosure (ASMedia ASM1153) times out and resets under
+  # UAS, dropping /dev/sda mid-use. The ":u" quirk makes it use plain usb-storage.
+  boot.kernelParams = [ "usb-storage.quirks=174c:1153:u" ];
+
+  # Keep the data disk spinning: it is busy around the clock (torrents, Syncthing,
+  # NFS), and spin-up waits are a likely trigger for the bridge's timeouts. Applied
+  # on every (re)attach since the setting is lost whenever the enclosure resets.
+  services.udev.extraRules = ''
+    ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd[a-z]", SUBSYSTEMS=="usb", ATTRS{idVendor}=="174c", ATTRS{idProduct}=="1153", RUN+="${pkgs.hdparm}/bin/hdparm -S 0 /dev/%k"
+  '';
+
   services.syncthing.settings.folders."calibre".path = "/mnt/data/Calibre";
   services.syncthing.settings.gui.insecureSkipHostcheck = true;
 
