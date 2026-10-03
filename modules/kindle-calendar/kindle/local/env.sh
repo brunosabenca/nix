@@ -2,8 +2,9 @@
 
 # Export environment variables here
 export WIFI_TEST_IP=${WIFI_TEST_IP:-192.168.1.1}
-# Every 30 minutes, 06:00-22:30.
-export REFRESH_SCHEDULE=${REFRESH_SCHEDULE:-"0,30 6-22 * * *"}
+# Every 30 minutes, 06:00-22:30, plus 00:00 and 00:30 so the date rolls over
+# at midnight instead of showing yesterday until 06:00.
+export REFRESH_SCHEDULE=${REFRESH_SCHEDULE:-"0,30 0,6-22 * * *"}
 export TIMEZONE=${TIMEZONE:-"Europe/London"}
 
 # Full e-ink refresh every Nth update to clear ghosting.
