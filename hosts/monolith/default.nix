@@ -185,6 +185,13 @@
   # Needed for corectrl
   hardware.amdgpu.overdrive.enable = true;
 
+  # MSI B450I's Nuvoton Super I/O exposes the CPU/case fan headers; without
+  # this driver nothing but the GPU fan is visible or controllable.
+  boot.kernelModules = [ "nct6775" ];
+
+  # Fan curves for silence (CPU/case/GPU) are configured in its GUI.
+  programs.coolercontrol.enable = true;
+
   programs = {
     gamescope = {
       enable = true;
