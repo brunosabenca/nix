@@ -231,26 +231,29 @@ d.text((M, y), today.strftime("%-d %B %Y"), font=font(W // 22), fill=60)
 
 if weather:
     code, temp = weather["now"]
-    temp_font = font(W // 8, True)
+    temp_font = font(W // 10, True)
     d.text((W - M, M), f"{temp}°", font=temp_font, fill=0, anchor="ra")
-    isz = int(W * 0.13)
+    isz = int(W * 0.11)
     draw_icon(d, icon_kind(code), W - M - d.textlength(f"{temp}°", font=temp_font) - isz - W // 40,
-              M, isz)
+              M + W // 60, isz)
     sub = WMO.get(code, "")
     if today in weather["daily"]:
         _, hi, lo, _ = weather["daily"][today]
         sub += f"  {hi}°/{lo}°"
-    d.text((W - M, M + W // 8 + 4), sub, font=font(W // 32), fill=60, anchor="ra")
+    d.text((W - M, M + W // 10 + 4), sub, font=font(W // 32), fill=60, anchor="ra")
+elif args.lat is not None:  # weather is configured but the fetch failed
+    d.text((W - M, M + W // 30), "weather unavailable", font=font(W // 36), fill=120, anchor="ra")
 y += W // 22 + M
-if weather:
-    y = max(y, M + W // 8 + W // 32 + 4 + M)
+if weather or args.lat is not None:  # keep the layout the same without weather
+    y = max(y, M + W // 10 + W // 32 + 4 + M)
 
 # Month grid
 cell_w = (W - 2 * M) // 7
 weeks = calendar.Calendar(firstweekday=0).monthdatescalendar(first.year, first.month)
 cell_h = min(int(cell_w * 0.8), 600 // len(weeks))
 for i, name in enumerate(calendar.day_abbr):
-    d.text((M + i * cell_w + cell_w // 2, y), name, font=font(W // 36, True), fill=80, anchor="ma")
+    d.text((M + i * cell_w + cell_w // 2, y), name, font=font(W // 36, True),
+           fill=20 if i >= 5 else 80, anchor="ma")
 y += W // 36 + 14
 for week in weeks:
     for i, day in enumerate(week):
@@ -259,7 +262,14 @@ for week in weeks:
         count = sum(covers(e, day) for e in events) if in_month else 0
         if day == today:
             d.rounded_rectangle((x + 4, y + 2, x + cell_w - 4, y + cell_h - 2), radius=10, fill=0)
-        colour = 255 if day == today else (0 if in_month else 145)
+        if day == today:
+            colour = 255
+        elif not in_month:
+            colour = 145
+        elif day < today:
+            colour = 110  # past days of this month recede
+        else:
+            colour = 0
         d.text((x + cell_w // 2, y + cell_h // 2 - 4), str(day.day),
                font=font(W // 24, day == today), fill=colour, anchor="mm")
         # one dot per event, up to three, so busy days stand out
@@ -298,9 +308,10 @@ for offset in range(args.days):
     todays = shown.get(day, [])
     if not todays and offset > 0:
         continue
+    if not todays:  # only ever Today: heading and message share one line
+        items.append(("head_none", (offset, day), head + gap))
+        continue
     items.append(("head", (offset, day), head))
-    if not todays:
-        items.append(("none", None, row + gap))
     for k, ev in enumerate(todays):
         items.append(("event", (day, ev), row + (gap if k == len(todays) - 1 else 0)))
 
@@ -330,9 +341,13 @@ for kind, payload, h in items[:n]:
             d.text((W - M, y + 4), text, font=time_font, fill=90, anchor="ra")
             isz = W // 22
             draw_icon(d, icon_kind(code), W - M - d.textlength(text, font=time_font) - isz - 12, y, isz)
-    elif kind == "none":
-        msg = "Calendar offline" if cal is None else "Nothing scheduled"
-        d.text((M + 20, y), msg, font=title_font, fill=130)
+    elif kind == "head_none":
+        offset, day = payload
+        label = "Today" if offset == 0 else day.strftime("%A, %-d %b")
+        msg = "calendar offline" if cal is None else "nothing scheduled"
+        base = y + day_font.getmetrics()[0]
+        d.text((M, base), label, font=day_font, fill=0, anchor="ls")
+        d.text((M + d.textlength(label, font=day_font) + 20, base), msg, font=title_font, fill=130, anchor="ls")
     else:
         day, (start, end, all_day, summary) = payload
         when = "all day" if all_day or start.date() < day else start.strftime("%H:%M")
