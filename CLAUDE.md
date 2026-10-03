@@ -1,3 +1,3 @@
-# Working conventions
+@AGENTS.md
 
-- Always pass `--info=progress2` to `rsync`, including small transfers.
+When adding new project instructions or conventions, put them in AGENTS.md, not in this file.

@@ -147,3 +147,7 @@ nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel
 ```nix
 services.postgresql.package = pkgs.postgresql_17;  # Don't bump stateVersion
 ```
+
+## Working Conventions
+
+- Always pass `--info=progress2` to `rsync`, including small transfers.
