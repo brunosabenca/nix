@@ -292,16 +292,63 @@ if weather:
     left = (temp_ink_left + W - M) / 2 - s_width / 2
     left = min(left, W - M - s_width)
     d.text((left - s_left, sub_base), sub, font=sub_font, fill=60, anchor="ls")
-elif args.lat is not None:  # weather is configured but the fetch failed
-    d.text((W - M, date_base), "weather unavailable", font=font(W // 36), fill=120, anchor="rs")
 y += W // 22 + M
 if weather or args.lat is not None:  # keep the layout the same without weather
     y = max(y, date_base + M)
 
+# Forecast strip: the next four days as columns. Its height is taken out of the
+# month grid below, so the agenda starts where it did before the strip existed.
+strip_top_y = y
+if args.lat is not None:
+    line_w = 2
+    strip_h, pad = 112, 14
+    d.line((M, y, W - M, y), fill=170, width=line_w)
+    y += line_w + pad
+    if weather:
+        days = [today + timedelta(days=k) for k in range(1, 5)]
+        col_w = (W - 2 * M) // len(days)
+        wd_font, hi_font, lo_font, rain_font = font(W // 34, True), font(W // 30, True), font(W // 34), font(W // 42)
+        isz = 60
+        for i, day in enumerate(days):
+            if day not in weather["daily"]:
+                continue
+            code, hi, lo, rain = weather["daily"][day]
+            x0 = M + i * col_w
+            if i:
+                d.line((x0, y + 4, x0, y + strip_h - 4), fill=200, width=line_w)
+            centre = x0 + col_w / 2
+            # weekday (and rain chance when it matters), centred over the column
+            wd = day.strftime("%a")
+            rain_txt = f"{rain}%" if rain and rain >= 30 else ""
+            wd_w = d.textlength(wd, font=wd_font)
+            rain_w = d.textlength(rain_txt, font=rain_font)
+            total = wd_w + (14 + rain_w if rain_txt else 0)
+            lx = centre - total / 2
+            base = y + wd_font.getmetrics()[0]
+            d.text((lx, base), wd, font=wd_font, fill=0, anchor="ls")
+            if rain_txt:
+                d.text((lx + wd_w + 14, base), rain_txt, font=rain_font, fill=90, anchor="ls")
+            # icon with high above low, the pair centred in the column
+            temps_w = max(d.textlength(f"{hi}°", font=hi_font), d.textlength(f"{lo}°", font=lo_font))
+            gx = centre - (isz + 16 + temps_w) / 2
+            icon_y = y + 46
+            draw_icon(d, icon_kind(code), gx, icon_y, isz)
+            d.text((gx + isz + 16, icon_y + 26), f"{hi}°", font=hi_font, fill=0, anchor="ls")
+            d.text((gx + isz + 16, icon_y + 26 + 38), f"{lo}°", font=lo_font, fill=90, anchor="ls")
+    else:  # weather is configured but the fetch failed: say so where it would be
+        d.text((W / 2, y + strip_h / 2), "weather unavailable", font=font(W // 32), fill=120, anchor="mm")
+    y += strip_h + pad
+    d.line((M, y, W - M, y), fill=170, width=line_w)
+    y += line_w + pad
+strip_added = y - strip_top_y
+
 # Month grid
 cell_w = (W - 2 * M) // 7
 weeks = calendar.Calendar(firstweekday=0).monthdatescalendar(first.year, first.month)
-cell_h = min(int(cell_w * 0.8), 600 // len(weeks))
+old_cell_h = min(int(cell_w * 0.8), 600 // len(weeks))
+grid_total = old_cell_h * len(weeks) - strip_added  # the grid shrinks by the strip's height
+cell_h = max(60, grid_total // len(weeks))
+grid_slack = max(0, grid_total - cell_h * len(weeks))  # rounding left over, so the agenda doesn't move
 for i, name in enumerate(calendar.day_abbr):
     d.text((M + i * cell_w + cell_w // 2, y), name, font=font(W // 36, True),
            fill=20 if i >= 5 else 80, anchor="ma")
@@ -322,15 +369,16 @@ for week in weeks:
         else:
             colour = 0
         d.text((x + cell_w // 2, y + cell_h // 2 - 4), str(day.day),
-               font=font(W // 24, day == today), fill=colour, anchor="mm")
+               font=font(min(W // 24, int(cell_h * 0.5)), day == today), fill=colour, anchor="mm")
         # one dot per event, up to three, so busy days stand out
         n = min(count, 3)
-        r, gap = 6, 20
+        r, gap = (6, 20) if cell_h >= 90 else (5, 17)
         for k in range(n):
             cx = x + cell_w // 2 + int((k - (n - 1) / 2) * gap)
-            cy = y + cell_h - 16
+            cy = y + cell_h - (16 if cell_h >= 90 else 13)
             d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=255 if day == today else 0)
     y += cell_h
+y += grid_slack
 y += M // 2
 d.line((M, y, W - M, y), fill=0, width=3)
 y += M // 2
@@ -344,15 +392,6 @@ bottom = H - M - W // 40 - 16  # keep clear of the footer
 time_w = max(d.textlength("all day", font=time_font), d.textlength("00:00", font=time_font))
 title_x = M + 20 + int(time_w) + 24
 asc_time, asc_title = time_font.getmetrics()[0], title_font.getmetrics()[0]
-
-# Weather columns, right to left: rain %, temperatures, icon. Fixed positions so
-# icons and temperatures line up from one day to the next.
-w_isz = W // 22
-pct_w = d.textlength("100%", font=time_font)
-temps_w = max([d.textlength(f"{hi}°/{lo}°", font=time_font) for _, hi, lo, _ in weather["daily"].values()],
-              default=0) if weather else 0
-temps_x = W - M - pct_w - 18 - temps_w
-icon_x = temps_x - w_isz - 14
 
 # Multi-day events are listed once, on the first day they are visible.
 shown = {}
@@ -392,14 +431,6 @@ for kind, payload, h in items[:n]:
         offset, day = payload
         label = "Today" if offset == 0 else "Tomorrow" if offset == 1 else day.strftime("%A, %-d %b")
         d.text((M, y), label, font=day_font, fill=0)
-        # Today's forecast is already in the header.
-        if weather and offset > 0 and day in weather["daily"]:
-            code, hi, lo, rain = weather["daily"][day]
-            base = y + day_font.getmetrics()[0]  # same baseline as the heading
-            d.text((temps_x, base), f"{hi}°/{lo}°", font=time_font, fill=90, anchor="ls")
-            if rain and rain >= 30:
-                d.text((W - M, base), f"{rain}%", font=time_font, fill=90, anchor="rs")
-            draw_icon(d, icon_kind(code), icon_x, base - cap_height(time_font) / 2 - w_isz / 2, w_isz)
     elif kind == "head_none":
         offset, day = payload
         label = "Today" if offset == 0 else day.strftime("%A, %-d %b")
