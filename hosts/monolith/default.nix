@@ -125,7 +125,7 @@
 
   boot.kernel.sysctl = {
     "vm.dirty_background_bytes" = 67108864; # 64MB - start background writeback
-    "vm.dirty_bytes" = 536870912; # 512MB - global stall threshold; cgroup caps protect against floods
+    "vm.dirty_bytes" = 536870912; # 512MB - writers block above this
   };
 
   boot.supportedFilesystems = [
