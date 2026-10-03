@@ -35,7 +35,7 @@
     systemd.enable = true;
   };
 
-  programs.noctalia-greeter = {
+  services.displayManager.noctalia-greeter = {
     enable = true;
     greeter-args = "--session niri";
   };
