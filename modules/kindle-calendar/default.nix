@@ -81,6 +81,7 @@ in
 
   # The Kindle can't join the tailnet, so serve plain HTTP on the LAN. Tailnet
   # access is the tailscale serve mapping in hosts/cave/default.nix.
+  services.nginx.enable = true;
   services.nginx.virtualHosts."kindle-calendar" = {
     listen = [
       {
