@@ -77,9 +77,15 @@
     capSysAdmin = true;
   };
 
+  hardware.enableRedistributableFirmware = true;
+  hardware.wirelessRegulatoryDatabase = true;
+
   networking = {
     hostName = "monolith";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      wifi.powersave = false;
+    };
     firewall.allowedTCPPortRanges = [
       {
         from = 9090;
@@ -129,6 +135,7 @@
 
   boot.extraModprobeConfig = ''
     options uvcvideo quirks=0x20
+    options cfg80211 ieee80211_regdom=GB
   '';
 
   hardware.graphics = {
