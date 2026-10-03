@@ -65,8 +65,8 @@
     }
   ];
 
-  fileSystems."/mnt/steam" = {
-    device = "/dev/disk/by-label/Steam";
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-label/Storage";
     fsType = "ext4";
     options = [
       "nosuid"
