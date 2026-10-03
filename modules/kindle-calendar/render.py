@@ -150,6 +150,8 @@ def draw_moon(d, cx, cy, r):
 def draw_icon(d, kind, x, y, s):
     """Weather icon in the s x s box with top-left (x, y)."""
     w = max(3, int(s / 11))
+    # Optical centring: some icons are visually top- or bottom-heavy in their box.
+    y += s * {"partly": .08, "moon_cloud": .08, "rain": .05, "snow": .05}.get(kind, 0)
     if kind == "clear":
         draw_sun(d, x + s / 2, y + s / 2, s * .22, s * .46, w)
     elif kind == "moon":
@@ -242,17 +244,40 @@ y = M
 # Header
 d.text((M, y), today.strftime("%A"), font=font(W // 14, True), fill=0)
 y += W // 14 + 8
-d.text((M, y), today.strftime("%-d %B %Y"), font=font(W // 22), fill=60)
+date_font = font(W // 22)
+d.text((M, y), today.strftime("%-d %B %Y"), font=date_font, fill=60)
+date_base = y + date_font.getmetrics()[0]  # baseline of the date line
+
+
+def cap_height(fnt):
+    return -d.textbbox((0, 0), "0", font=fnt, anchor="ls")[1]
+
+
+def ink_extent(text, fnt):
+    """(left, right) of the visible glyphs relative to the text origin, i.e.
+    without the side bearings that make big and small text look misaligned."""
+    pad = 40
+    probe = Image.new("L", (int(fnt.getlength(text)) + 2 * pad, int(fnt.size * 2)), 0)
+    ImageDraw.Draw(probe).text((pad, int(fnt.size * 1.5)), text, font=fnt, fill=255, anchor="ls")
+    left, _, right, _ = probe.getbbox()
+    return left - pad, right - pad
 
 if weather:
     code, temp, is_day = weather["now"]
-    temp_font = font(W // 10, True)
-    d.text((W - M, M), f"{temp}°", font=temp_font, fill=0, anchor="ra")
-    # Sized so even the tallest icons (sun rays, thunder bolt) end above the
-    # conditions line below the temperature.
+    temp_font, sub_font = font(W // 10, True), font(W // 32)
+    # The conditions / high-low line sits on the same baseline as the date on
+    # the left; the temperature stands on top of it and the icon is centred on
+    # the temperature's digits.
+    sub_base = date_base
+    temp_base = sub_base - cap_height(sub_font) - W // 60
+    temp_text = f"{temp}°"
+    t_left, t_right = ink_extent(temp_text, temp_font)
+    temp_x = W - M - t_right  # the visible edge of the "°" lands on the margin
+    d.text((temp_x, temp_base), temp_text, font=temp_font, fill=0, anchor="ls")
+    temp_ink_left = temp_x + t_left
     isz = int(W * 0.09)
-    draw_icon(d, icon_kind(code, not is_day), W - M - d.textlength(f"{temp}°", font=temp_font) - isz - W // 40,
-              M, isz)
+    centre = temp_base - cap_height(temp_font) / 2
+    draw_icon(d, icon_kind(code, not is_day), temp_ink_left - W // 40 - isz, centre - isz / 2, isz)
     # The icon says it all except for rain and snow, where the wording adds
     # the intensity (drizzle / heavy rain, light / heavy snow).
     parts = [WMO.get(code, "")] if icon_kind(code) in ("rain", "snow") else []
@@ -260,12 +285,18 @@ if weather:
         _, hi, lo, _ = weather["daily"][today]
         parts.append(f"{hi}°/{lo}°")
     sub = "  ".join(parts)
-    d.text((W - M, M + W // 10 + 4), sub, font=font(W // 32), fill=60, anchor="ra")
+    # Centre the line under the temperature digits; a line wider than the
+    # digits (rain/snow wording) is right-aligned to the margin instead.
+    s_left, s_right = ink_extent(sub, sub_font)
+    s_width = s_right - s_left
+    left = (temp_ink_left + W - M) / 2 - s_width / 2
+    left = min(left, W - M - s_width)
+    d.text((left - s_left, sub_base), sub, font=sub_font, fill=60, anchor="ls")
 elif args.lat is not None:  # weather is configured but the fetch failed
-    d.text((W - M, M + W // 30), "weather unavailable", font=font(W // 36), fill=120, anchor="ra")
+    d.text((W - M, date_base), "weather unavailable", font=font(W // 36), fill=120, anchor="rs")
 y += W // 22 + M
 if weather or args.lat is not None:  # keep the layout the same without weather
-    y = max(y, M + W // 10 + W // 32 + 4 + M)
+    y = max(y, date_base + M)
 
 # Month grid
 cell_w = (W - 2 * M) // 7
@@ -314,6 +345,15 @@ time_w = max(d.textlength("all day", font=time_font), d.textlength("00:00", font
 title_x = M + 20 + int(time_w) + 24
 asc_time, asc_title = time_font.getmetrics()[0], title_font.getmetrics()[0]
 
+# Weather columns, right to left: rain %, temperatures, icon. Fixed positions so
+# icons and temperatures line up from one day to the next.
+w_isz = W // 22
+pct_w = d.textlength("100%", font=time_font)
+temps_w = max([d.textlength(f"{hi}°/{lo}°", font=time_font) for _, hi, lo, _ in weather["daily"].values()],
+              default=0) if weather else 0
+temps_x = W - M - pct_w - 18 - temps_w
+icon_x = temps_x - w_isz - 14
+
 # Multi-day events are listed once, on the first day they are visible.
 shown = {}
 for ev in events:
@@ -355,12 +395,11 @@ for kind, payload, h in items[:n]:
         # Today's forecast is already in the header.
         if weather and offset > 0 and day in weather["daily"]:
             code, hi, lo, rain = weather["daily"][day]
-            text = f"{hi}°/{lo}°"
+            base = y + day_font.getmetrics()[0]  # same baseline as the heading
+            d.text((temps_x, base), f"{hi}°/{lo}°", font=time_font, fill=90, anchor="ls")
             if rain and rain >= 30:
-                text += f"  {rain}%"
-            d.text((W - M, y + 4), text, font=time_font, fill=90, anchor="ra")
-            isz = W // 22
-            draw_icon(d, icon_kind(code), W - M - d.textlength(text, font=time_font) - isz - 12, y, isz)
+                d.text((W - M, base), f"{rain}%", font=time_font, fill=90, anchor="rs")
+            draw_icon(d, icon_kind(code), icon_x, base - cap_height(time_font) / 2 - w_isz / 2, w_isz)
     elif kind == "head_none":
         offset, day = payload
         label = "Today" if offset == 0 else day.strftime("%A, %-d %b")
