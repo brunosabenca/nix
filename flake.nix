@@ -12,9 +12,6 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-      # don't download darwin deps
-      inputs.darwin.follows = "";
     };
 
     dotfiles = {
@@ -49,6 +46,11 @@
 
     claude-code = {
       url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    claude-desktop = {
+      url = "github:danielbodart/claude-desktop";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -124,6 +126,7 @@
             ./modules
             ./modules/vscode
             ./modules/home
+            ./modules/claude-desktop
             ./modules/firefox
             ./modules/neovim
             lanzaboote.nixosModules.lanzaboote
@@ -150,6 +153,7 @@
             ./modules/syncthing
             ./modules
             ./modules/home
+            ./modules/claude-desktop
             ./modules/neovim
             ./modules/firefox
             ./modules/kmonad
@@ -164,6 +168,7 @@
             ./modules/syncthing
             ./modules
             ./modules/home
+            ./modules/claude-desktop
             ./modules/firefox
             ./modules/neovim
             ./modules/kmonad
@@ -178,6 +183,7 @@
             ./modules/syncthing
             ./modules
             ./modules/home
+            ./modules/claude-desktop
             ./modules/firefox
             ./modules/neovim
             ./modules/kmonad
