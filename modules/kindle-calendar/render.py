@@ -238,10 +238,13 @@ if weather:
     isz = int(W * 0.09)
     draw_icon(d, icon_kind(code), W - M - d.textlength(f"{temp}°", font=temp_font) - isz - W // 40,
               M, isz)
-    sub = WMO.get(code, "")
+    # The icon says it all except for rain and snow, where the wording adds
+    # the intensity (drizzle / heavy rain, light / heavy snow).
+    parts = [WMO.get(code, "")] if icon_kind(code) in ("rain", "snow") else []
     if today in weather["daily"]:
         _, hi, lo, _ = weather["daily"][today]
-        sub += f"  {hi}°/{lo}°"
+        parts.append(f"{hi}°/{lo}°")
+    sub = "  ".join(parts)
     d.text((W - M, M + W // 10 + 4), sub, font=font(W // 32), fill=60, anchor="ra")
 elif args.lat is not None:  # weather is configured but the fetch failed
     d.text((W - M, M + W // 30), "weather unavailable", font=font(W // 36), fill=120, anchor="ra")
