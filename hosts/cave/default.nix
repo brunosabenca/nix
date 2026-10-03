@@ -52,7 +52,13 @@ in
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
+      Restart = "on-failure";
+      RestartSec = 5;
+      # tailscaled.service is "started" before it has logged in, and serve
+      # fails with "unexpected state: NoState" if run too early at boot. That
+      # left :443 unserved, so nginx's default vhost answered with the wrong cert.
       ExecStart = [
+        "${tailscale}/bin/tailscale wait"
         "${tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:6881"
         "${tailscale}/bin/tailscale serve --bg --https=8385 http://127.0.0.1:8384"
         "${tailscale}/bin/tailscale serve --bg --https=8443 http://127.0.0.1:8088"
