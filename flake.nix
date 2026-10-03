@@ -200,6 +200,7 @@
             ./modules/syncthing
             ./modules/cloudflared
             ./modules/navidrome
+            ./modules/kindle-calendar
           ];
         };
       };

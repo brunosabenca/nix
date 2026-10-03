@@ -3,6 +3,7 @@ let
 in
 {
   "navidrome.acme.age".publicKeys = [ cave ];
+  "modules/kindle-calendar/ics-url.age".publicKeys = [ cave ];
   "cloudflared.age".publicKeys = [ cave ];
   "modules/mail-relay/gmail-smtp-password.age".publicKeys = [ cave ];
   "modules/mail-relay/gmail-smtp-address.age".publicKeys = [ cave ];

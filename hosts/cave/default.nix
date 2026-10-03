@@ -23,7 +23,7 @@ in
   ];
   services.tailscale.enable = true;
 
-  # Exposes qbittorrent and syncthing's WebUIs as HTTPS at
+  # Exposes qbittorrent and syncthing's WebUIs (and the kindle-calendar PNG on :8443) as HTTPS at
   # https://cave.<tailnet>.ts.net, reachable only from the tailnet. One unit
   # owns all serve mappings because `tailscale serve reset` clears every
   # mapping on the node, so splitting this across services would make each
@@ -44,6 +44,7 @@ in
       ExecStart = [
         "${tailscale}/bin/tailscale serve --bg --https=443 http://127.0.0.1:6881"
         "${tailscale}/bin/tailscale serve --bg --https=8385 http://127.0.0.1:8384"
+        "${tailscale}/bin/tailscale serve --bg --https=8443 http://127.0.0.1:8088"
       ];
       ExecStop = "${tailscale}/bin/tailscale serve reset";
     };
@@ -52,6 +53,7 @@ in
   networking.firewall.interfaces.${config.services.tailscale.interfaceName}.allowedTCPPorts = [
     443
     8385
+    8443
   ];
 
   networking = {
