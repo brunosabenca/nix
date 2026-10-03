@@ -48,12 +48,17 @@
     };
 
   boot.initrd.luks.devices."cryptroot" = {
-    device = "/dev/disk/by-label/NixOS-Encrypted";
+    # TEMP: migrating root from NVMe to SATA — points at the new drive's
+    # temp-labeled LUKS container until the old NVMe partition is wiped,
+    # then this reverts to "NixOS-Encrypted".
+    device = "/dev/disk/by-label/NixOS-Encrypted-new";
     bypassWorkqueues = true;
   };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4444-7F80";
+    { # TEMP: see above — reverts to a plain "boot" label once the old
+      # NVMe ESP is wiped.
+      device = "/dev/disk/by-label/boot-new";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
