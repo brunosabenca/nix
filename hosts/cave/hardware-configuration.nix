@@ -65,6 +65,9 @@
       "nodev"
       "nofail"
       "x-gvfs-show"
+      # Mount on first access instead of at boot, so a slow/late USB drive is picked up
+      "x-systemd.automount"
+      "x-systemd.device-timeout=30s"
     ];
   };
 

@@ -22,7 +22,12 @@ in
       "nss-lookup.target"
     ];
 
+    # Don't start (or keep running) without the data drive; retry until it shows up.
+    unitConfig.RequiresMountsFor = [ "/mnt/data" ];
+
     serviceConfig = {
+      Restart = "always";
+      RestartSec = "30s";
       Type = "simple";
       User = "qbit";
       Group = "qbit";

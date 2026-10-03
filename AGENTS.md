@@ -123,6 +123,11 @@ Always verify after changes:
 sudo nixos-rebuild switch --flake .
 ```
 
+To deploy to a remote host (e.g. cave) from another machine, use `--target-host` with `--elevate=sudo` (`--use-remote-sudo` is deprecated) and `--ask-elevate-password` (remote sudo needs a password):
+```bash
+nixos-rebuild switch --flake .#cave --target-host cave --elevate=sudo --ask-elevate-password
+```
+
 Or build without switching:
 ```bash
 nix build .#nixosConfigurations.<hostname>.config.system.build.toplevel
