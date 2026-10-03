@@ -192,6 +192,14 @@
   # Fan curves for silence (CPU/case/GPU) are configured in its GUI.
   programs.coolercontrol.enable = true;
 
+  # Seed-once copy of the tuned fan curves: "C" copies only if the target is
+  # absent, so GUI edits stay writable. After tuning, copy
+  # /etc/coolercontrol/config.toml back over coolercontrol.toml to keep this current.
+  systemd.tmpfiles.rules = [
+    "d /etc/coolercontrol 0755 root root -"
+    "C /etc/coolercontrol/config.toml 0644 root root - ${./coolercontrol.toml}"
+  ];
+
   programs = {
     gamescope = {
       enable = true;
