@@ -17,10 +17,21 @@ LOW_BATTERY_THRESHOLD_PERCENT=${LOW_BATTERY_THRESHOLD_PERCENT:-10}
 
 num_refresh=0
 
-# The Kindle status bar (clock, Wi-Fi icon) comes back after every wake and
-# would overlap the image, so hide it again before each draw.
-hide_status_bar() {
-  lipc-set-prop com.lab126.pillow disableEnablePillow disable >/dev/null 2>&1 || true
+# Stop the Kindle UI so nothing (status bar, clock) draws over the image.
+# Firmware 5.x on a Paperwhite 3 uses Upstart, where the UI is the lab126_gui
+# job; there is no /etc/init.d/framework. Stopping pillow alone is not enough
+# since FW 5.7.2: the clock keeps refreshing (see koreader.sh).
+stop_gui() {
+  if [ -x /etc/init.d/framework ]; then
+    /etc/init.d/framework stop
+  else
+    # The job sends SIGTERM to its children on stop; ignore it so we are not
+    # killed when launched from KUAL.
+    trap "" TERM
+    stop lab126_gui
+    usleep 1250000 # let the teardown finish
+    trap - TERM
+  fi
 }
 
 init() {
@@ -33,11 +44,10 @@ init() {
 
   echo "Starting dashboard with $REFRESH_SCHEDULE refresh..."
 
-  /etc/init.d/framework stop
+  stop_gui
   initctl stop webreader >/dev/null 2>&1
   echo powersave >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
   lipc-set-prop com.lab126.powerd preventScreenSaver 1
-  hide_status_bar
 }
 
 prepare_sleep() {
@@ -58,7 +68,6 @@ refresh_dashboard() {
 
   "$FETCH_DASHBOARD_CMD" "$DASH_PNG"
   fetch_status=$?
-  hide_status_bar
 
   if [ "$fetch_status" -ne 0 ]; then
     echo "Not updating screen, fetch-dashboard returned $fetch_status"
