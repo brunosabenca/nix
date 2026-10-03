@@ -233,9 +233,11 @@ if weather:
     code, temp = weather["now"]
     temp_font = font(W // 10, True)
     d.text((W - M, M), f"{temp}°", font=temp_font, fill=0, anchor="ra")
-    isz = int(W * 0.11)
+    # Sized so even the tallest icons (sun rays, thunder bolt) end above the
+    # conditions line below the temperature.
+    isz = int(W * 0.09)
     draw_icon(d, icon_kind(code), W - M - d.textlength(f"{temp}°", font=temp_font) - isz - W // 40,
-              M + W // 60, isz)
+              M, isz)
     sub = WMO.get(code, "")
     if today in weather["daily"]:
         _, hi, lo, _ = weather["daily"][today]
