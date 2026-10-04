@@ -16,7 +16,6 @@
     zenity # spawn xdg portals
     qdirstat # see whats taking space on filesystem
     kdePackages.kcalc # KDE calculator
-    neovide
     wl-clipboard-rs
     colemak-dh
     libnotify
