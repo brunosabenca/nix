@@ -84,6 +84,7 @@
       "nodev"
       "nofail"
       "x-gvfs-show"
+      "x-gvfs-name=Extra%20Storage"
     ];
   };
 
