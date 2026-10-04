@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   username,
   ...
 }:
@@ -61,7 +62,16 @@ in
           "x-systemd.automount"
           "x-systemd.idle-timeout=10min"
           "x-systemd.mount-timeout=15s"
+          # Files lists this entry and mounts it as the user, which needs `user`
+          # plus the setuid mount.nfs wrapper below
+          "user"
         ];
+      };
+      security.wrappers."mount.nfs" = {
+        setuid = true;
+        owner = "root";
+        group = "root";
+        source = "${pkgs.nfs-utils}/bin/mount.nfs";
       };
     })
 
