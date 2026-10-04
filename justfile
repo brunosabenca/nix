@@ -49,3 +49,9 @@ clean:
 # Garbage collect all unused nix store entries
 gc:
     sudo nix-collect-garbage --delete-old
+# Remove all old generations, refresh boot entries, and garbage collect
+purge:
+    sudo nix profile wipe-history --profile /nix/var/nix/profiles/system
+    sudo nixos-rebuild --accept-flake-config boot --flake .
+    sudo nix-collect-garbage --delete-old
+    nix-collect-garbage --delete-old
