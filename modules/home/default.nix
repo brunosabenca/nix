@@ -1,5 +1,6 @@
 {
   username,
+  config,
   ...
 }:
 {
@@ -46,7 +47,6 @@
         freetube
         shellcheck
         awww
-        zathura
         sxiv
         jhead
         telegram-desktop
@@ -115,6 +115,17 @@
             bluez5.headset-roles = [ hsp_hs hsp_ag hfp_hf hfp_ag ]
           }
         '';
+      };
+
+      programs.zathura = {
+        enable = true;
+        options =
+          let
+            kitty = config.home-manager.users.${username}.programs.kitty.settings;
+          in
+          {
+            font = "${kitty.font_family} ${toString kitty.font_size}";
+          };
       };
 
       xdg.configFile."mimeapps.list".force = true;
