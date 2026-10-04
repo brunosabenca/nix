@@ -127,6 +127,8 @@
           in
           {
             font = "${kitty.font_family} ${toString kitty.font_size}";
+            # Hide the status bar (Ctrl+n toggles it); the input bar still appears on ':' or '/'
+            guioptions = "";
           };
       };
 
