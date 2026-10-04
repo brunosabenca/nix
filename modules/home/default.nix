@@ -6,6 +6,7 @@
   home-manager.users.${username} =
     {
       pkgs,
+      lib,
       ...
     }:
     {
@@ -127,9 +128,41 @@
             browser = "firefox.desktop";
             videoPlayer = "mpv.desktop";
             imageViewer = "qimgv.desktop";
+            editor = "Neovim.desktop";
+            # Calibre claims text/plain among others; keep it for real ebook formats only
+            textTypes = [
+              "text/plain"
+              "text/markdown"
+              "text/csv"
+              "text/css"
+              "text/javascript"
+              "text/x-log"
+              "text/x-python"
+              "text/x-csrc"
+              "text/x-chdr"
+              "text/x-c++src"
+              "text/x-c++hdr"
+              "text/x-java"
+              "text/x-makefile"
+              "text/x-tex"
+              "text/x-lua"
+              "text/x-nix"
+              "text/rust"
+              "text/x-shellscript"
+              "application/x-shellscript"
+              "application/json"
+              "application/x-yaml"
+              "application/yaml"
+              "application/toml"
+              "application/xml"
+              "application/x-desktop"
+              "application/x-wine-extension-ini"
+              "application/sql"
+              "application/x-subrip"
+            ];
           in
-          {
-            # "text/plain" = ["neovide.desktop"];
+          lib.genAttrs textTypes (_: [ editor ])
+          // {
             "application/pdf" = [ "zathura.desktop" ];
             "image/jpeg" = [ imageViewer ];
             "image/png" = [ imageViewer ];

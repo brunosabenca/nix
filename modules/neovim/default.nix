@@ -4,10 +4,10 @@
 }:
 {
   home-manager.users.${username} = {
-    config.nixCats = {
+    config.Neovim = {
       enable = true;
       packageNames = [
-        "nixCats"
+        "Neovim"
         "regularCats"
       ];
     };
