@@ -51,6 +51,7 @@ gc:
     sudo nix-collect-garbage --delete-old
 # Remove all old generations, refresh boot entries, and garbage collect
 purge:
+    sudo nixos-rebuild --accept-flake-config build --flake .
     sudo nix profile wipe-history --profile /nix/var/nix/profiles/system
     sudo nixos-rebuild --accept-flake-config boot --flake .
     sudo nix-collect-garbage --delete-old
