@@ -5,6 +5,12 @@
   ...
 }:
 {
+  # Apps with Terminal=true (e.g. Neovim opened from Files) otherwise fall back to xterm
+  xdg.terminal-exec = {
+    enable = true;
+    settings.default = [ "kitty.desktop" ];
+  };
+
   home-manager.users.${username} = {
     xdg.enable = true;
 
