@@ -66,8 +66,15 @@
             # Generates ~/.claude/themes/noctalia.json; select "Noctalia" via /theme
             "claude-code"
           ];
+          # Generates ~/.config/zathura/noctalia, included from zathurarc (read on zathura startup)
+          user.zathura = {
+            input_path = "$XDG_CONFIG_HOME/noctalia/templates/zathura";
+            output_path = "$XDG_CONFIG_HOME/zathura/noctalia";
+          };
         };
       };
+
+      xdg.configFile."noctalia/templates/zathura".source = ./zathura-theme;
 
       programs.fuzzel = {
         enable = true;

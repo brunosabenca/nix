@@ -1,0 +1,32 @@
+set default-bg            "{{colors.terminal_background.default.hex}}"
+set default-fg            "{{colors.terminal_foreground.default.hex}}"
+
+set statusbar-bg          "{{colors.surface_variant.default.hex}}"
+set statusbar-fg          "{{colors.on_surface_variant.default.hex}}"
+set inputbar-bg           "{{colors.terminal_background.default.hex}}"
+set inputbar-fg           "{{colors.terminal_foreground.default.hex}}"
+set notification-bg       "{{colors.surface_variant.default.hex}}"
+set notification-fg       "{{colors.on_surface_variant.default.hex}}"
+set notification-error-bg "{{colors.terminal_normal_red.default.hex}}"
+set notification-error-fg "{{colors.terminal_background.default.hex}}"
+set notification-warning-bg "{{colors.terminal_normal_yellow.default.hex}}"
+set notification-warning-fg "{{colors.terminal_background.default.hex}}"
+
+set completion-bg           "{{colors.terminal_background.default.hex}}"
+set completion-fg           "{{colors.terminal_foreground.default.hex}}"
+set completion-group-bg     "{{colors.surface_variant.default.hex}}"
+set completion-group-fg     "{{colors.on_surface_variant.default.hex}}"
+set completion-highlight-bg "{{colors.primary.default.hex}}"
+set completion-highlight-fg "{{colors.on_primary.default.hex}}"
+
+set index-bg              "{{colors.terminal_background.default.hex}}"
+set index-fg              "{{colors.terminal_foreground.default.hex}}"
+set index-active-bg       "{{colors.primary.default.hex}}"
+set index-active-fg       "{{colors.on_primary.default.hex}}"
+
+set highlight-color        "{{colors.terminal_selection_bg.default.hex}}"
+set highlight-active-color "{{colors.primary.default.hex}}"
+
+# Used only when recolor is toggled on (Ctrl+r)
+set recolor-lightcolor    "{{colors.terminal_background.default.hex}}"
+set recolor-darkcolor     "{{colors.terminal_foreground.default.hex}}"
