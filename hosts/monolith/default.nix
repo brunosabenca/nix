@@ -132,6 +132,10 @@
   boot.kernel.sysctl = {
     "vm.dirty_background_bytes" = 67108864; # 64MB - start background writeback
     "vm.dirty_bytes" = 536870912; # 512MB - writers block above this
+    # Suspend allocates with reclaim restricted. With the page cache filling RAM
+    # the amdgpu/nvme/xhci resume paths hit ENOMEM, the NVMe got disabled and
+    # root went read-only, hanging the machine on wake.
+    "vm.min_free_kbytes" = 524288; # 512MB - keep headroom for suspend/resume
   };
 
   boot.supportedFilesystems = [
