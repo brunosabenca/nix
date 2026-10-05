@@ -55,6 +55,7 @@
     ll = "ls -alF";
     k = "kubectl";
     n = "nvim";
+    pihole-restart = "ssh pihole 'sudo systemctl restart pihole-FTL'";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
