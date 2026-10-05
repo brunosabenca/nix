@@ -86,6 +86,13 @@ window-rule {
     match title="terminal-filechooser$"
     open-floating true
 }
+// Steam notification toasts are separate windows; float them in the corner.
+window-rule {
+    match app-id="^steam$" title="^notificationtoasts_\\d+_desktop$"
+    open-floating true
+    open-focused false
+    default-floating-position x=16 y=16 relative-to="bottom-right"
+}
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
