@@ -47,6 +47,7 @@
     curl
     gnumake
     lazygit
+    hunk # review-first terminal diff viewer
     nixfmt
     nixfmt-tree
     p7zip-rar
