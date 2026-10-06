@@ -51,5 +51,6 @@
     nixfmt-tree
     p7zip-rar
     atool
+    age # simple file encryption
   ];
 }
