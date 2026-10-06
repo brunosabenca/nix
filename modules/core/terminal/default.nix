@@ -19,6 +19,18 @@
       executable = true;
     };
 
+    # Edit passphrase-encrypted age files in nvim (a script, so it works in fish/zsh/bash)
+    home.packages = [
+      (pkgs.writeShellApplication {
+        name = "ageedit";
+        runtimeInputs = with pkgs; [
+          age
+          coreutils
+        ];
+        text = builtins.readFile ./ageedit.sh;
+      })
+    ];
+
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
