@@ -34,6 +34,22 @@ stop_gui() {
   fi
 }
 
+# The Paperwhite 3 cannot turn its frontlight fully off through lipc: setting
+# flIntensity to 0 only drops it to the dimmest "on" step, and the light comes
+# back at that step on every resume (KOReader: canTurnFrontlightOff = no). Do
+# both, like KOReader does, and write 0 to the backlight sysfs file(s) directly.
+light_off() {
+  lipc-set-prop com.lab126.powerd flIntensity 0 >/dev/null 2>&1 || true
+  for f in /sys/class/backlight/*/brightness; do
+    [ -e "$f" ] && echo 0 >"$f" 2>/dev/null
+  done
+  return 0
+}
+
+backlight_level() {
+  cat /sys/class/backlight/*/brightness 2>/dev/null | tr '\n' ' '
+}
+
 init() {
   if [ -z "$TIMEZONE" ] || [ -z "$REFRESH_SCHEDULE" ]; then
     echo "Missing required configuration."
@@ -48,6 +64,7 @@ init() {
   initctl stop webreader >/dev/null 2>&1
   echo powersave >/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
   lipc-set-prop com.lab126.powerd preventScreenSaver 1
+  light_off
 }
 
 prepare_sleep() {
@@ -136,6 +153,9 @@ rtc_sleep() {
 
 main_loop() {
   while true; do
+    # Straight after a wake: log what the light was restored to, then kill it.
+    echo "Backlight on wake: $(backlight_level)"
+    light_off
     log_battery_stats
 
     next_wakeup_secs=$("$DIR/next-wakeup" --schedule="$REFRESH_SCHEDULE" --timezone="$TIMEZONE")
@@ -152,6 +172,7 @@ main_loop() {
     sleep 10
 
     echo "Going to $action, next wakeup in ${next_wakeup_secs}s"
+    light_off
 
     rtc_sleep "$next_wakeup_secs"
   done
