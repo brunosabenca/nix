@@ -170,6 +170,7 @@
     spotify
     lmstudio
     grayjay
+    protonup-qt
   ];
 
   # environment.etc, not systemPackages: system-path's buildEnv only links a
