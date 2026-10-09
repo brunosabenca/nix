@@ -182,11 +182,33 @@
     algorithm = "zstd";
   };
 
+  # earlyoom only fires when RAM *and* swap are both nearly gone, so a leaking
+  # Electron app can thrash through 16GB of swap for minutes first. oomd kills
+  # on memory pressure (PSI) instead, which catches the stall as it starts.
+  systemd.oomd = {
+    enable = true;
+    enableUserSlices = true;
+    extraConfig = {
+      DefaultMemoryPressureDurationSec = "20s";
+    };
+  };
+  systemd.slices."user-".sliceConfig.ManagedOOMMemoryPressureLimit = "50%";
+
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 5;
     freeSwapThreshold = 5;
     enableNotifications = true;
+    # Patterns match /proc/<pid>/comm, which is truncated to 15 chars, so
+    # wrapped binaries look like ".Discord-wrappe" and need prefix matches.
+    extraArgs = [
+      "--prefer"
+      # Big, leaky, or cheap to restart: LLM server, Electron chat/notes, browsers
+      "^(\\.Discord-wrapp|vesktop|\\.vesktop-wrapp|lmstudio|\\.lmstudio|LM Studio|\\.firefox-wrapp|WebExtensions|Isolated Web Co|telegram-desktop|\\.telegram-deskt|\\.obsidian-wrapp|freetube|\\.freetube-wrapp|heroic|\\.heroic-wrapped|filezilla|calibre|gimp|darktable|rawtherapee)"
+      "--avoid"
+      # Session, audio, terminal and anything holding data you can't redo
+      "^(niri|\\.noctalia-wrapp|systemd|greetd|pipewire|pipewire-pulse|wireplumber|Xwayland|\\.kitty-wrapped|kitten|fish|zsh|claude|\\.claude-unwrapp|syncthing|\\.tailscaled-wra|steam|bwrap|srt-bwrap)$"
+    ];
   };
 
   services.xserver.dpi = 108;
