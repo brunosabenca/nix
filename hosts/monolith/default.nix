@@ -249,6 +249,7 @@
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
       protontricks.enable = true;
+      extest.enable = true; # translate Steam Input X11 mouse events to uinput so the touchpad cursor shows on Wayland
     };
     gamemode = {
       enable = true;
