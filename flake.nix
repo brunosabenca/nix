@@ -59,11 +59,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    jovian-nixos = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     noctalia = {
       url = "github:noctalia-dev/noctalia";
     };
@@ -80,7 +75,6 @@
       stylix,
       lanzaboote,
       nur,
-      jovian-nixos,
       ...
     }@inputs:
     let
@@ -119,7 +113,6 @@
         monolith = mkHost {
           hostname = "monolith";
           extraModules = [
-            jovian-nixos.nixosModules.jovian
             ./modules/mount-cave
             ./modules/desktop/niri
             ./modules/syncthing

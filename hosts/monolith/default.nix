@@ -150,6 +150,9 @@
 
   hardware.graphics = {
     enable = true;
+    # Vulkan layer for the Steam overlay and cursor when running under gamescope
+    extraPackages = [ pkgs.gamescope-wsi ];
+    extraPackages32 = [ pkgs.pkgsi686Linux.gamescope-wsi ];
   };
 
   virtualisation.podman = {
@@ -253,27 +256,6 @@
     corectrl = {
       enable = false;
     };
-  };
-
-  jovian.steam = {
-    enable = true;
-  };
-
-  # steamos-manager checks for this file before registering the SessionManagement1
-  # D-Bus interface (com.steampowered.SteamOSManager1.SessionManagement1), which is
-  # what Steam/gamescope calls when the user clicks "Return to Desktop".
-  environment.etc."sddm.conf.d/holo.conf".text = "";
-
-  # Tell steamos-manager that niri is our desktop session, so SwitchToDesktopMode
-  # terminates gamescope-session.target and returns to greetd.
-  systemd.user.services.jovian-setup-desktop-session = {
-    wants = [ "steamos-manager.service" ];
-    after = [ "steamos-manager.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.steamos-manager}/bin/steamosctl set-default-desktop-session niri.desktop";
-    };
-    wantedBy = [ "graphical-session.target" ];
   };
 
   services.samba = {
