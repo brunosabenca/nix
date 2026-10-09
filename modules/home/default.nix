@@ -35,6 +35,7 @@
         xdg-utils
         sublime-merge
         discord
+        vesktop
         btop
         scrcpy
         fortune
