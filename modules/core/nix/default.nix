@@ -27,6 +27,22 @@
     "electron-39.8.10"
   ];
 
+  # pyopenjtalk-plus (calibre -> piper-tts) has a failing upstream test that
+  # expects "must be str" but gets "Expected str, got int". Drop once nixpkgs fixes it.
+  nixpkgs.overlays = [
+    (final: prev: {
+      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+        (pyFinal: pyPrev: {
+          pyopenjtalk-plus = pyPrev.pyopenjtalk-plus.overridePythonAttrs (old: {
+            disabledTests = (old.disabledTests or [ ]) ++ [
+              "test_run_njd_from_mecab_invalid_input_should_not_break_next_call"
+            ];
+          });
+        })
+      ];
+    })
+  ];
+
   home-manager.users.${username} = {
     programs.home-manager.enable = true;
     home.username = username;
