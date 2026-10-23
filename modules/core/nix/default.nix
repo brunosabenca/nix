@@ -27,10 +27,14 @@
     "electron-39.8.10"
   ];
 
-  # pyopenjtalk-plus (calibre -> piper-tts) has a failing upstream test that
-  # expects "must be str" but gets "Expected str, got int". Drop once nixpkgs fixes it.
+  # Workarounds for failing upstream tests in the calibre -> piper-tts chain.
+  # Drop once nixpkgs fixes them.
   nixpkgs.overlays = [
     (final: prev: {
+      # test_speech_dispatcher fails: no module named 'speechd' in the check env
+      calibre = prev.calibre.overrideAttrs { doInstallCheck = false; };
+
+      # expects "must be str" but gets "Expected str, got int"
       pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
         (pyFinal: pyPrev: {
           pyopenjtalk-plus = pyPrev.pyopenjtalk-plus.overridePythonAttrs (old: {
