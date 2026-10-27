@@ -3,6 +3,7 @@
   imports = [
     ../core/mpv
     ../core/audio
+    ../core/ssh
   ];
 
   environment.systemPackages = with pkgs; [
