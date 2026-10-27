@@ -28,7 +28,6 @@
       home.packages = with pkgs; [
         vial
         whipper # accurate CD ripper (AccurateRip-verified)
-        picard # MusicBrainz tagger
       ];
 
       services.kdeconnect.enable = true;

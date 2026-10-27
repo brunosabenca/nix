@@ -1,39 +1,19 @@
 {
-  inputs,
   lib,
+  pkgs,
   username,
   ...
 }:
 {
-  nixpkgs.overlays = [
-    (self: super: {
-      mpv = super.mpv.override {
-        # updated from mpv-unwrapped.wrapper in https://github.com/NixOS/nixpkgs/pull/474601
-        scripts = with self.mpvScripts; [
-          uosc
-          sponsorblock
-        ];
-
-        extraMakeWrapperArgs = [
-          "--add-flags"
-          "--keep-open=always"
-        ];
-      };
-    })
-  ];
-
   home-manager.users.${username} = {
-    imports = [
-      inputs.catppuccin.homeModules.catppuccin
-    ];
-
-    catppuccin.enable = true;
-    catppuccin.autoEnable = false;
-    catppuccin.mpv.enable = false;
-
     programs.mpv = {
       enable = true;
+      scripts = with pkgs.mpvScripts; [
+        uosc
+        sponsorblock
+      ];
       config = {
+        keep-open = "always";
         hwdec = "auto-safe";
         vo = "gpu";
         profile = "gpu-hq";

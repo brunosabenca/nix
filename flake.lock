@@ -88,26 +88,6 @@
         "type": "github"
       }
     },
-    "catppuccin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1793011355,
-        "narHash": "sha256-Nwt7keMo7rYq33UL4sk4YpD63Pbokr0lMU7hmVEtEPI=",
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "96f08f364265c5ac66aa61f8f36946279e2c3b00",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
-        "type": "github"
-      }
-    },
     "claude-code": {
       "inputs": {
         "nixpkgs": [
@@ -161,22 +141,6 @@
       "original": {
         "owner": "ipetkov",
         "repo": "crane",
-        "type": "github"
-      }
-    },
-    "dotfiles": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1782590908,
-        "narHash": "sha256-WJV3FnfaGbItUXC4Ga9oTCaNtRaoEHdo+zihlh2+SOs=",
-        "owner": "brunosabenca",
-        "repo": "dotfiles",
-        "rev": "e72d98c4e4c813f4c68f73bbd6b3420f992e16f1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "brunosabenca",
-        "repo": "dotfiles",
         "type": "github"
       }
     },
@@ -638,10 +602,8 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
-        "catppuccin": "catppuccin",
         "claude-code": "claude-code",
         "claude-desktop": "claude-desktop",
-        "dotfiles": "dotfiles",
         "home-manager": "home-manager",
         "kmonad": "kmonad",
         "lanzaboote": "lanzaboote",
