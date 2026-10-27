@@ -20,11 +20,6 @@
   networking = {
     hostName = "phoenix";
     networkmanager.enable = true;
-    firewall.allowedTCPPortRanges = [
-      {
-        from = 9030;
-        to = 9030;
-      }
-    ];
+    firewall.allowedTCPPorts = [ 9030 ];
   };
 }

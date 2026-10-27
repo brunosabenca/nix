@@ -63,29 +63,7 @@
   networking = {
     hostName = "fourforty";
     networkmanager.enable = true;
-    firewall.allowedTCPPortRanges = [
-      {
-        from = 38843;
-        to = 38843;
-      }
-      {
-        from = 22;
-        to = 22;
-      }
-      {
-        from = 24800;
-        to = 24800;
-      }
-    ];
-    firewall.allowedUDPPortRanges = [
-      {
-        from = 38843;
-        to = 38843;
-      }
-      {
-        from = 24800;
-        to = 24800;
-      }
-    ];
+    firewall.allowedTCPPorts = [ 38843 24800 ];
+    firewall.allowedUDPPorts = [ 38843 24800 ];
   };
 }

@@ -61,7 +61,6 @@
     gcc
     gdb
     cmake
-    gnumake
     python3
     ruby
     go # Go

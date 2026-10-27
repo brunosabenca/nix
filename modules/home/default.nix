@@ -14,17 +14,6 @@
       # allow fontconfig to discover fonts and configurations installed through home.packages
       fonts.fontconfig.enable = true;
 
-      #dconf = {
-      #  enable = true;
-      #  settings."org/gnome/shell" = {
-      #    disable-user-extensions = false;
-      #    enabled-extensions = with pkgs.gnomeExtensions; [
-      #      dash-to-panel.extensionUuid
-      #      run-or-raise.extensionUuid
-      #    ];
-      #  };
-      #};
-
       home.packages = with pkgs; [
         cloudflared
         feishin # subsonic client
@@ -94,7 +83,6 @@
         bibata-cursors
         adw-gtk3
 
-        #emulationstation-de
 
         (catppuccin-kde.override {
           flavour = [ "mocha" ];

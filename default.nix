@@ -33,8 +33,6 @@
     }
   ];
 
-  virtualisation.docker.enable = false;
-
   # Enable nix-ld to use dynamically linked executables with hardcoded paths
   programs.nix-ld.enable = true;
 
@@ -58,9 +56,6 @@
     pihole-restart = "ssh pihole 'sudo systemctl restart pihole-FTL'";
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
@@ -70,11 +65,6 @@
     enable = true;
     settings.show_cpu_temperature = 1;
   };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
 
   networking.firewall.allowedTCPPorts = [
     50341

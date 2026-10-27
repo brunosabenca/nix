@@ -92,32 +92,11 @@
       enable = true;
       wifi.powersave = false;
     };
-    firewall.allowedTCPPortRanges = [
-      {
-        from = 9090;
-        to = 9090;
-      }
-      {
-        from = 24800;
-        to = 24800;
-      }
-    ];
-    firewall.allowedUDPPortRanges = [
-      {
-        from = 9090;
-        to = 9090;
-      }
-      {
-        from = 24800;
-        to = 24800;
-      }
-    ];
+    firewall.allowedTCPPorts = [ 9090 24800 ];
+    firewall.allowedUDPPorts = [ 9090 24800 ];
   };
 
   services.syncthing = {
-    enable = true;
-    group = "users";
-    user = "bruno";
     dataDir = "/home/bruno/Sync"; # Default folder for new synced folders
     configDir = "/home/bruno/.config/syncthing"; # Folder for Syncthing's settings and keys
   };
@@ -251,12 +230,7 @@
       protontricks.enable = true;
       extest.enable = true; # translate Steam Input X11 mouse events to uinput so the touchpad cursor shows on Wayland
     };
-    gamemode = {
-      enable = true;
-    };
-    corectrl = {
-      enable = false;
-    };
+    gamemode.enable = true;
   };
 
   services.samba = {

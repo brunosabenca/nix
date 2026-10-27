@@ -125,22 +125,8 @@ in
       };
     };
 
-    firewall.allowedTCPPortRanges = [
-      {
-        from = 38844;
-        to = 38844;
-      }
-      {
-        from = 22;
-        to = 22;
-      }
-    ];
-    firewall.allowedUDPPortRanges = [
-      {
-        from = 38844;
-        to = 38844;
-      }
-    ];
+    firewall.allowedTCPPorts = [ 38844 ];
+    firewall.allowedUDPPorts = [ 38844 ];
   };
 
   powerManagement.cpuFreqGovernor = "performance";

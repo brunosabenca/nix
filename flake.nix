@@ -105,6 +105,17 @@
           ]
           ++ extraModules;
         };
+
+      workstationModules = [
+        ./modules/mount-cave
+        ./modules/desktop/niri
+        ./modules/syncthing
+        ./modules
+        ./modules/home
+        ./modules/claude-desktop
+        ./modules/firefox
+        ./modules/neovim
+      ];
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
@@ -112,21 +123,12 @@
       nixosConfigurations = {
         monolith = mkHost {
           hostname = "monolith";
-          extraModules = [
-            ./modules/mount-cave
-            ./modules/desktop/niri
-            ./modules/syncthing
-            ./modules
+          extraModules = workstationModules ++ [
             ./modules/vscode
-            ./modules/home
-            ./modules/claude-desktop
-            ./modules/firefox
-            ./modules/neovim
             lanzaboote.nixosModules.lanzaboote
             (
               {
                 pkgs,
-                lib,
                 ...
               }:
               {
@@ -140,47 +142,17 @@
 
         fourforty = mkHost {
           hostname = "fourforty";
-          extraModules = [
-            ./modules/mount-cave
-            ./modules/desktop/niri
-            ./modules/syncthing
-            ./modules
-            ./modules/home
-            ./modules/claude-desktop
-            ./modules/neovim
-            ./modules/firefox
-            ./modules/kmonad
-          ];
+          extraModules = workstationModules ++ [ ./modules/kmonad ];
         };
 
         firefly = mkHost {
           hostname = "firefly";
-          extraModules = [
-            ./modules/mount-cave
-            ./modules/desktop/niri
-            ./modules/syncthing
-            ./modules
-            ./modules/home
-            ./modules/claude-desktop
-            ./modules/firefox
-            ./modules/neovim
-            ./modules/kmonad
-          ];
+          extraModules = workstationModules ++ [ ./modules/kmonad ];
         };
 
         phoenix = mkHost {
           hostname = "phoenix";
-          extraModules = [
-            ./modules/mount-cave
-            ./modules/desktop/niri
-            ./modules/syncthing
-            ./modules
-            ./modules/home
-            ./modules/claude-desktop
-            ./modules/firefox
-            ./modules/neovim
-            ./modules/kmonad
-          ];
+          extraModules = workstationModules ++ [ ./modules/kmonad ];
         };
 
         cave = mkHost {

@@ -3,6 +3,9 @@
   username,
   ...
 }:
+let
+  restoreThresholds = "--set-charging-mode=custom --set-custom-charge-interval=50 80";
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -27,7 +30,7 @@
     description = "Restore battery charge thresholds to custom 50-80% after full charge";
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.libsmbios}/bin/smbios-battery-ctl --set-charging-mode=custom --set-custom-charge-interval=50 80";
+      ExecStart = "${pkgs.libsmbios}/bin/smbios-battery-ctl ${restoreThresholds}";
     };
   };
 
@@ -47,7 +50,7 @@
     };
     battery-save = {
       description = "Restore battery charge thresholds to firmware defaults (50-80%)";
-      body = "sudo smbios-battery-ctl --set-charging-mode=custom --set-custom-charge-interval=50 80";
+      body = "sudo smbios-battery-ctl ${restoreThresholds}";
     };
   };
 }
