@@ -91,6 +91,24 @@
     networkmanager = {
       enable = true;
       wifi.powersave = false;
+      # Wi-Fi shares ethernet's subnet, and NetworkManager's default metrics
+      # sent LAN traffic out wlp38s0 from the Wi-Fi address. cave's NFS export
+      # and firewall only accept 192.168.1.20 (enp37s0), so prefer any wired link.
+      ensureProfiles.profiles.wired = {
+        connection = {
+          id = "wired";
+          type = "ethernet";
+          autoconnect-priority = 10;
+        };
+        ipv4 = {
+          method = "auto";
+          route-metric = 50;
+        };
+        ipv6 = {
+          method = "auto";
+          route-metric = 50;
+        };
+      };
     };
     firewall.allowedTCPPorts = [ 9090 24800 ];
     firewall.allowedUDPPorts = [ 9090 24800 ];
