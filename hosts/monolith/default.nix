@@ -91,6 +91,10 @@
     networkmanager = {
       enable = true;
       wifi.powersave = false;
+      # Without this NM auto-creates "Wired connection 1", which also matches
+      # enp37s0. Handing over between the two left enp37s0 with its address but
+      # no routes, sending LAN traffic out Wi-Fi.
+      settings.main.no-auto-default = "*";
       # Wi-Fi shares ethernet's subnet, and NetworkManager's default metrics
       # sent LAN traffic out wlp38s0 from the Wi-Fi address. cave's NFS export
       # and firewall only accept 192.168.1.20 (enp37s0), so prefer any wired link.
