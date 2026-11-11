@@ -115,6 +115,7 @@
           hostname = "monolith";
           extraModules = workstationModules ++ [
             ./modules/vscode
+            ./modules/wow
             lanzaboote.nixosModules.lanzaboote
             (
               {

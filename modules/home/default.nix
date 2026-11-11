@@ -179,6 +179,8 @@
             "x-scheme-handler/https" = [ browser ];
             "x-scheme-handler/about" = [ browser ];
             "x-scheme-handler/unknown" = [ browser ];
+            "x-scheme-handler/wowup" = [ "wowup-cf.desktop" ];
+            "x-scheme-handler/curseforge" = [ "wowup-cf.desktop" ];
           };
         associations.added = { };
       };
