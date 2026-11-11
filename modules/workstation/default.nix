@@ -23,7 +23,6 @@
     kdePackages.polkit-kde-agent-1
     pavucontrol
     wezterm
-    sniffnet # network monitor tool (GUI)
     kcc
   ];
 
