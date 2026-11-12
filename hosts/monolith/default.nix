@@ -251,6 +251,10 @@
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
       protontricks.enable = true;
       extest.enable = true; # translate Steam Input X11 mouse events to uinput so the touchpad cursor shows on Wayland
+      # the module only preloads the 32-bit extest, but the Steam client is now 64-bit (steamrt64)
+      package = pkgs.steam.override {
+        extraEnv.LD_PRELOAD = "${pkgs.extest}/lib/libextest.so:${pkgs.pkgsi686Linux.extest}/lib/libextest.so";
+      };
     };
     gamemode.enable = true;
   };
